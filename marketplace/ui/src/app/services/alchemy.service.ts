@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+const FRENZ_API_ROOT_URI = 'http://localhost/api/';
 
 @Injectable({
   providedIn: 'root'

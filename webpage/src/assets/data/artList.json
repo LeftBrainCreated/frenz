@@ -1,0 +1,62 @@
+[
+    {
+        "collectionName": "Beautiful Muses", 
+        "assetValue": 0.035,
+        "imgPath": "../../../assets/images/art-yulia-2.png",
+        "assetLabel": "Space Girl",
+        "creatorName": "YuliaKurchanova",
+        "currency": "ETH",
+        "link": "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/48807718841360921451338570847230109389890089321737567092037290186343148683265",
+        "pfpImagePath": "../../../assets/images/pfp_yulia.jpg"
+    },
+    {
+        "collectionName": "Beautiful Muses", 
+        "assetValue": 0.035,
+        "imgPath": "../../../assets/images/art-yulia-1.png",
+        "assetLabel": "Great power of mind and creation",
+        "creatorName": "YuliaKurchanova",
+        "currency": "ETH",
+        "link": "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/48807718841360921451338570847230109389890089321737567092037290185243637055489",
+        "pfpImagePath": "../../../assets/images/pfp_yulia.jpg"
+    },
+    {
+        "collectionName": "ShibasWorld", 
+        "assetValue": 1.1,
+        "imgPath": "../../../assets/images/art-cryptonic-2.gif",
+        "assetLabel": "ShibasWorld #44",
+        "creatorName": "CryptoNicOg-",
+        "currency": "ETH",
+        "link": "https://opensea.io/assets/ethereum/0xe9f3e4dacee229e3e7d626d4e973db8e396121a3/67",
+        "pfpImagePath": "../../../assets/images/pfp_cryptonic.jpg"
+    },
+    {
+        "collectionName": "ShibasWorld", 
+        "assetValue": 0.22,
+        "imgPath": "../../../assets/images/art-cryptonic-3.gif",
+        "assetLabel": "Cyber Shiba Guitarist  🎸",
+        "creatorName": "CryptoNicOg-",
+        "currency": "ETH",
+        "link": "https://opensea.io/assets/ethereum/0xe9f3e4dacee229e3e7d626d4e973db8e396121a3/1",
+        "pfpImagePath": "../../../assets/images/pfp_cryptonic.jpg"
+    },
+    {
+        "collectionName": "MYTH", 
+        "assetValue": 0.22,
+        "imgPath": "../../../assets/images/art-eva-1.png",
+        "assetLabel": "Nephele",
+        "creatorName": "VREG",
+        "currency": "ETH",
+        "link": "https://foundation.app/@VREG/myth8f3f/1",
+        "pfpImagePath": "../../../assets/images/pfp_eva.jpg"
+    },
+    {
+        "collectionName": "Surreal۞Genesis", 
+        "assetValue": 0.22,
+        "imgPath": "../../../assets/images/art-eva-2.avif",
+        "assetLabel": "HOLD your $SHIB",
+        "creatorName": "VREG",
+        "currency": "ETH",
+        "link": "https://foundation.app/@VREG/sg/3",
+        "pfpImagePath": "../../../assets/images/pfp_eva.jpg"
+    }
+]

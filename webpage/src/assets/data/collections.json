@@ -1,0 +1,26 @@
+[
+    {
+        "collectionName": "FlowFrenzNFT",
+        "bannerImgPath": "../../../assets/images/flowfrenz-collection.png",
+        "creatorName": "CryptoNicOG",
+        "collectionValue": 0.0,
+        "link": "https://opensea.io/collection/flowfrenznft",
+        "pfpImagePath": "../../../assets/images/pfp_cryptonic.jpg"
+    },
+    {
+        "collectionName": "Tutti Frutti Women",
+        "bannerImgPath": "../../../assets/images/collection_tfw_1.png",
+        "creatorName": "TuttiFruttiWomenOfficial",
+        "collectionValue": 0.0,
+        "link": "https://opensea.io/collection/tutti-frutti-women-official",
+        "pfpImagePath": ""
+    },
+    {
+        "collectionName": "Beautiful Muses",
+        "bannerImgPath": "../../../assets/images/collection_beautiful-muses_1.png",
+        "creatorName": "YuliaKurchanova",
+        "collectionValue": 0.0,
+        "link": "https://opensea.io/collection/beautiful-muses",
+        "pfpImagePath": ""
+    }
+]

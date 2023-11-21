@@ -1,0 +1,25 @@
+.main {
+
+    span {
+        padding: 10px !important;
+    }
+
+    min-height: 40px;
+    padding-bottom: 10px;
+    background-color: darkslategray;
+
+    .head {
+        outline-width: thin;
+        outline-style: outset;
+        font-size: medium;
+        border-bottom: 2px;
+        min-height: 30px;
+        padding-top: 10px;
+        margin-bottom: 10px;
+        background-color: black;
+    }
+
+    .trait-value {
+        padding-top: 10px;
+    }
+}

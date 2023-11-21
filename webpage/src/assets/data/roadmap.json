@@ -1,0 +1,26 @@
+[
+    {
+        "phase": "Phase I",
+        "title": "CrowdFunding",
+        "description": "<div class='road-map-description'><ul><li>15% Net Profit from NFTs Sold Quarterly on FlowFrenz Marketplace (distributed to FlowFrenzNFT holders)</li></ul></div>",
+        "left": true
+    },
+    {
+        "phase": "Phase II",
+        "title": "FlowFrenz NFT Marketplace",
+        "description": "<div class='road-map-description'><ul><li>50% Net Profits from NFT Sales from NFT Marketplace will be Buying Native TOKEN vs BURN</li></ul></div>",
+        "left": false
+    },
+    {
+        "phase": "Phase III",
+        "title": "Token Launch",
+        "description": "<div class='road-map-description'><ul><li>Native TOKEN Launch</li><li>Anti Whale, BOTs and PnD (Tax)</li></ul></div>",
+        "left": true
+    },
+    {
+        "phase": "Phase IV",
+        "title": "The Future",
+        "description": "<div class='road-map-description'><ul><li>More Details to come for our Token and NFT Holders</li></ul></div>",
+        "left": false
+    }
+]

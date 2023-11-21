@@ -1,0 +1,48 @@
+<div class="main">
+  <div class="header">
+    <h2 mat-dialog-title>FlowFrenz<span>NFT</span></h2>
+    <!-- <h3>Checkout:</h3> -->
+  </div>
+  <div class="body"  mat-dialog-content>
+    <div class="top-row">
+      <button class="circle-button" type="button" (click)="qtyDown()" data-testid="increment-tokens-button">-</button>
+      {{qty}}
+      <button class="circle-button" type="button" (click)="qtyUp()" data-testid="increment-tokens-button">+</button>
+    </div>
+    <small>You can claim at most 5 of this collection</small>
+    <p class="order-header">Your Order</p>
+    <div class="body-row">
+      <div class="left-side"><p>Item x {{qty}}</p></div>
+      <div class="right-side">
+        <p>{{(qty * .1).toFixed(5)}}</p>
+        <p>~ {{(qty * .1 * ethToUsdRate).toFixed(2)}}</p>
+      </div>
+    </div>
+    <div class="body-row">
+      <div class="left-side"><p>Contract Fee x {{qty}} [tooltip]</p></div>
+      <div class="right-side">
+        <p>{{(qty * .0005).toFixed(4)}}</p>
+        <p>~ {{(qty * .0005 * ethToUsdRate).toFixed(2)}}</p>
+      </div>
+    </div>
+    <div class="body-row">
+      <div class="left-side"><p>Total</p></div>
+      <div class="right-side">
+        <p>{{((qty * .1) + (qty * .0005)).toFixed(6)}}</p>
+        <p>~ {{((qty * .1 * ethToUsdRate) + (qty * .0005 * ethToUsdRate)).toFixed(2)}}</p>
+      </div>
+    </div>
+    <div class="body-row">
+      <div class="left-side">
+        <p>Buying As</p>
+        <p>{{data.walletAddress.substring(0, 6)}}...{{data.walletAddress.substring(data.walletAddress.length - 4)}}</p>
+      </div>
+      <div class="right-side">
+        <!-- <button class="mint-model btn-round">Disconnect</button> -->
+      </div>
+    </div>
+    <!-- <p>{{data.msg}} :)</p> -->
+    <!-- <strong class="error">Not Enough Funds</strong> -->
+    <button  mat-stroked-button color="warn" class="mint-model btn-round" (click)="onMintClick()">Mint With ETH</button>&ngsp;&ngsp;
+  </div>
+</div>

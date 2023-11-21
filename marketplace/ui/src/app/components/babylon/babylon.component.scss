@@ -1,0 +1,129 @@
+.main {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dev-button {
+    align-self: center;
+}
+
+#debug-window {
+    z-index: 2000;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+
+    p {
+        color: white;
+    }
+}
+
+#renderCanvas {
+    height: 100%;
+    width: auto;
+}
+
+#devControls {
+    z-index: 2000;
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.display-case {
+    height: 80%;
+    // width: 1200px;
+    // background-color: darkgray;
+    z-index: 999;
+    position: absolute;
+    -webkit-perspective: 240px;
+    perspective: 240px;
+    overflow: hidden;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    width: 85%;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.scale-box {
+    transform: scale(.4);
+    transition-property: transform;
+    transition-duration: .2s;
+    border-style: solid;
+    border-color: lightsteelblue;
+    border-radius: 30px;
+    border-width: 4px;
+    background-color: #131a21bf;
+    backdrop-filter: blur(5px);
+}
+
+.scaledUp {
+    transform: scale(1.0);
+    height: 90%;
+    width: 85%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: rotateX(2.5deg);
+}
+
+.scaledWider {
+    transform: scale(1.0);
+    height: 99%;
+    overflow-y: scroll;
+}
+
+.scaledWider::-webkit-scrollbar {
+    display: none;
+}
+
+.skewed-up {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 50px;
+    overflow-y: auto;
+    padding-right:100px;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    overflow-x: hidden;
+}
+
+app-collection-preview {
+    flex-grow: 1;
+    max-width: 275px;
+}
+
+app-asset-preview {
+    height: min-content;
+}
+
+app-single-card {
+    margin-top: 20px;
+}

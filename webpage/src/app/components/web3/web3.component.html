@@ -1,0 +1,7 @@
+<button id="web3-connect" class="btn-round wallet-connect basic-btn {{userConnected === true ? 'connectedButton' : 'gray-btn'}}" mat-flat-button [disabled]="!supportedWallet" (click)="connect()">{{buttonText}}
+</button>
+
+<div *ngIf="validChain === false" class="web3-warning">
+    <!-- <p>You are on the wrong network, please switch to <button>{{targetNetwork.name}}</button></p> -->
+    <p>You are on the wrong network, please switch to <strong>{{targetNetwork.name}}</strong></p>
+</div>

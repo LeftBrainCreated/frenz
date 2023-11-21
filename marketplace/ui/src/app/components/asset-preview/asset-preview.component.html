@@ -1,0 +1,9 @@
+<div class="main">
+    <div class="card-main">
+        <img src="{{imageAddress}}">
+        <span class="collection-title">{{asset.contract.name}}</span>
+        <p class="image-Title">{{asset.title}}</p>
+        <span class="creator-handle">{{asset.contract.contractDeployer.substring(0, 8) +
+            (asset.contract.contractDeployer.length > 8) ? '...': ''}}</span>
+    </div>
+</div>

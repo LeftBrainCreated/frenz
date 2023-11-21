@@ -1,0 +1,40 @@
+.main {
+    width: 344px; 
+    height: 56px; 
+    left: 0px; 
+    top: 0px; 
+    background: rgba(255, 255, 255, 0.05); 
+    border-radius: 10px; 
+    border: 0.50px rgba(21, 191, 253, 0.70) solid;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.pfp {
+    width: 56px; 
+    height: 56px; 
+    background: #D9D9D9; 
+    border-radius: 9999px;
+
+    img {
+        height: 56px;
+        width: 56px;
+        border-radius: 99999px;
+    }
+}
+
+.biolink {
+    text-align: center; 
+    color: #15BFFD; 
+    font-size: 12px; 
+    font-family: Orbitron; 
+    font-weight: 500; 
+    text-decoration: underline; 
+    line-height: 30px; 
+    word-wrap: break-word;
+    flex: auto;
+    justify-content: flex-end;
+    align-items: flex-end;
+    display: flex;
+}

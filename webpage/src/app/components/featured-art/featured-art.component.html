@@ -1,0 +1,9 @@
+<a href="{{art.link}}">
+    <div class="main">
+        <span>{{art.collectionName}}</span>
+        <span class="eth"><img src={{currencyIconPath}}>{{art.assetValue}} ETH</span>
+        <img src={{art.imgPath}}>
+        <span class="title">{{art.assetLabel}}</span>
+        <app-pfp [name]="art.creatorName" [imagePath]="art.pfpImagePath"></app-pfp>
+    </div>
+</a>

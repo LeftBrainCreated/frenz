@@ -1,0 +1,234 @@
+@import '../scss/vars';
+
+
+app-header {
+    display: block; 
+    width: 100%;
+    position: fixed;
+    background-color: #080B2A;
+    z-index: 3;
+
+    @media(min-width:0) and (max-width: 500px) {
+        width: 90vw;
+    }
+}
+
+h2 {
+    color: white; 
+    font-size: 32px; 
+    font-family: Orbitron; 
+    font-weight: 400; 
+    line-height: 36px; word-wrap: break-word;
+}
+
+.header {
+    left: 120px; 
+    top: 40px; 
+    position: absolute; 
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 192px; 
+    display: inline-flex;
+}
+
+div.featured-art {
+    max-width: 1335px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    // gap: 80px;
+
+    // @media(min-width:500) {
+    //     gap: 40px;
+    // }
+}
+
+// div.featured-art {
+//     flex-wrap: wrap;
+//     position: relative; 
+//     display: flex; 
+//     flex-direction: row;
+
+//     gap: 80px;
+
+//     @media(min-width:500) {
+//         gap: 40px;
+//     }
+// }
+
+app-featured-art {
+    flex-basis: 20%;
+    flex: auto;
+    -ms-flex: auto;
+    // position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+
+    // @media(min-width:0) and (max-width: 500px) {
+        // scale: 80%;
+    // }
+}
+
+.section-a {
+    padding: 100px 0 40px 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-c {
+    p {
+        text-align: center; 
+        color: white; 
+        font-size: 16px; 
+        font-family: Inter; 
+        font-weight: 400; 
+        line-height: 24px; 
+        word-wrap: break-word;
+    }
+}
+
+.section-d {
+    display: flex;
+    flex-direction: row;
+}
+
+.section-d-left {
+    flex: 3;
+    @media(min-width:0) and (max-width: 500px) {
+        padding: 10em 2em 10em 2em;
+
+        h4 {
+            font-size: xx-large;
+        }
+    }
+
+    a.marketplace {
+        color: #677d85;
+    }
+}
+
+.section-d-right {
+    flex: 2;
+    width: 1px;
+}
+
+.frenz {
+    color: white; 
+    font-size: 70px; 
+    font-family: Orbitron; 
+    font-weight: 400; 
+    line-height: 90px; 
+    word-wrap: break-word;
+}
+
+.page-art-line {
+    position: absolute;
+    width: 514.091px;
+    height: 678px;
+    // transform: rotate(180deg);
+    top:-100px;
+    left: 65%;
+    flex-shrink: 0;
+}
+
+app-roadmap {
+    width: 100%;
+}
+
+.live-mint {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    justify-content: flex-start; 
+    display: inline-flex;
+
+    span {
+        text-align: center; 
+        color: white; 
+        font-size: 16px; 
+        font-family: Inter; 
+        font-weight: 400; 
+        line-height: 24px; 
+        word-wrap: break-word;
+    }
+}
+
+span.blue {
+    color: #15BFFD;
+    text-transform: uppercase;
+}
+
+.featured-collection {
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    gap: 16px; 
+    display: flex;
+    max-width: 1440px;
+}
+
+img.collection {
+    width: 345px;
+}
+
+div.creators {
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 60px; 
+    display: flex;
+
+    #creators {
+        // display: flex;
+        // flex-direction: row;
+        // width: 1210px;
+        // flex-wrap: wrap;
+        // gap: 25px;
+
+        flex-basis: 20%;
+        flex: auto;
+        -ms-flex: auto;
+        // position: relative;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 40px;
+    }
+}
+
+
+.footer {
+    max-width: 1440px;
+    padding-top: 60px;
+    text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: auto;
+}
+
+span.copy {
+    display: flex;
+    padding-left: 0;
+    font-family: Orbitron;
+    font-size: 14px;
+    letter-spacing: -0.28px;
+    padding-bottom: 50px;
+}
+
+app-coming-soon {
+    scale: 0.7;
+    text-wrap: nowrap;
+}
+
+.btn-round.disabled {
+    opacity: .2;
+}
+
+.btn-round.disabled:hover {
+    background-color: $color-primary;
+    cursor: not-allowed;
+}

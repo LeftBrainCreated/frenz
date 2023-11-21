@@ -1,0 +1,36 @@
+.main {
+    width: 100%;
+
+    button {
+        width: 100%;
+        background-color: #12121e;
+        color: whitesmoke;
+    }
+}
+
+.body {
+    height: 150px;
+    transition-property: height;
+    transition-duration: 100ms;
+    margin: 5px;
+}
+
+
+
+.hidden {
+    height: 0;
+    contain: paint;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.outer-box {
+    border-top: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: #a5a5a5b2;
+}

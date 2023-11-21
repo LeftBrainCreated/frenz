@@ -1,0 +1,153 @@
+<app-header></app-header>
+
+<section class="section-a">
+  <div class="section-a-right" style="background-image: url('../assets/images/hero-flair.png');">
+        
+
+    <app-featured-art [art]="frontArt2" class="contain-art"></app-featured-art>
+
+    <app-featured-art [art]="frontArt1" class="contain-art contain-art-rotated"></app-featured-art>
+
+  </div>
+  <div class="section-a-left">
+    <a id="mint"></a>
+    <h1>FlowFrenz<span>NFT</span></h1>
+    <!-- <h2 class="second-header">& Marketplace</h2> -->
+    <img src="../assets/images/lineArt.png" alt="">
+    <h2>A Community Project</h2>
+    <div class="btn-group">
+      <a href="https://app.manifold.xyz/c/flowfrenznftv1"><button class="btn-round">Mint Now</button></a>
+      <!-- <button (click)="openMintDialog()" class="btn-round" [ngClass]="walletConnected && validChain ? '' : 'disabled'" [disabled]="!walletConnected || !validChain">Mint Now</button> -->
+      <!-- <a href="">Marketplace
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="18" viewBox="0 0 30 18" fill="none">
+          <path d="M1 9L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M21 17L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M21 1L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a> -->
+    </div>
+    <app-coming-soon></app-coming-soon>
+
+
+    <!-- <h3>Lorem ipsum dolor sit amet</h3>
+    <div class="chips">
+      <div class="chip-lg">Lorem</div>
+      <div class="chip chip-outlined-lg">Ipsum</div>
+      <div class="chip chip-outlined-lg">Dolor</div>
+      <div class="chip chip-outlined-lg">Sit</div>
+      <div class="chip chip-outlined-lg">Amet</div>
+      <div class="chip chip-outlined-lg">Lorem</div>
+      <div class="chip chip-outlined-lg">Ipsom Dolor</div>
+      <div class="chip chip-outlined-lg">Amet</div>
+    </div> -->
+  </div>
+
+</section>
+
+<section class="section-b">
+  <a id="about"></a>
+  <div class="section-b-inner">
+    <div class="section-b-left">
+      <img src="../assets/images/infinity.png" alt="" class="infinity">
+    </div>
+    <div class="section-b-right">
+      <h2>It's Time For Something New</h2>
+
+      <p>Let's get away from the fly-by-night startups and Meme Rugpulls to truly create a Web3 community.</p>
+      <p>We are building a space where Creators shine. A place that stands above the hundreds of thousands of "unique" NFTs that all feel like the same image regurgitated in 10,000 different ways.</p>
+      <!-- <p>Flow Frenz NFTs are built on the Ethereum blockchain, each representing a one-of-a-kind digital artwork in an eye-catching banner style.</p> -->
+      <p>As a holder of a Flow Frenz NFT, you gain true ownership of a limited edition digital masterpiece, and more excitingly, you become part of our thriving community that shares in the project’s success.</p>
+      <p>Grab your FlowFrenz NFT in our ongoing mint now to solidify your investment into the future of the Web3 community before we move into our next tier.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section-c">
+  <a id="featured"></a>
+  <h2>Featured Assets</h2>
+  <p>A collection of Hand-Picked art and music made to break past the monotony of 'just another gen art collection'</p>
+  <div class="featured-art">
+    <app-featured-art  [art]="ArtList[randos[2]]"></app-featured-art>
+    <app-featured-art  [art]="ArtList[randos[3]]"></app-featured-art>
+    <app-featured-art  [art]="ArtList[randos[4]]"></app-featured-art>
+  </div>
+
+  <a (click)="openMintDialog()">Mint FlowFrenzNFT Now
+    <!-- <a href="https://app.manifold.xyz/c/flowfrenznftv1">Mint FlowFrenzNFT Now -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="18" viewBox="0 0 30 18" fill="none">
+      <path d="M1 9L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 17L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 1L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </a>
+</section>
+
+<section class="section-d" style="background-image: url('../assets/images/section-d.png');">
+  <a id="marketplace"></a>
+  <div class="section-d-left">
+    <span class="sub-title">Coming Soon!</span>
+    <h4>FlowFrenz</h4>
+    <h4 class="marketplace">Marketplace</h4>
+    <p>A <span class="blue">New Way</span> to view and interact with digital creations.</p>
+    <p>Gone are the days of scrolling through an infinite number of pages, overshadowed by waves of thoughtless items and targeted by scammers at every turn. The FlowFrenz Marketplace is a new way to experience web3 both for creators and collectors. We're beyond excited to start building this new and innovative gallery. Follow our progress on X, attend our weekly AMA, ask to join our invitations only Telegram group.</p>
+      <a class="marketplace" href="">(coming soon) Marketplace
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="18" viewBox="0 0 30 18" fill="none">
+          <path d="M1 9L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M21 17L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M21 1L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+  </div>
+
+  <div class="section-d-right">
+    <app-blockchain-animation></app-blockchain-animation>
+  </div>
+</section>
+
+<section class="section-e">
+  <a id="roadmap"></a>
+  <h2>Road map 2023</h2>
+  <p>Warning: Subject to Explosive Growth :)</p>
+  <app-roadmap class="roadmap" [RoadmapItems]="RoadmapItems"></app-roadmap>
+</section>
+
+<section class="section-f">
+  <div class="featured-collection">
+    <h2>Featured Collections</h2>
+
+    <p>Check Out Some of Our Favorite Collections</p>
+
+    <div class="featured-art" style="display: flex; flex-direction: row; gap: 30px;">
+      <app-featured-collection *ngFor="let col of CollectionList" [collection]="col"></app-featured-collection>
+    </div>
+  </div>
+</section>
+
+<section class="section-g">
+  <h2>Our creators</h2>
+
+  <p>Building A Better Web3 Through Creators</p>
+  <div class="creators">
+    <div id="creators">
+      <app-creator-tag *ngFor="let creator of CreatorsList" [creator]="creator"></app-creator-tag>
+    </div>
+
+  </div>
+
+  <!-- <a href="">Explore More
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="18" viewBox="0 0 30 18" fill="none">
+      <path d="M1 9L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 17L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 1L29 9" stroke="#15BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    </a> -->
+</section>
+
+<section class="footer">
+
+  <app-footer></app-footer>
+  <span class="copy">Copyright © FlowFrenz 2023 All rights reserved.</span>
+  <span style="padding-bottom: 20px;">DO NOT REUSE IMAGES OR INFO WITHOUT PRIOR WRITTEN CONCENT FROM THE TEAM! Thank you!</span>
+
+</section>

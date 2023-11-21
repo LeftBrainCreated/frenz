@@ -1,0 +1,26 @@
+[
+    {
+        "name": "CryptoNicOG",
+        "link": "https://twitter.com/CryptoNicOg",
+        "pfpImagePath": "../../../assets/images/pfp_cryptonic.jpg",
+        "value": 0
+    },
+    {
+        "name": "Dito",
+        "link": "https://twitter.com/LeftBrainCre8ed",
+        "pfpImagePath": "../../../assets/images/pfp_dito.png",
+        "value": 0
+    },
+    {
+        "name": "Yulia Kurchanova",
+        "link": "https://twitter.com/yuliakurchanova",
+        "pfpImagePath": "../../../assets/images/pfp_yulia.jpg",
+        "value": 0
+    },
+    {
+        "name": "Eva",
+        "link": "https://foundation.app/@VREG",
+        "pfpImagePath": "../../../assets/images/pfp_eva.png",
+        "value": 0
+    }
+]

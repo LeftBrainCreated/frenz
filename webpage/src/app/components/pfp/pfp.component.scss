@@ -1,0 +1,21 @@
+div.main {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+div.pfp {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: #D9D9D9;
+    border-radius: 25px;
+    background-color: white;
+}
+
+span.name {
+    flex-shrink: 0;
+    color: #15BFFD;
+    font-size: 16px;
+    line-height: 24px; /* 150% */
+}

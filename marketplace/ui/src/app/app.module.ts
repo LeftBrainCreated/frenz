@@ -1,0 +1,50 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BabylonComponent } from './components/babylon/babylon.component';
+import "@babylonjs/loaders/glTF";
+import { CollectionPreviewComponent } from './components/collection-preview/collection-preview.component';
+import { ViewToggleComponent } from './components/view-toggle/view-toggle.component';
+import { HeaderBarComponent } from './components/header-bar/header-bar.component';
+import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
+import { SingleCardComponent } from './components/single-card/single-card.component';
+import { CompactListViewComponent } from './components/compact-list-view/compact-list-view.component';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { AssetDetailViewComponent } from './components/asset-detail-view/asset-detail-view.component';
+import { AssetPreviewComponent } from './components/asset-preview/asset-preview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TrackVisibilityDirective } from './directives/track-visibility.directive';
+import { TraitComponent } from './components/trait/trait.component';
+import { AboutDropdownComponent } from './components/about-dropdown/about-dropdown.component';
+import { ContractDetailsComponent } from './components/contract-details/contract-details.component';
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    BabylonComponent,
+    CollectionPreviewComponent,
+    ViewToggleComponent,
+    HeaderBarComponent,
+    FooterBarComponent,
+    SingleCardComponent,
+    CompactListViewComponent,
+    AssetDetailViewComponent,
+    AssetPreviewComponent,
+    TrackVisibilityDirective,
+    TraitComponent,
+    AboutDropdownComponent,
+    ContractDetailsComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [BreakpointObserver],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

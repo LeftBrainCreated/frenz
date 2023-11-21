@@ -1,0 +1,10 @@
+<div class="main">
+    <button class="dropdown box" (click)="dropdown()">
+        <p> ^ About</p>
+    </button>
+    <div class="body {{visible ? '' : 'hidden'}}">
+        <div class="row">
+            <span>{{asset!.description}}:</span>
+        </div>
+    </div>
+</div>

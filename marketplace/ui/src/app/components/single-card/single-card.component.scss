@@ -1,0 +1,46 @@
+.main {
+    padding: 5%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    // max-width: 200px;
+    // border: 2px;
+    border-radius: 20px;
+
+    // border-color: #15bffd;
+    outline: groove;
+    outline-color: darkblue;
+    outline-width: 1;
+    background-color: rgba(0, 0, 139, .3);
+
+    .image-Title {
+        color: whitesmoke;
+        font-size: large;
+        font-style: normal;
+        font-family: Roboto;
+    }
+
+    .collection-title {
+        color: #08ffff;
+        font-family: Orbitron;
+    }
+
+    .creator-handle {
+        font-family: Orbitron;
+        font-size: small;
+        color: crimson;
+        text-align: end;
+    }
+}
+
+.card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.main:hover {
+    cursor: pointer;
+}
+

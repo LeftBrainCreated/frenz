@@ -1,0 +1,31 @@
+<div class="main">
+    <button class="dropdown box" (click)="dropdown()">
+        <p> ^ Details</p>
+    </button>
+    <div class="body {{visible ? '' : 'hidden'}}">
+        <div class="row">
+            <span>Contract Address:</span>
+            <span>{{asset!.contract.address.substring(0, 6) + '...' + asset!.contract.address.substring(38)}}</span>
+        </div>
+        <div class="row">
+            <span>Token ID:</span>
+            <span>{{asset!.tokenId}}</span>
+        </div>
+        <div class="row">
+            <span>Token Standard:</span>
+            <span>{{asset!.tokenType}}</span>
+        </div>
+        <div class="row">
+            <span>Chain:</span>
+            <span></span>
+        </div>
+        <div class="row">
+            <span>Last Updated:</span>
+            <span>{{asset!.timeLastUpdated}}</span>
+        </div>
+        <div class="row">
+            <span>Creator Royalties:</span>
+            <span></span>
+        </div>
+    </div>
+</div>

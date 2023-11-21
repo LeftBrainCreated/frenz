@@ -1,0 +1,8 @@
+<div class="main" >
+    <button class="view-style left" [disabled]="multiView" (click)="switchViewStyle()">
+        <img src="assets/icons/multi-frames.png">
+    </button>
+    <button class="view-style right" [disabled]="!multiView" (click)="switchViewStyle()">
+        <img src="assets/icons/single-frame.png">
+    </button>
+</div>

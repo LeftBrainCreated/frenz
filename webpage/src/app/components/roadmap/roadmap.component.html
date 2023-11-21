@@ -1,0 +1,6 @@
+<div class="main">
+    <div class="items">
+        <app-roadmap-item *ngFor="let item of RoadmapItems" [item]="item" [ngClass]="item.left ? 'item left' : 'item right'" [left]="item.left" ></app-roadmap-item>
+    </div>
+
+</div>

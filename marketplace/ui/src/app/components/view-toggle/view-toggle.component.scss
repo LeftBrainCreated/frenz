@@ -1,0 +1,29 @@
+.main {
+    button.view-style {
+        padding:5px;
+        object-fit: contain;
+        background-color: rgba(17, 18, 111, .8);
+        width: 100px;
+        cursor: pointer;
+
+        img {
+            height: 30px;
+        }
+    }
+
+    button:disabled {
+        background-color: rgba(57, 58, 139, 0.8);
+        transform: scale(1.1);
+    }
+
+    .right {
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+
+    .left {
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+    }
+
+}

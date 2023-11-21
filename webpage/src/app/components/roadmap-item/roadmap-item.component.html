@@ -1,0 +1,15 @@
+<div [class]="left == true ? 'main' : 'main-reverse'">
+    <div class="dot-and-line">
+        <div class="top-vertical-line"></div>
+        <div class="dot"></div>
+        <div class="bottom-vertical-line"></div>
+    </div>
+
+
+    <div class="line"></div>
+    <div class="container">
+        <h3>{{item.phase}}</h3>
+        <h2>{{item.title}}</h2>
+        <p id="desText_{{item.title}}">{{descriptionText}}</p>
+    </div>
+</div>

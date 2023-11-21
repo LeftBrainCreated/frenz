@@ -1,0 +1,94 @@
+.main {
+    text-align: center;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 30px;
+    font-size: 30px; 
+    font-family: Orbitron; 
+    font-weight: 400;     
+}
+
+.body-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .left-side p {
+        text-align: left;
+    }
+    .right-side p {
+        text-align: right;
+    }
+}
+
+.order-header {
+    text-align: left;
+    color: #15BFFD;
+    text-transform: uppercase;
+    font-family: Orbitron;
+    font-weight: 400;
+    line-height: 2;
+}
+
+.circle-button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--backgroundColor);
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--foregroundColor);
+    cursor: pointer;
+}
+
+:host {
+    display: block;
+    background: #080B2A;
+    border-radius: 5px;
+    padding: 40px;
+    max-width: 500px;
+    animation: custom-dialog-enter 1s ease;
+    border: .5px solid #15BFFD;
+    filter: drop-shadow(5px 5px 10px #15BFFD);
+}
+
+h2 {
+    color: #fff;
+    font-family: Kanit;
+    font-weight: 600;
+    margin: 15px 0;
+    span {
+        color: #15BFFD;
+    }
+}
+
+p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #d7d3d3;
+}
+
+.error {
+    text-align: center;
+    color: #E11584;
+    text-transform: uppercase;
+    font-family: Orbitron;
+    font-weight: 400;
+    line-height: 2;
+}
+
+
+.btn-round {
+    margin-top: 15px;
+}

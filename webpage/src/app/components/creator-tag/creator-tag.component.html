@@ -1,0 +1,33 @@
+<div class="main">
+    <div style="justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div class="pfp"><img src={{creator.pfpImagePath}}></div>
+        <div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: inline-flex">
+          <div style="color: white; font-size: 20px; font-family: Orbitron; font-weight: 500; line-height: 30px; word-wrap: break-word">
+             {{creator.name}}
+          </div>
+          <div style="width: 91px; justify-content: flex-start; align-items: center; gap: 4px; display: inline-flex">
+             <div style="text-align: right; color: white; font-size: 16px; font-family: Orbitron; font-weight: 400; line-height: 24px; word-wrap: break-word; width: inherit;">
+                {{creator.value}} ETH
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="biolink">
+       <a *ngIf="creator.link !== ''" href={{creator.link}}>Follow</a>
+    </div>
+ </div>
+
+
+
+
+<!-- 
+<div style="justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex;">
+
+    <div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: inline-flex;">
+
+    </div>
+    {{artistsName}}
+    {{ethQty}} ETH
+    Follow
+    
+</div> -->

@@ -1,0 +1,160 @@
+.main {
+    padding: 5%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+
+    outline: groove;
+    outline-color: rgb(9, 9, 92);
+    outline-width: 1;
+    background-color: #28004b26;
+
+    color: whitesmoke;
+}
+
+img.icon {
+    height: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3vw;
+}
+
+.contract-detail {
+    flex: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    // justify-content: left;
+    text-align: left;
+    flex-wrap: nowrap;
+    // padding: 15px;
+
+    p {
+        margin: 5px;
+    }
+
+    .image-Title {
+        color: whitesmoke;
+        font-size: xx-large;
+        font-style: normal;
+        font-family: Roboto;
+    }
+
+    .collection-title {
+        color: #08ffff;
+        font-family: Orbitron;
+    }
+
+    .creator-handle {
+        font-family: Orbitron;
+        font-size: small;
+        color: crimson;
+        font-weight: bold;
+        // text-align: end;
+    }
+}
+
+.box {
+    outline: groove;
+    outline-color: #a5a5a5b2;
+    outline-width: 1;
+    background-color: #12121ee1;
+    border-radius: 3px;
+    padding: 15px;
+}
+
+.price-button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-around;
+    width: 100%;
+
+    button {
+        width: 40%;
+        margin: 4px;
+        padding: 20px;
+        border-radius: 60px;
+        cursor: pointer;
+    }
+
+    #buy {
+        background-color: green;
+    }
+
+    #offer {
+        background-color: #bad8f7;
+    }
+}
+
+app-trait {
+    outline-width: thin;
+    outline-style: inset;
+    width: min-content;
+    min-width: 120px;
+    max-width: 45%;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    text-align: center;
+
+    font-size: larger;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    flex-grow: 1;
+}
+
+.traits {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.price {
+    outline: none;
+
+    span {
+        margin-left: 5px;
+        font-size: large;
+    }
+}
+
+img.full {
+    height: 100%;
+    width: 100%;
+}
+
+
+.media {
+    flex: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+
+    .image-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-bottom: 5px;
+
+        span {
+            color: whitesmoke;
+            font-size: medium;
+        }
+    }
+
+}
+
+.detail-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

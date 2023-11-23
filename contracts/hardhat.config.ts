@@ -37,7 +37,7 @@ const config: HardhatUserConfig = {
     localhost: {
       url: "http://127.0.0.1:8545/",
       //  accounts: [`0x${PRIVATE_KEY}`],
-      accounts: [LOCAL_NODE_PRIVATEKEY],
+      accounts: [`0x${LOCAL_NODE_PRIVATEKEY}`],
       //  balance: "1000",
       chainId: 31337,
     },

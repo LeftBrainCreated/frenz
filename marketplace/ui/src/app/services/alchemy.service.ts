@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-const FRENZ_API_ROOT_URI = 'http://localhost/api/';
+const FRENZ_API_ROOT_URI = `http://localhost${isDevMode() ? ':8000' : ''}/api/`;
 
 @Injectable({
   providedIn: 'root'

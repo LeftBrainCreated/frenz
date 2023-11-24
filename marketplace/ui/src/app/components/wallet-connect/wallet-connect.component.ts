@@ -33,6 +33,7 @@ export class WalletConnectComponent {
 
   ngOnInit(): void {
     this.targetNetwork = GlobalConstants.NETWORKS[this.blockChainId];
+    // this.web3.targetedChainId = this.blockChainId;
     this.validChain = (window.ethereum && window.ethereum.chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.ethereum.chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined;
 
     this.prepWeb3();

@@ -10,15 +10,19 @@ const BONE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000001010';
 const LOCALHOST_CHAIN_ID = 0;
 const SHIBARIUM_CHAIN_ID = 2;
 const ETHEREUM_CHAIN_ID = 1;
+const GOERLI_CHAIN_ID = 4;
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketplaceService extends Web3Service {
+  targetedChainId: number;
 
   constructor(
     uiService: UiService
   ) {
     super(CONTRACT_ADDRESS, contract_json, uiService);
+    this.loadWeb3();
+    this.init(GOERLI_CHAIN_ID);
   }
 }

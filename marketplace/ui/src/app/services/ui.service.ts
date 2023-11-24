@@ -6,8 +6,13 @@ import { Subject } from 'rxjs';
 })
 export class UiService {
 
+  public loadingObs = new Subject<boolean>();
+  public snackBarObs = new Subject<string>();
+
   public scaleObjectObs = new Subject<boolean>();
   public switchViewModeObs = new Subject<boolean>();
+  public walletAddressObs = new Subject<string>();
+  public changeConnectedStateObs = new Subject<boolean>();
 
   constructor() { }
 }

@@ -1,0 +1,18 @@
+<nav>
+    <ul class="nav">
+        <li class="menu-item">
+            <a href="#" class="
+                {{userConnected ? 'connected' : ''}}
+                {{!supportedWallet ? 'disabled' : ''}}
+                {{headerBar ? 'header-bar' : ''}}
+            " (click)="connect(true)">
+                <span class="icon-home"
+                    class="{{userConnected ? 'connected' : ''}} {{headerBar ? 'header-bar' : ''}}"></span>
+            </a>
+            <span>Wallet Connect</span>
+        </li>
+        <button>
+            <span>View Marketplace</span>
+        </button>
+    </ul>
+</nav>

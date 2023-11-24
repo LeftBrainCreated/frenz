@@ -19,6 +19,8 @@ import { TrackVisibilityDirective } from './directives/track-visibility.directiv
 import { TraitComponent } from './components/trait/trait.component';
 import { AboutDropdownComponent } from './components/about-dropdown/about-dropdown.component';
 import { ContractDetailsComponent } from './components/contract-details/contract-details.component';
+import { WalletConnectComponent } from './components/wallet-connect/wallet-connect.component';
+import { LoginViewComponent } from './components/login-view/login-view.component';
 
 
 
@@ -38,6 +40,8 @@ import { ContractDetailsComponent } from './components/contract-details/contract
     TraitComponent,
     AboutDropdownComponent,
     ContractDetailsComponent,
+    WalletConnectComponent,
+    LoginViewComponent,
   ],
   imports: [
     BrowserModule,

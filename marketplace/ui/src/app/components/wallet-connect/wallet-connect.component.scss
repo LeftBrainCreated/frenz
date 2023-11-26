@@ -4,10 +4,6 @@
     font-size: 8em;
 }
 
-.header-bar {
-    font-size: 3em;
-}
-
 .icon-home:after {
     content: "\260D";
 }
@@ -85,13 +81,7 @@ span {
     border: solid 1px transparent;
 }
 
-.nav a.header-bar:link {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-}
-
-span.connected {
+span:is(.connected, .loading) {
     color: #4a70b6;
     box-shadow: none;
 }
@@ -111,7 +101,7 @@ span.connected {
     box-shadow: inset 0px 8px 48px #ddd;
 }
 
-.nav a.connected {
+.nav a:is(.connected, .loading) {
     box-shadow: none;
     border: solid 1px #a7a7a7;
 }

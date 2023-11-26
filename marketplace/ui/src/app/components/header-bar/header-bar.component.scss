@@ -6,6 +6,20 @@
     width: 100%;
     z-index: 900;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.flex-3 {
+    flex: 3;
+}
+
+app-view-toggle {
+    flex: 3;
+}
+
+app-wallet-connect {
+    flex: 1;
 }

@@ -21,6 +21,7 @@ import { AboutDropdownComponent } from './components/about-dropdown/about-dropdo
 import { ContractDetailsComponent } from './components/contract-details/contract-details.component';
 import { WalletConnectComponent } from './components/wallet-connect/wallet-connect.component';
 import { LoginViewComponent } from './components/login-view/login-view.component';
+import { WalletConnectHeaderComponent } from './components/wallet-connect-header/wallet-connect-header.component';
 
 
 
@@ -42,6 +43,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     ContractDetailsComponent,
     WalletConnectComponent,
     LoginViewComponent,
+    WalletConnectHeaderComponent,
   ],
   imports: [
     BrowserModule,

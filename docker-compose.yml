@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: leftbraincreated/flowfrenz-express:1.1.5
+    image: leftbraincreated/flowfrenz-express:1.1.6
     build: ./marketplace/backend
     hostname: api
     environment:
@@ -14,20 +14,20 @@ services:
     restart: unless-stopped
 
   mp1:
-    image: leftbraincreated/flowfrenz-marketplace:1.1.6
+    image: leftbraincreated/flowfrenz-marketplace:1.1.11
     build: ./marketplace/ui
     hostname: mp1
     ports:
       - 8010:80
     restart: unless-stopped
 
-  mp2:
-    image: leftbraincreated/flowfrenz-marketplace:1.1.6
-    build: ./marketplace/ui
-    hostname: mp2
-    ports:
-      - 8011:80
-    restart: unless-stopped
+  # mp2:
+  #   image: leftbraincreated/flowfrenz-marketplace:1.1.11
+  #   build: ./marketplace/ui
+  #   hostname: mp2
+  #   ports:
+  #     - 8011:80
+  #   restart: unless-stopped
 
   nginx:
     image: leftbraincreated/flowfrenz-host:1.1.7
@@ -39,18 +39,18 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     links:
       - mp1
-      - mp2
+      # - mp2
     ports:
       - 80:80
       - 443:443
     depends_on:
       - api
       - mp1
-      - mp2
-  # certbot:
-  #   image: certbot/certbot:latest
-  #   volumes:
-  #     - ./certbot/www/:/var/www/certbot/:rw
-  #     - ./certbot/conf/:/etc/letsencrypt/:rw
-  #   depends_on:
-  #     - nginx
+      # - mp2
+      # certbot:
+      #   image: certbot/certbot:latest
+      #   volumes:
+      #     - ./certbot/www/:/var/www/certbot/:rw
+      #     - ./certbot/conf/:/etc/letsencrypt/:rw
+      #   depends_on:
+      #     - nginx

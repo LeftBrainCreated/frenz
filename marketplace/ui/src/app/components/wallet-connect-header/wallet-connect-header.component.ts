@@ -7,11 +7,11 @@ import { MarketplaceService } from 'src/app/services/marketplace.service';
 declare let window: any;
 
 @Component({
-  selector: 'app-wallet-connect',
-  templateUrl: './wallet-connect.component.html',
-  styleUrls: ['./wallet-connect.component.scss']
+  selector: 'app-wallet-connect-header',
+  templateUrl: './wallet-connect-header.component.html',
+  styleUrls: ['./wallet-connect-header.component.scss']
 })
-export class WalletConnectComponent {
+export class WalletConnectHeaderComponent {
   @Input() blockChainId: number;
 
   buttonText: string = "Wallet Connect";
@@ -37,6 +37,10 @@ export class WalletConnectComponent {
     if (!this.web3.web3Loading) {
       this.prepWeb3();
     }
+
+    this.uiService.walletAddressObs.subscribe((res) => {
+      this.buttonText = res.substring(0, 5) + "...." + res.substring(res.length - 5);
+    })
 
     this.uiService.loadingObs.subscribe((res: boolean) => {
       this.loading = res;

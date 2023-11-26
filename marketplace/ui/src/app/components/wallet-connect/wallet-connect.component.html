@@ -2,14 +2,16 @@
     <ul class="nav">
         <li class="menu-item">
             <a href="#" class="
+                {{loading ? 'loading' : '' }}
                 {{userConnected ? 'connected' : ''}}
                 {{!supportedWallet ? 'disabled' : ''}}
-                {{headerBar ? 'header-bar' : ''}}
             " (click)="connect(true)">
-                <span class="icon-home"
-                    class="{{userConnected ? 'connected' : ''}} {{headerBar ? 'header-bar' : ''}}"></span>
+                <span class="icon-home" class="
+                        {{userConnected ? 'connected' : ''}} 
+                        {{loading ? 'loading' : ''}} 
+                    "></span>
             </a>
-            <span>Wallet Connect</span>
+            <span>{{buttonText}}</span>
         </li>
         <button>
             <span>View Marketplace</span>

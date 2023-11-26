@@ -24,6 +24,7 @@ export abstract class Web3Service {
   public contract: any;
   public selectedAddress: string;
   public web3Loaded: boolean;
+  public web3Loading: boolean;
 
   public invalidTargetChainObs = new Subject<any>();
   public web3AccountChanged = new Subject<any>();
@@ -75,12 +76,14 @@ export abstract class Web3Service {
   }
 
   async loadWeb3(): Promise<boolean> {
+    this.web3Loading = true;
     if (window.ethereum) {
       this.web3 = new Web3(window.ethereum);
       await window.ethereum.enable;
       this.web3Loaded = true;
     } else {
       // window.alert('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
+      this.web3Loading = false;
       return false;
     }
 
@@ -94,6 +97,7 @@ export abstract class Web3Service {
       }
     });
 
+    this.web3Loading = false;
     return true;
   }
 

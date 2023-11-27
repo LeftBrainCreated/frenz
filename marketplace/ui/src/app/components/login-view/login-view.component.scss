@@ -1,0 +1,12 @@
+.main {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 960;
+    background-color: rgba(176, 196, 222, 0.85);
+}
+
+app-wallet-connect {
+    top: 30%;
+    position: relative;
+}

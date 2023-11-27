@@ -1,0 +1,17 @@
+<div class="main">
+    <span class="buttonText">{{buttonText}}</span>
+    <div class="outer">
+        <div class="inner disengaged centered">
+            <a href="#" class="
+                        {{loading ? 'loading' : '' }}
+                        {{userConnected ? 'connected' : ''}}
+                        {{!supportedWallet ? 'disabled' : ''}}
+                    " (click)="connect(true)">
+                <span class="icon-home centered" class="
+                        {{userConnected ? 'connected' : ''}} 
+                        {{loading ? 'loading' : ''}} 
+                    "></span>
+            </a>
+        </div>
+    </div>
+</div>

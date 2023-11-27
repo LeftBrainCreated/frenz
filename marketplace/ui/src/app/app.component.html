@@ -1,4 +1,5 @@
 <div class="main">
-  <app-header-bar></app-header-bar>
+  <app-login-view [hidden]="!blockerVisible" [targetChainId]="targetChainId"></app-login-view>
+  <app-header-bar [targetChainId]="targetChainId"></app-header-bar>
   <app-babylon id="app-babylon" [isMobile]="mobileView"></app-babylon>
 </div>

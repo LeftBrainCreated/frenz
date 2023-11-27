@@ -2,3 +2,5 @@ webpage/git-bak
 docker-compose.prod.yml
 **/node_modules
 */.env**
+**/.env.*
+docker-compose.yml

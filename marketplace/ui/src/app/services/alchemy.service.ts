@@ -2,7 +2,11 @@ import { Injectable, isDevMode } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-const FRENZ_API_ROOT_URI = `http://localhost${isDevMode() ? ':8000' : ''}/api/`;
+
+//* PROD Change
+const FRENZ_API_ROOT_URI = 'http://localhost:8000/api/';
+// const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+// const FRENZ_API_ROOT_URI = isDevMode ? 'http://localhost:8000/api/' : 'http://marketplace.flowfrenznft.com/api/';
 
 @Injectable({
   providedIn: 'root'

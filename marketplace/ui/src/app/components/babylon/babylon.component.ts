@@ -70,6 +70,12 @@ export class BabylonComponent {
       this.scene.render();
     });
 
+    this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
+      if (res) {
+        this.moveCamera(-1);
+      }
+    })
+
     this.uiService.switchViewModeObs.subscribe((multiView: boolean) => {
       this.multiView = multiView;
     })

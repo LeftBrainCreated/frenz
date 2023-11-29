@@ -54,3 +54,25 @@ services:
       #     - ./certbot/conf/:/etc/letsencrypt/:rw
       #   depends_on:
       #     - nginx
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: frenz_admin
+      MONGO_INITDB_ROOT_PASSWORD: H8yJCbG2zcWwpP
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: frenz_admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: H8yJCbG2zcWwpP
+      ME_CONFIG_MONGODB_URL: mongodb://frenz_admin:H8yJCbG2zcWwpP@mongo:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: frenz_admin
+      ME_CONFIG_BASICAUTH_PASSWORD: H8yJCbG2zcWwpP

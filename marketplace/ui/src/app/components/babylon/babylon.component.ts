@@ -14,7 +14,6 @@ import "@babylonjs/core/Meshes/Builders/boxBuilder";
 import "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { UiService } from 'src/app/services/ui.service';
 
-import CollectionData from '../../../assets/data/test-data-collections.json';
 import { Collection } from 'src/app/interfaces/Collection';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 import { Asset } from 'src/app/interfaces/Asset';
@@ -40,7 +39,7 @@ export class BabylonComponent {
 
   scaledUp: boolean = false;
 
-  collectionList = CollectionData;
+  collectionList: Collection[];
   selectedCollection?: Asset[];
   selectedAsset?: Asset;
   singleViewId: number = 0;
@@ -87,11 +86,16 @@ export class BabylonComponent {
     this.alchemy.CollectionResults.subscribe((res: Asset[]) => {
       this.selectedCollection = res;
     })
+
+    this.alchemy.marketplaceCollectionsObs.subscribe((res) => {
+      this.collectionList = res;
+    })
   }
 
   ngAfterViewInit() {
     this.previewPanel = document.getElementById("skewed-up");
     this.addTempPanels(this.scene)
+    this.alchemy.getCollectionsForMarketplace();
   }
 
 

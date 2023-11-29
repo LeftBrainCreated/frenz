@@ -14,10 +14,26 @@ const FRENZ_API_ROOT_URI = 'http://localhost:8000/api/';
 export class AlchemyService {
 
   public CollectionResults = new Subject<any>();
+  public marketplaceCollectionsObs = new Subject<any>();
 
   constructor(
     private http: HttpClient
   ) { }
+
+  async getCollectionsForMarketplace(): Promise<any> {
+    return new Promise(async (res, rej) => {
+      await this.sendRequest(
+        `${FRENZ_API_ROOT_URI}collections`,
+        RequestMethod.GET
+      ).then((result) => {
+        this.marketplaceCollectionsObs.next(result);
+        res(true);
+      }).catch((ex: any) => {
+        console.log(ex);
+        rej(false);
+      })
+    })
+  }
 
   async getNFTsForCollection(contractAddress: string): Promise<boolean> {
     return new Promise(async (res, rej) => {

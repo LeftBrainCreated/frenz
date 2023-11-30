@@ -4,3 +4,4 @@ docker-compose.prod.yml
 */.env**
 **/.env.*
 docker-compose.yml
+mongo_data/*

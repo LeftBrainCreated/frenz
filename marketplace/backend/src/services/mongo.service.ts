@@ -7,7 +7,7 @@ const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PW = process.env.MONGO_PW;
 const { MongoClient } = require('mongodb');
 
-const url = `mongodb://${MONGO_USER}:${MONGO_PW}@localhost:27017/`;
+const url = `mongodb://${MONGO_USER}:${MONGO_PW}@mongo:27017/`;
 
 export async function connectToDatabase() {
     dotenv.config();

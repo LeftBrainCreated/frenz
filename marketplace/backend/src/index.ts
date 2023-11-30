@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import * as alchemy from './services/alchemy.service';
+import * as mongo from './services/mongo.service';
 
 dotenv.config();
 
@@ -41,6 +42,15 @@ app.get('/api/collection/:contractAddress/nft/:id/owner', async (req: Request, r
         res.send(ownerAddress);
     });
 });
+
+app.get('/api/collections', async (req: Request, res: Response) => {
+    mongo.connectToDatabase()
+        .then(() => {
+            mongo.getMarketplaceCollections().then((wl) => {
+                res.send(wl);
+            });
+        });
+})
 
 
 app.listen(port, () => {

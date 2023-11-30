@@ -1,33 +1,27 @@
 version: '3'
 services:
   api:
-    image: leftbraincreated/flowfrenz-express:1.1.6
+    image: leftbraincreated/flowfrenz-express:1.1.8
     build: ./marketplace/backend
     hostname: api
     environment:
       - PORT=8020
       - GOERLI_API_KEY=kvhdPMXOOmyz7VFub3ilwgT8Toqn5MU2
-      # - CORS_ORIGIN=http://localhost
-      - CORS_ORIGIN=http://marketplace.flowfrenznft.com
+      - CORS_ORIGIN=http://localhost
+      # - CORS_ORIGIN=http://marketplace.flowfrenznft.com
+      - MONGO_USER=frenz_admin
+      - MONGO_PW=H8yJCbG2zcWwpP
     ports:
       - 8020:8020
     restart: unless-stopped
 
   mp1:
-    image: leftbraincreated/flowfrenz-marketplace:1.1.11
+    image: leftbraincreated/flowfrenz-marketplace:1.1.15
     build: ./marketplace/ui
     hostname: mp1
     ports:
       - 8010:80
     restart: unless-stopped
-
-  # mp2:
-  #   image: leftbraincreated/flowfrenz-marketplace:1.1.11
-  #   build: ./marketplace/ui
-  #   hostname: mp2
-  #   ports:
-  #     - 8011:80
-  #   restart: unless-stopped
 
   nginx:
     image: leftbraincreated/flowfrenz-host:1.1.7
@@ -39,18 +33,42 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     links:
       - mp1
-      # - mp2
     ports:
       - 80:80
       - 443:443
     depends_on:
       - api
       - mp1
-      # - mp2
-      # certbot:
-      #   image: certbot/certbot:latest
-      #   volumes:
-      #     - ./certbot/www/:/var/www/certbot/:rw
-      #     - ./certbot/conf/:/etc/letsencrypt/:rw
-      #   depends_on:
-      #     - nginx
+
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   volumes:
+  #     - ./certbot/www/:/var/www/certbot/:rw
+  #     - ./certbot/conf/:/etc/letsencrypt/:rw
+  #   depends_on:
+  #     - nginx
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./mongo_data/db:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: frenz_admin
+      MONGO_INITDB_ROOT_PASSWORD: H8yJCbG2zcWwpP
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: frenz_admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: H8yJCbG2zcWwpP
+      ME_CONFIG_MONGODB_URL: mongodb://frenz_admin:H8yJCbG2zcWwpP@mongo:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: frenz_admin
+      ME_CONFIG_BASICAUTH_PASSWORD: H8yJCbG2zcWwpP

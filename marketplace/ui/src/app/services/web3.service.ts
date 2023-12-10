@@ -41,15 +41,43 @@ export abstract class Web3Service {
   public init(targetedChainId: number) {
     this.chainId = targetedChainId;
     this.connectWallet();
-    this.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
+    if (this.web3Loaded && window.ethereum) {
+      this.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
+    }
   }
 
   public async connectWallet(manual: boolean = false) {
     if (!this.web3Loaded) {
-      await this.loadWeb3();
-    }
+      await this.loadWeb3()
+        .then(async (res) => {
+          if (res === true) {
+            await window.ethereum.request({
+              method: "eth_requestAccounts",
+            }).then((res: string[]) => {
+              if (manual) {
+                this.connectToContract();
+                this.web3Connected = true;
+              } else {
+                var wa = this.getCookie('coOpSelectedWallet');
+                if (res.includes(wa)) {
+                  this.selectedAddress = wa;
+                  this.connectToContract();
+                  this.web3Connected = true;
 
-    if (this.web3Loaded) {
+                  this.onLoadConnectObs.next(wa);
+                }
+              }
+            });
+
+          }
+        }).catch((err) => {
+          if (err !== false) {
+            console.log('error loading marketplace')
+          } else {
+            console.log('no wallet in browser');
+          }
+        });
+    } else {
       await window.ethereum.request({
         method: "eth_requestAccounts",
       }).then((res: string[]) => {
@@ -69,6 +97,7 @@ export abstract class Web3Service {
       });
 
     }
+
   }
 
   private connectToContract() {
@@ -76,29 +105,31 @@ export abstract class Web3Service {
   }
 
   async loadWeb3(): Promise<boolean> {
-    this.web3Loading = true;
-    if (window.ethereum) {
-      this.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable;
-      this.web3Loaded = true;
-    } else {
-      // window.alert('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
-      this.web3Loading = false;
-      return false;
-    }
+    return new Promise(async (res, rej) => {
+      this.web3Loading = true;
+      if (window.ethereum) {
+        this.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable;
+        this.web3Loaded = true;
 
-    window.ethereum.on('accountsChanged', (accounts: any) => {
-      this.web3AccountChanged.next(accounts);
-    });
+        window.ethereum.on('accountsChanged', (accounts: any) => {
+          this.web3AccountChanged.next(accounts);
+        });
 
-    window.ethereum.on('chainChanged', (networkId: any) => {
-      if (this.chainId != networkId || (window.ethereum && window.ethereum.isTrust)) {
-        this.web3NetworkChanged.next(networkId);
+        window.ethereum.on('chainChanged', (networkId: any) => {
+          if (this.chainId != networkId || (window.ethereum && window.ethereum.isTrust)) {
+            this.web3NetworkChanged.next(networkId);
+          }
+        });
+
+        this.web3Loading = false;
+        res(true);
+      } else {
+        // window.alert('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
+        this.web3Loading = false;
+        rej(false);
       }
-    });
-
-    this.web3Loading = false;
-    return true;
+    })
   }
 
   public async callERC20(contractAddress: string, functionName: string, args: any[], gas: number = 5000000) {

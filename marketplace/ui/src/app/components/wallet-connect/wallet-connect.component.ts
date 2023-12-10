@@ -32,7 +32,7 @@ export class WalletConnectComponent {
   ngOnInit(): void {
     this.targetNetwork = GlobalConstants.NETWORKS[this.blockChainId];
     // this.web3.targetedChainId = this.blockChainId;
-    this.validChain = (window.ethereum && window.ethereum.chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.ethereum.chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined;
+    this.validChain = (window.ethereum && window.eth_chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.eth_chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined;
 
     if (!this.web3.web3Loading) {
       this.prepWeb3();
@@ -83,7 +83,7 @@ export class WalletConnectComponent {
     this.web3.loadWeb3().then((res) => {
       this.supportedWallet = res;
 
-      if (window.ethereum.chainId != this.targetNetwork.chainHex) {
+      if (window.eth_chainId != this.targetNetwork.chainHex) {
         this.web3.switchToTargetChain()
           .then((res) => {
             console.log('Switch Chain Successful');
@@ -96,7 +96,9 @@ export class WalletConnectComponent {
           ;
       }
     }).catch((ex) => {
-      console.log(ex);
+      if (ex !== false) {
+        console.log(ex);
+      }
     });
   }
 
@@ -117,6 +119,7 @@ export class WalletConnectComponent {
             this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
             this.uiService.walletAddressObs.next(this.web3.selectedAddress);
             this.uiService.changeConnectedStateObs.next(true);
+            this.uiService.enterMarketplaceObs.next(true);
 
 
           } else if (this.web3.web3Loaded) {
@@ -139,7 +142,7 @@ export class WalletConnectComponent {
     this.validChain = undefined;
 
     if (window.ethereum) {
-      if (window.ethereum.isTrust || (window.ethereum.chainId == this.targetNetwork.chainHex)) {
+      if (window.ethereum.isTrust || (window.eth_chainId == this.targetNetwork.chainHex)) {
         this.validChain = true
       } else {
         this.web3.switchToTargetChain().then((res: any) => {

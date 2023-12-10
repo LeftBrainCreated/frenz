@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.breakpoint$ = this.breakpointObserver
       .observe([Breakpoints.Large, Breakpoints.Medium, Breakpoints.Small, '(min-width: 500px)'])
       .pipe(
-        tap(value => console.log(value)),
+        // tap(value => console.log(value)),
         distinctUntilChanged()
       );
   }
@@ -34,6 +34,10 @@ export class AppComponent implements OnInit {
 
     this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
       this.blockerVisible = !res;
+    })
+
+    this.uiService.enterMarketplaceObs.subscribe(() => {
+      this.blockerVisible = false;
     })
   }
 

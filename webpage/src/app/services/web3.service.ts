@@ -4,7 +4,7 @@ import { Contract, Web3 } from 'web3';
 import FLOW_FRENZ_ABI from '../FlowFrenz.abi.json'
 import { Subject } from 'rxjs';
 
-declare let window:any;
+declare let window: any;
 
 
 const MANIFOLD_CONTRACT_PARENT_ADDRESS = '0x1EB73FEE2090fB1C20105d5Ba887e3c3bA14a17E';
@@ -36,12 +36,12 @@ export class Web3Service {
 
   selectedAddress = '';
 
-  public invalidTargetChainObs =    new Subject<boolean>();
-  public web3AccountChanged =       new Subject<any>();
-  public web3NetworkChanged =       new Subject<string>();
-  public closeMintModal =           new Subject<any>();
-  public changeConnectedStateObs =  new Subject<boolean>();
-  public initMintDialog =           new Subject<null>();
+  public invalidTargetChainObs = new Subject<boolean>();
+  public web3AccountChanged = new Subject<any>();
+  public web3NetworkChanged = new Subject<string>();
+  public closeMintModal = new Subject<any>();
+  public changeConnectedStateObs = new Subject<boolean>();
+  public initMintDialog = new Subject<null>();
 
   public NULL_ADDRESS: string = "0x0000000000000000000000000000000000000000";
 
@@ -55,30 +55,30 @@ export class Web3Service {
 
   async loadWeb3(): Promise<boolean> {
     if (window.ethereum) {
-        this.web3 = new Web3(window.ethereum);
-        await window.ethereum.enable;
-        this.web3Loaded = true;
+      this.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable;
+      this.web3Loaded = true;
     } else {
-        // window.alert('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
-        return false;
+      // window.alert('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
+      return false;
     }
 
-    window.ethereum.on('accountsChanged',  (accounts: any) => {
+    window.ethereum.on('accountsChanged', (accounts: any) => {
       this.web3AccountChanged.next(accounts);
     });
 
-    window.ethereum.on('chainChanged', (networkId: any) =>{
+    window.ethereum.on('chainChanged', (networkId: any) => {
       if (this.chainId != networkId || (window.ethereum && window.ethereum.isTrust)) {
         this.web3NetworkChanged.next(networkId);
       }
 
-      this.chainId = window.ethereum.chainId;
+      this.chainId = window.eth_chainId;
     });
-  
-    this.chainId = window.ethereum.chainId;
+
+    this.chainId = window.eth_chainId;
 
     // this.connectToContract();
-    
+
     return true;
   }
 
@@ -104,7 +104,7 @@ export class Web3Service {
 
   public async mintLicenseToken(qty: number) {
     return new Promise((resolve, rej) => {
-  
+
       var walletAddress = window.ethereum.address || window.ethereum.selectedAddress;
       var functionName = 'mint';
       var fCall = contract.methods.mint(CREATOR_CONTRACT_ADDRESS, CONTRACT_INSTANCE_ID, 0, [], walletAddress);
@@ -113,27 +113,27 @@ export class Web3Service {
         functionName = 'mintBatch'
         var merkle: string[][] = [];
         var fCall = contract.methods.mintBatch(
-          [CREATOR_CONTRACT_ADDRESS, CREATOR_CONTRACT_ADDRESS], 
-          [parseInt(CONTRACT_INSTANCE_ID), parseInt(CONTRACT_INSTANCE_ID)], 
-          [qty, qty], 
-          [new Array(), new Array()], 
-          [new Array(), new Array()], 
+          [CREATOR_CONTRACT_ADDRESS, CREATOR_CONTRACT_ADDRESS],
+          [parseInt(CONTRACT_INSTANCE_ID), parseInt(CONTRACT_INSTANCE_ID)],
+          [qty, qty],
+          [new Array(), new Array()],
+          [new Array(), new Array()],
           [walletAddress, walletAddress]
-          );
+        );
       }
 
       fCall
-        .send({ 
+        .send({
           from: walletAddress,
           value: this.web3.utils.toWei(PRICE * qty, "ether"),
           gas: (300000 * 96 / 100).toString()
         })
-        .on('transactionHash', (id: string) => { 
+        .on('transactionHash', (id: string) => {
           this.web3.closeMintModal.next();
 
           if (id) {
             console.log('success');
-              // setProgState(1);
+            // setProgState(1);
           } else {
             console.log('success');
             console.log(id)
@@ -142,13 +142,13 @@ export class Web3Service {
             success: true,
             status: 'Success!',
           });
-      })
-      .catch(function(s: any) {
-        console.log('error');
+        })
+        .catch(function (s: any) {
+          console.log('error');
 
-  
-        resolve(handleError(s));
-      });
+
+          resolve(handleError(s));
+        });
     });
   }
 

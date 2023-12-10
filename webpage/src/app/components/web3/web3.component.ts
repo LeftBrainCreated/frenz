@@ -38,7 +38,7 @@ export class Web3Component implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
 
-      this.validChain = ((window.ethereum && window.ethereum.chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.ethereum.chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined) ?? false;
+      this.validChain = ((window.ethereum && window.eth_chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.eth_chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined) ?? false;
       this.prepWeb3();
 
     }, 200)
@@ -159,7 +159,7 @@ export class Web3Component implements OnInit {
     this.validChain = false;
 
     if (window.ethereum) {
-      if (window.ethereum.isTrust || (window.ethereum.chainId == this.targetNetwork.chainHex)) {
+      if (window.ethereum.isTrust || (window.eth_chainId == this.targetNetwork.chainHex)) {
         this.validChain = true
       }
     }

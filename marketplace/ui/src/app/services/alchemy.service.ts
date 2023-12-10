@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 
 //* PROD Change
 // const FRENZ_API_ROOT_URI = 'http://localhost/api/';
-const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
-// const FRENZ_API_ROOT_URI = isDevMode ? 'http://localhost:8000/api/' : 'http://marketplace.flowfrenznft.com/api/';
+// const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+const FRENZ_API_ROOT_URI = isDevMode ? 'http://localhost:8000/api/' : 'http://marketplace.flowfrenznft.com/api/';
 
 @Injectable({
   providedIn: 'root'

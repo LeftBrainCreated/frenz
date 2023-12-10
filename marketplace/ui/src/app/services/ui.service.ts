@@ -13,6 +13,8 @@ export class UiService {
   public switchViewModeObs = new Subject<boolean>();
   public walletAddressObs = new Subject<string>();
   public changeConnectedStateObs = new Subject<boolean>();
+  public enterMarketplaceObs = new Subject<any>();
+  public backNavObs = new Subject<number>();
 
   constructor() { }
 }

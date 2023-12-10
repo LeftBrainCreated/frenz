@@ -40,7 +40,7 @@
 }
 
 .display-case {
-    height: 80%;
+    // height: 80%;
     // width: 1200px;
     // background-color: darkgray;
     z-index: 900;
@@ -52,11 +52,12 @@
 
 .centered {
     position: fixed;
-    top: 50%;
+    top: 70px;
+    bottom: 50px;
     left: 50%;
     /* bring your own prefixes */
-    transform: translate(-50%, -50%);
-    width: 85%;
+    transform: translate(-50%);
+    width: 90%;
     text-align: center;
     text-align: -webkit-center;
 }
@@ -84,8 +85,9 @@
 
 .scaledWider {
     transform: scale(1.0);
-    height: 99%;
+    height: 95%;
     overflow-y: scroll;
+    margin-top: 10px;
 }
 
 .scaledWider::-webkit-scrollbar {
@@ -126,4 +128,8 @@ app-asset-preview {
 
 app-single-card {
     margin-top: 20px;
+}
+
+app-compact-list-view {
+    width: 100%;
 }

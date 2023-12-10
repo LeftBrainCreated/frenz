@@ -48,12 +48,15 @@ export class BabylonComponent {
   previewPanel!: HTMLElement | null;
   multiView: boolean = true;
   lastPanelName: string = '';
+  splashPanel: boolean = true;
 
   frameRate: number = 70;
   scene!: Scene;
   camera!: FreeCamera;
   currentView: viewType = viewType.market;
   currentPosition: number = 1;
+
+  navPos: number = 0;
 
   constructor(
     private uiService: UiService,
@@ -69,11 +72,12 @@ export class BabylonComponent {
       this.scene.render();
     });
 
-    this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
-      if (res) {
-        this.moveCamera(-1);
-      }
-    })
+    // this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
+    //   if (this.splashPanel && res) {
+    //     this.moveCamera(-1);
+    //     this.uiService.backNavObs.next(1);
+    //   }
+    // })
 
     this.uiService.switchViewModeObs.subscribe((multiView: boolean) => {
       this.multiView = multiView;
@@ -89,6 +93,48 @@ export class BabylonComponent {
 
     this.alchemy.marketplaceCollectionsObs.subscribe((res) => {
       this.collectionList = res;
+    })
+
+    this.uiService.enterMarketplaceObs.subscribe(() => {
+      if (this.splashPanel) {
+        this.moveCamera(-1);
+        this.uiService.backNavObs.next(1);
+      }
+    })
+
+    this.uiService.backNavObs.subscribe((res: number) => {
+      if (this.navPos == 0) {
+        // coming from splash
+        this.navPos = 1;
+      } else {
+
+        this.navPos = this.navPos + res;
+
+
+        switch (this.navPos) {
+          case 0:
+          case 1:
+            this.moveCamera();
+            this.currentView = viewType.market;
+            break;
+
+          case 2:
+            if (res > 0) {
+              this.moveCamera();
+            }
+            this.currentView = viewType.collection;
+            break;
+
+          case 3:
+            this.currentView = viewType.asset;
+            break;
+
+          default:
+            this.moveCamera();
+            this.currentView = viewType.market;
+            break;
+        }
+      }
     })
   }
 
@@ -155,6 +201,7 @@ export class BabylonComponent {
       case viewType.collection:
         this.alchemy.getNFTsForCollection(asset.contractAddress);
         this.currentView = viewType.collection;
+        this.uiService.backNavObs.next(1);
 
         this.moveCamera();
         break;
@@ -162,6 +209,7 @@ export class BabylonComponent {
       case viewType.asset:
         this.selectedAsset = asset;
         this.currentView = viewType.asset;
+        this.uiService.backNavObs.next(1);
         break;
 
       case viewType.menu:
@@ -290,6 +338,8 @@ export class BabylonComponent {
     var moveFunction: BABYLON.Animation;
     if (position == -1) {
       moveFunction = this.moveToInitialPosition(pos)
+      this.splashPanel = false;
+      this.currentView = viewType.market;
     } else {
       moveFunction = this.spinCamera(pos);
     }
@@ -420,6 +470,7 @@ export class BabylonComponent {
 }
 
 enum viewType {
+  splash,
   market,
   collection,
   asset,

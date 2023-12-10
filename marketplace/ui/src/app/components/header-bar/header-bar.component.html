@@ -1,5 +1,7 @@
 <div class="main">
-    <div class="flex-3"></div>
-    <app-view-toggle></app-view-toggle>
+    <div class="flex-3" (click)="backArrow()">
+        <img *ngIf="navPage > 1" [src]="backArrowFileName">
+    </div>
+    <app-view-toggle *ngIf="!mobileView"></app-view-toggle>
     <app-wallet-connect-header [blockChainId]="targetChainId"></app-wallet-connect-header>
 </div>

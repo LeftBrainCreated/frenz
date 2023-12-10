@@ -22,7 +22,8 @@ export class MarketplaceService extends Web3Service {
     uiService: UiService
   ) {
     super(CONTRACT_ADDRESS, contract_json, uiService);
-    this.loadWeb3();
-    this.init(GOERLI_CHAIN_ID);
+    this.loadWeb3().then(() => {
+      this.init(GOERLI_CHAIN_ID);
+    });
   }
 }

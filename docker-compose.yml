@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: leftbraincreated/flowfrenz-express:1.1.8
+    image: leftbraincreated/flowfrenz-express:1.1.9
     build: ./marketplace/backend
     hostname: api
     environment:
@@ -11,12 +11,13 @@ services:
       # - CORS_ORIGIN=http://marketplace.flowfrenznft.com
       - MONGO_USER=frenz_admin
       - MONGO_PW=H8yJCbG2zcWwpP
+      - MONGO_HOST=localhost
     ports:
       - 8020:8020
     restart: unless-stopped
 
   mp1:
-    image: leftbraincreated/flowfrenz-marketplace:1.1.15
+    image: leftbraincreated/flowfrenz-marketplace:1.1.17
     build: ./marketplace/ui
     hostname: mp1
     ports:

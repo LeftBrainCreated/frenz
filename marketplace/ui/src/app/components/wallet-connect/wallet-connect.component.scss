@@ -37,7 +37,6 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 80px;
     align-items: center;
 }
 
@@ -120,63 +119,4 @@ span:is(.connected, .loading) {
 nav a.disabled {
     background-color: dimgray;
     background: dimgray;
-}
-
-button {
-    cursor: pointer;
-    position: relative;
-    padding: 1rem 7.5rem;
-    border-radius: 3.75rem;
-    line-height: .5rem;
-    font-size: 2rem;
-    font-weight: 600;
-
-    border: 1px solid #012880;
-    background-image: linear-gradient(-180deg, #ac89ff 0%, #4a70b6 100%);
-    box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.50),
-        0 -0.25rem 1.5rem rgb(15, 24, 155) inset,
-        0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
-        0 0.25rem 0.5rem 0 rgb(100, 70, 207) inset;
-}
-
-button span {
-    color: transparent;
-    background-image: linear-gradient(0deg, #4a70b6 0%, #FEFAFD 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-button::before {
-    content: "";
-    display: block;
-    height: 0.25rem;
-    position: absolute;
-    top: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 7.5rem);
-    background: #fff;
-    border-radius: 100%;
-
-    opacity: 0.7;
-    background-image: linear-gradient(-270deg, rgba(255, 255, 255, 0.00) 0%, #FFFFFF 20%, #FFFFFF 80%, rgba(255, 255, 255, 0.00) 100%);
-}
-
-button::after {
-    content: "";
-    display: block;
-    height: 0.25rem;
-    position: absolute;
-    bottom: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 7.5rem);
-    background: #fff;
-    border-radius: 100%;
-
-    filter: blur(1px);
-    opacity: 0.05;
-    background-image: linear-gradient(-270deg, rgba(255, 255, 255, 0.00) 0%, #FFFFFF 20%, #FFFFFF 80%, rgba(255, 255, 255, 0.00) 100%);
 }

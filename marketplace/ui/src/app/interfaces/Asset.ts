@@ -1,3 +1,5 @@
+import { ListedAsset } from "./marketplace-assets"
+
 export interface Asset {
     contract: {
         address: string,
@@ -35,45 +37,6 @@ export interface Asset {
         raw: string,
         format: string,
         bytes: number
-    }]
+    }],
+    listing: ListedAsset
 }
-
-
-
-
-
-//     {
-//         tokenId: string,
-//         tokenMetadata: {
-//             tokenType: string
-//         },
-//         title: string,
-//         description: string,
-//         tokenUri: {
-//             gateway: string,
-//             raw: string
-//         },
-//         media: {
-//             gateway: string,
-//             raw: string
-//         },
-//         metadata: {
-//             metadata: string,
-//             attributes: string,
-//         },
-//         timeLastUpdated: string,
-//         error: string,
-//         contractMetadata: {
-//             name: string,
-//             symbol: string,
-//             totalSupply: number,
-//             tokenType: string,
-//             contractDeployer: string
-//             deployedBlockNumber: number,
-//             openSea: {
-//                 lastInjestedAt: string
-//             }
-//         }
-
-//     }
-// }

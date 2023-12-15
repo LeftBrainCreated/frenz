@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { Asset } from '../interfaces/asset';
 
-const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+
+//* PROD Change
+// const FRENZ_API_ROOT_URI = 'http://localhost/api/';
+// const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+const FRENZ_API_ROOT_URI = isDevMode ? 'http://localhost:8000/api/' : 'http://marketplace.flowfrenznft.com/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +15,29 @@ const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
 export class AlchemyService {
 
   public CollectionResults = new Subject<any>();
+  public MarketplaceCollectionsObs = new Subject<any>();
+  public OwnedAssetsObs = new Subject<any>();
+
+  public whitelistedCollections: string[] = [];
 
   constructor(
     private http: HttpClient
   ) { }
+
+  async getCollectionsForMarketplace(): Promise<any> {
+    return new Promise(async (res, rej) => {
+      await this.sendRequest(
+        `${FRENZ_API_ROOT_URI}collections`,
+        RequestMethod.GET
+      ).then((result) => {
+        this.MarketplaceCollectionsObs.next(result);
+        res(true);
+      }).catch((ex: any) => {
+        console.log(ex);
+        rej(false);
+      })
+    })
+  }
 
   async getNFTsForCollection(contractAddress: string): Promise<boolean> {
     return new Promise(async (res, rej) => {
@@ -31,12 +55,32 @@ export class AlchemyService {
     })
   }
 
-  async getNFTMetadata(contractAddress: string, tokenId: number) {
+  async getNFTsForWallet(walletAddress: string): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      if (walletAddress !== undefined) {
+        await this.sendRequest(
+          `${FRENZ_API_ROOT_URI}wallet/${walletAddress}`,
+          RequestMethod.GET)
+          .then((result) => {
+            this.OwnedAssetsObs.next(result);
+            res(true);
+          })
+          .catch((ex: any) => {
+            console.log(ex);
+            rej(false);
+          });
+      }
+
+      res(true);
+    });
+  }
+
+  async getNFTMetadata(contractAddress: string, tokenId: number | string): Promise<Asset> {
     return new Promise(async (res, rej) => {
       await this.sendRequest(
         `${FRENZ_API_ROOT_URI}collection/${contractAddress}/nft/${tokenId}`,
         RequestMethod.GET)
-        .then((result) => {
+        .then((result: Asset) => {
           res(result);
         })
         .catch((ex: any) => {
@@ -46,12 +90,12 @@ export class AlchemyService {
     })
   }
 
-  async getOwnersForNft(contractAddress: string, tokenId: number) {
+  async getOwnersForNft(contractAddress: string, tokenId: number): Promise<string> {
     return new Promise(async (res, rej) => {
       await this.sendRequest(
         `${FRENZ_API_ROOT_URI}collection/${contractAddress}/nft/${tokenId}/owner`,
         RequestMethod.GET)
-        .then((result) => {
+        .then((result: string) => {
           res(result);
         })
         .catch((ex: any) => {

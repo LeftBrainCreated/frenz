@@ -1,17 +1,5 @@
 <div class="main">
     <div class="row">
-        <div class="contract-detail box">
-            <span class=" creator-handle">Creator: {{asset.contract.contractDeployer.substring(0, 6) + '...' +
-                asset.contract.contractDeployer.substring(38)}}</span>
-            <div class="detail-header">
-                <p class="image-Title">{{asset.title}}</p>
-                <img class="icon" src="assets/icons/share_icon.png">
-            </div>
-            <span class="creator-handle">Owner: {{owner.substring(0, 6) + '...' + owner.substring(38)}}</span>
-            <div class="traits box">
-                <app-trait *ngFor="let t of asset.rawMetadata.attributes" [trait]="t"></app-trait>
-            </div>
-        </div>
         <div class="media box">
             <div class="image-header">
                 <img class="icon" src="assets/icons/eth.png">
@@ -19,15 +7,27 @@
                 <img class="icon" src="assets/icons/export_page_icon.png">
             </div>
             <img class="full" src="{{asset.media[0].gateway}}">
-            <div class="price box">
-                <span>Current Price</span>
-                <span>{{listPrice}}</span>
-                <div class="price-button">
-                    <button id="buy">Buy Now</button>
-                    <button id="offer">Make Offer</button>
-                </div>
+            <div class="traits box">
+                <app-trait *ngFor="let t of asset.rawMetadata.attributes" [trait]="t"></app-trait>
             </div>
+        </div>
+        <div class="contract-detail box">
+            <span class="creator-handle">Creator: {{asset.contract.contractDeployer.substring(0, 6) + '...' +
+                asset.contract.contractDeployer.substring(38)}}</span>
+            <div class="detail-header">
+                <p class="image-Title">{{asset.title}}</p>
+                <!-- <img class="icon" src="assets/icons/share_icon.png"> -->
+            </div>
+            <img src="assets/images/lineArt.png">
+
+            <app-action-buttons [asset]="asset" (processing)="processing" class="price">
+            </app-action-buttons>
+
+
+            <img src="assets/images/lineArt.png">
+            <span class="creator-handle">Owner: {{owner.substring(0, 6) + '...' + owner.substring(38)}}</span>
             <app-contract-details [asset]="asset"></app-contract-details>
+            <app-about-dropdown [asset]="asset"></app-about-dropdown>
         </div>
     </div>
     <div class="row">

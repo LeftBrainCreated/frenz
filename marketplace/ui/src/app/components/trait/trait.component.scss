@@ -1,22 +1,27 @@
 .main {
 
+    text-align: left;
+    color: whitesmoke;
+    font-size: medium;
+    font-style: normal;
+    font-family: Orbitron;
+    width: 100%;
+
     span {
         padding: 10px !important;
     }
 
     min-height: 40px;
     padding-bottom: 10px;
-    background-color: darkslategray;
+    background-color: #080B2A;
+    border-radius: 20px;
+    border-bottom-right-radius: 70px;
 
     .head {
-        outline-width: thin;
-        outline-style: outset;
-        font-size: medium;
-        border-bottom: 2px;
+        font-size: xx-large;
         min-height: 30px;
         padding-top: 10px;
         margin-bottom: 10px;
-        background-color: black;
     }
 
     .trait-value {

@@ -1,48 +1,47 @@
 <div class="main">
     <canvas id="renderCanvas"></canvas>
     <div class="display-case centered">
-        <!-- ViewType: Market = 0 -->
-        <div *ngIf="currentView == 0" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
+        <!-- ViewType: Market = 1 -->
+        <div *ngIf="currentView == 1" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
             <div *ngIf="multiView && !isMobile" class="skewed-up">
                 <app-collection-preview *ngFor="let col of collectionList" [collection]="col"
-                    (click)="selectObject(1, col)" [hidden]="collectionPanelHidden"></app-collection-preview>
+                    (click)="selectObject(2, col)" [hidden]="collectionPanelHidden"></app-collection-preview>
             </div>
             <div *ngIf="!multiView && !isMobile" class="skewed-up" [hidden]="collectionPanelHidden">
                 <app-single-card [col]="collectionList[singleViewId]"
-                    (click)="selectObject(1, collectionList[singleViewId])"
+                    (click)="selectObject(2, collectionList[singleViewId])"
                     [hidden]="collectionPanelHidden"></app-single-card>
             </div>
             <div *ngIf="multiView && isMobile" class="skewed-up compact-List">
                 <app-compact-list-view *ngFor="let col of collectionList" [collection]="col"
-                    (click)="selectObject(1, col)" [hidden]="collectionPanelHidden"></app-compact-list-view>
+                    (click)="selectObject(2, col)" [hidden]="collectionPanelHidden"></app-compact-list-view>
             </div>
             <div *ngIf="!multiView && isMobile" class="skewed-up" [hidden]="collectionPanelHidden">
                 <app-collection-preview *ngFor="let col of collectionList" [collection]="col"
-                    (click)="selectObject(1, col)" [hidden]="collectionPanelHidden"></app-collection-preview>
+                    (click)="selectObject(2, col)" [hidden]="collectionPanelHidden"></app-collection-preview>
             </div>
         </div>
 
-        <!-- ViewType: Collection = 1 -->
-        <div *ngIf="currentView == 1" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
+        <!-- ViewType: Collection = 2 -->
+        <div *ngIf="currentView == 2" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
             <div class="skewed-up">
-                <app-asset-preview *ngFor="let asset of selectedCollection" (click)="selectObject(2, asset)"
-                    [asset]="asset" trackVisibility></app-asset-preview>
+                <app-asset-preview *ngFor="let asset of assets" (click)="selectObject(3, asset)" [asset]="asset"
+                    trackVisibility></app-asset-preview>
             </div>
         </div>
 
 
-        <!-- ViewType: Asset = 2 -->
-        <div *ngIf="currentView == 2" class="scale-box {{scaledUp ? 'scaledWider': ''}}">
+        <!-- ViewType: Asset = 3 -->
+        <div *ngIf="currentView == 3" class="scale-box {{scaledUp ? 'scaledWider': ''}}">
             <app-asset-detail-view [asset]="selectedAsset!"></app-asset-detail-view>
+        </div>
+
+        <!-- ViewType: Wallet-->
+        <div *ngIf="currentView == 4" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
+            <div class="skewed-up">
+                <app-asset-preview *ngFor="let asset of ownedAssets" (click)="selectObject(3, asset)" [asset]="asset"
+                    trackVisibility></app-asset-preview>
+            </div>
         </div>
     </div>
 </div>
-
-<div id="devControls">
-    <button class="dev-button" (click)="moveCamera(-1)">Enter</button>
-    <button class="dev-button" (click)="moveCamera(1)">North</button>
-    <button class="dev-button" (click)="moveCamera(2)">East</button>
-    <button class="dev-button" (click)="moveCamera(3)">South</button>
-    <button class="dev-button" (click)="moveCamera(4)">West</button>
-</div>
-<!-- <button class="dev-button"  -->

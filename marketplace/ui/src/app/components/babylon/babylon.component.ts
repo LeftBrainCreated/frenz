@@ -14,10 +14,12 @@ import "@babylonjs/core/Meshes/Builders/boxBuilder";
 import "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { UiService } from 'src/app/services/ui.service';
 
-import CollectionData from '../../../assets/data/test-data-collections.json';
-import { Collection } from 'src/app/interfaces/Collection';
+import { Breadcrumb } from 'src/app/interfaces/breadcrumb';
+import { Collection } from 'src/app/interfaces/collection';
 import { AlchemyService } from 'src/app/services/alchemy.service';
-import { Asset } from 'src/app/interfaces/Asset';
+import { Asset } from 'src/app/interfaces/asset';
+import { MarketplaceService } from 'src/app/services/marketplace.service';
+import Web3 from 'web3';
 
 const fixtureLength = 2.28;
 
@@ -40,8 +42,10 @@ export class BabylonComponent {
 
   scaledUp: boolean = false;
 
-  collectionList = CollectionData;
-  selectedCollection?: Asset[];
+  collectionList: Collection[];
+  selectedCollection?: Collection;
+  assets?: Asset[];
+  ownedAssets?: Asset[];
   selectedAsset?: Asset;
   singleViewId: number = 0;
 
@@ -49,6 +53,7 @@ export class BabylonComponent {
   previewPanel!: HTMLElement | null;
   multiView: boolean = true;
   lastPanelName: string = '';
+  splashPanel: boolean = true;
 
   frameRate: number = 70;
   scene!: Scene;
@@ -56,9 +61,12 @@ export class BabylonComponent {
   currentView: viewType = viewType.market;
   currentPosition: number = 1;
 
+  navPos: number = 0;
+
   constructor(
     private uiService: UiService,
-    private alchemy: AlchemyService
+    private alchemy: AlchemyService,
+    private mpWeb3: MarketplaceService
   ) { }
 
   ngOnInit() {
@@ -79,13 +87,81 @@ export class BabylonComponent {
     })
 
     this.alchemy.CollectionResults.subscribe((res: Asset[]) => {
-      this.selectedCollection = res;
+      this.assets = res;
+    })
+
+    this.alchemy.MarketplaceCollectionsObs.subscribe((res) => {
+      this.collectionList = res;
+      res.forEach(element => {
+        this.alchemy.whitelistedCollections.push(Web3.utils.toChecksumAddress(element['contractAddress']));
+      });
+    })
+
+    this.uiService.moveToWalletObs.subscribe((res) => {
+      this.moveCamera();
+      this.currentView = viewType.wallet;
+    })
+
+
+
+    this.alchemy.OwnedAssetsObs.subscribe((res) => {
+      this.ownedAssets = res;
+
+      this.mpWeb3.ownedAssets = [];
+      this.ownedAssets.forEach((oa) => {
+        this.mpWeb3.ownedAssets.push({ contractAddress: oa.contract.address, tokenId: oa.tokenId });
+      })
+    })
+
+    this.uiService.enterMarketplaceObs.subscribe(() => {
+      if (this.splashPanel) {
+        this.moveCamera(-1);
+      }
+    })
+
+    this.uiService.changeConnectedStateObs.subscribe((res) => {
+      this.alchemy.getNFTsForWallet(this.mpWeb3.selectedAddress);
+      this.mpWeb3.getListedAssets();
+    })
+
+    this.uiService.CaptureBreadcrumbObs.subscribe(() => {
+      this.uiService.pushToBreadcrumb({
+        viewType: this.currentView,
+        collectionAddress: this.selectedCollection?.contractAddress,
+        assetId: this.selectedAsset?.tokenId
+      })
+    })
+
+    this.uiService.BreadcrumbPopObs.subscribe((res: Breadcrumb) => {
+      // this.navPos = this.navPos + res;
+
+      this.currentView = res.viewType;
+      switch (this.currentView) {
+        case 1:
+          this.moveCamera();
+          break;
+        case 2:
+          this.alchemy.getNFTsForCollection(res.collectionAddress);
+          break;
+
+        case 3:
+          this.alchemy.getNFTMetadata(res.collectionAddress, res.assetId)
+            .then((asset) => {
+              this.selectedAsset = asset;
+            })
+          break;
+
+        case 4:
+          this.moveCamera();
+      }
+
     })
   }
 
   ngAfterViewInit() {
     this.previewPanel = document.getElementById("skewed-up");
     this.addTempPanels(this.scene)
+    this.alchemy.getCollectionsForMarketplace();
   }
 
 
@@ -137,24 +213,33 @@ export class BabylonComponent {
     return animationTarget;
   }
 
-  selectObject(view: viewType, asset: any) {
+  selectObject(view: viewType, selectedObject: any) {
+    var bc: Breadcrumb = {
+      viewType: this.currentView,
+      collectionAddress: this.selectedCollection?.contractAddress,
+      assetId: this.selectedAsset?.tokenId
+    }
+
+    this.uiService.pushToBreadcrumb(bc);
+
     switch (view) {
       case viewType.market:
         break;
 
       case viewType.collection:
-        this.alchemy.getNFTsForCollection(asset.contractAddress);
+        this.alchemy.getNFTsForCollection(selectedObject.contractAddress);
         this.currentView = viewType.collection;
+        this.selectedCollection = selectedObject
 
         this.moveCamera();
         break;
 
       case viewType.asset:
-        this.selectedAsset = asset;
+        this.selectedAsset = selectedObject;
         this.currentView = viewType.asset;
         break;
 
-      case viewType.menu:
+      case viewType.wallet:
         break;
     }
 
@@ -280,6 +365,8 @@ export class BabylonComponent {
     var moveFunction: BABYLON.Animation;
     if (position == -1) {
       moveFunction = this.moveToInitialPosition(pos)
+      this.splashPanel = false;
+      this.currentView = viewType.market;
     } else {
       moveFunction = this.spinCamera(pos);
     }
@@ -410,10 +497,11 @@ export class BabylonComponent {
 }
 
 enum viewType {
+  splash,
   market,
   collection,
   asset,
-  menu
+  wallet
 }
 
 enum viewPanels {

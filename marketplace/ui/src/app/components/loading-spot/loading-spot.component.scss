@@ -1,0 +1,33 @@
+.hypnotic {
+    width: 50px;
+    height: 100px;
+    display: grid;
+    background:
+        linear-gradient(currentColor 0 0) top/100% 2px,
+        radial-gradient(farthest-side at top, #15BFFD calc(100% - 2px), currentColor calc(100% - 1px), #0000) top,
+        linear-gradient(currentColor 0 0) bottom/100% 2px,
+        radial-gradient(farthest-side at bottom, #11566ebb calc(100% - 2px), currentColor calc(100% - 1px), #0000) bottom;
+    background-size: 100% 1px, 100% 50%;
+    background-repeat: no-repeat;
+    animation: hyp 4s infinite linear;
+    z-index: 900;
+}
+
+.hypnotic::before,
+.hypnotic::after {
+    content: "";
+    grid-area: 1/1;
+    background: inherit;
+    border: inherit;
+    animation: inherit;
+}
+
+.hypnotic::after {
+    animation-duration: 2s;
+}
+
+@keyframes hyp {
+    100% {
+        transform: rotate(1turn)
+    }
+}

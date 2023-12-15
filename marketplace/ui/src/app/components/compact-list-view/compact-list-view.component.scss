@@ -1,7 +1,67 @@
 .main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    align-items: center;
+    width: 100%;
+
     img {
-        height: 40px;
+        height: 100px;
     }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        max-height: 100px;
+        max-width: 100%;
+        width: 95%;
+
+        .asset-properties {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            width: -webkit-calc(100% - 120px);
+            width: -moz-calc(100% - 120px);
+            width: calc(100% - 120px);
+
+            span {
+                color: lightgrey;
+                font-size: medium;
+            }
+
+            span.creator-handle {
+                font-family: Orbitron;
+                font-size: small;
+                color: crimson;
+                text-align: end;
+            }
+
+            span.symbol {
+                font-weight: bold;
+                font-size: large;
+            }
+        }
+    }
+}
+
+.divider {
+    width: 80%;
+    height: 2px;
+    background-color: lightcyan;
+    margin-top: 30px;
+}
+
+.image-Title {
+    color: whitesmoke;
+    font-size: large;
+    font-style: normal;
+    font-family: Roboto;
+}
+
+.collection-title {
+    color: #08ffff;
+    font-family: Orbitron;
 }

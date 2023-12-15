@@ -1,11 +1,107 @@
 .main {
     height: 50px;
     background-color: #0D0D0D;
-    position:absolute;
-    top:0;
+    position: absolute;
+    top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 900;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.flex-3 {
+    flex: 3;
+
+    img {
+        height: 45px;
+        animation: jitter 45s infinite;
+    }
+}
+
+#backNav {
+    padding-left: 50px;
+}
+
+#backNav.mobile {
+    padding-left: 10px;
+}
+
+app-view-toggle {
+    flex: 3;
+}
+
+app-wallet-connect-header {
+    flex: 1;
+    padding-right: 10px;
+}
+
+// @keyframes jitter-x {
+//     0% {
+//         transform: translateX(0) translateY(0);
+//     }
+
+//     28% {
+//         transform: translateX(8px) translateY(2px);
+//     }
+
+//     30% {
+//         transform: translateX(0) translateY(0);
+//     }
+
+//     80% {
+//         transform: translateX(-6px) translateY(-3px) skewX(2deg);
+//     }
+
+//     81% {
+//         transform: translateX(0) translateY(0) skewX(0);
+//     }
+
+//     100% {
+//         transform: translateX(0) translateY(0);
+//     }
+// }
+
+@keyframes jitter {
+    .02% {
+        transform: translate(-2px, -3px) scale(1.01, 1.01);
+    }
+
+    .04% {
+        transform: translate(3px, 2px) scale(.99, .99);
+    }
+
+    .06% {
+        transform: translate(-4px, -5px) scale(1.01, 1.01);
+    }
+
+    .08% {
+        transform: translate(2px, 3px) scale(1, 1);
+    }
+
+    .1% {
+        transform: translate(-1px, -2px) scale(.98, .98);
+    }
+
+    .12% {
+        transform: translate(0px, 3px) scale(1.02, 1.02);
+    }
+
+    .14% {
+        transform: translate(-2px, -4px) scale(1, 1);
+    }
+
+    .16% {
+        transform: translate(3px, 5px) scale(.99, .99);
+    }
+
+    .18% {
+        transform: translate(-5px, -3px) scale(1.1, 1.1);
+    }
+
+    .2% {
+        transform: translate(3px, 1px) scale(.95, .95);
+    }
 }

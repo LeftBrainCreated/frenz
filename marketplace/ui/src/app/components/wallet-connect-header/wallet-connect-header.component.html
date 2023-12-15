@@ -1,0 +1,20 @@
+<div class="main">
+    <!-- <div id="wallet-id"> -->
+    <span class="buttonText">{{buttonText}}</span>
+    <!-- <small *ngIf="userConnected" (click)="openWalletSelection()">change</small> -->
+    <!-- </div> -->
+    <div class="outer">
+        <div class="inner disengaged centered">
+            <a href="#" class="
+                        {{loading ? 'loading' : '' }}
+                        {{userConnected ? 'connected' : ''}}
+                        {{!supportedWallet ? 'disabled' : ''}}
+                    " (click)="connect(true, true)">
+                <span class="icon-home centered" class="
+                        {{userConnected ? 'connected' : ''}} 
+                        {{loading ? 'loading' : ''}} 
+                    "></span>
+            </a>
+        </div>
+    </div>
+</div>

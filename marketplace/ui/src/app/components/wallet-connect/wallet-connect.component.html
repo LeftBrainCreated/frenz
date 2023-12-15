@@ -1,0 +1,17 @@
+<nav>
+    <ul class="nav">
+        <li class="menu-item">
+            <a href="#" class="
+                {{loading ? 'loading' : '' }}
+                {{userConnected ? 'connected' : ''}}
+                {{!supportedWallet ? 'disabled' : ''}}
+            " (click)="connect(true)">
+                <span class="icon-home" class="
+                        {{userConnected ? 'connected' : ''}} 
+                        {{loading ? 'loading' : ''}} 
+                    "></span>
+            </a>
+            <span>{{buttonText}}</span>
+        </li>
+    </ul>
+</nav>

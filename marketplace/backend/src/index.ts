@@ -24,8 +24,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/api/collection/:contractAddress', async (req: Request, res: Response) => {
-    await alchemy.getNftsForCollection(req.params.contractAddress).then((nfts) => {
-        res.send(nfts);
+    await alchemy.getNftsForCollection(req.params.contractAddress).then((collection) => {
+        res.send(collection);
     });
     console.log('done');
 });
@@ -50,6 +50,12 @@ app.get('/api/collections', async (req: Request, res: Response) => {
                 res.send(wl);
             });
         });
+})
+
+app.get('/api/wallet/:walletAddress', async (req: Request, res: Response) => {
+    alchemy.getNftsForWallet(req.params.walletAddress).then((collection) => {
+        res.send(collection['ownedNfts']);
+    })
 })
 
 

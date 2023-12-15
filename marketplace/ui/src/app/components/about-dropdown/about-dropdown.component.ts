@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Asset } from 'src/app/interfaces/Asset';
+import { Asset } from 'src/app/interfaces/asset';
 
 @Component({
   selector: 'app-about-dropdown',

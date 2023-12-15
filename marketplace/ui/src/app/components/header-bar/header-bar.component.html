@@ -1,6 +1,6 @@
 <div class="main">
-    <div class="flex-3" (click)="backArrow()">
-        <img *ngIf="navPage > 1" [src]="backArrowFileName">
+    <div class="flex-3" id="backNav" [ngClass]="mobileView ? 'mobile' : ''" (click)="backArrow()">
+        <img *ngIf="bcTrail.length > 0" [src]="backArrowFileName"> <small>Go Back</small>
     </div>
     <app-view-toggle *ngIf="!mobileView"></app-view-toggle>
     <app-wallet-connect-header [blockChainId]="targetChainId"></app-wallet-connect-header>

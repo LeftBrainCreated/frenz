@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Collection } from 'src/app/interfaces/Collection';
+import { Collection } from 'src/app/interfaces/collection';
 
 @Component({
   selector: 'app-collection-preview',

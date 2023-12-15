@@ -17,7 +17,10 @@ export class TrackVisibilityDirective implements OnInit, OnDestroy {
   @Output()
   visibile = new EventEmitter<boolean>();
 
-  constructor(private el: ElementRef<HTMLElement>, private ngZone: NgZone) {}
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {

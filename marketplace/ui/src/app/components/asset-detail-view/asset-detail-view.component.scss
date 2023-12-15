@@ -21,16 +21,18 @@ img.icon {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 3vw;
+    gap: 2vw;
 }
 
 .contract-detail {
-    flex: 45%;
+    flex: 1;
+    flex-shrink: .5;
+    width: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    // justify-content: left;
-    text-align: left;
+    // justify-content: center;
+    text-align: center;
     flex-wrap: nowrap;
     // padding: 15px;
 
@@ -39,6 +41,7 @@ img.icon {
     }
 
     .image-Title {
+        text-align: center;
         color: whitesmoke;
         font-size: xx-large;
         font-style: normal;
@@ -55,7 +58,7 @@ img.icon {
         font-size: small;
         color: crimson;
         font-weight: bold;
-        // text-align: end;
+        text-align: left;
     }
 }
 
@@ -92,27 +95,22 @@ img.icon {
     }
 }
 
-app-trait {
+app-trait,
+app-contract-details,
+app-about-dropdown {
     outline-width: thin;
     outline-style: inset;
-    width: min-content;
-    min-width: 120px;
-    max-width: 45%;
+    width: 100%;
+    position: relative;
     border-radius: 10px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    text-align: center;
-
-    font-size: larger;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
-    flex-grow: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%);
+    background-color: #080B2A;
 }
 
 .traits {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     gap: 20px;
 }
@@ -133,7 +131,8 @@ img.full {
 
 
 .media {
-    flex: 40%;
+    flex: 1;
+    min-width: 350px;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -158,3 +157,12 @@ img.full {
     flex-direction: row;
     justify-content: space-between;
 }
+
+// app-action-buttons.price {
+//     flex: 3;
+//     outline: none;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     gap: 5px px;
+// }

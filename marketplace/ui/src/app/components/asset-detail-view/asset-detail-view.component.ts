@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Asset } from 'src/app/interfaces/Asset';
+import { Asset } from 'src/app/interfaces/asset';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class AssetDetailViewComponent implements OnInit {
 
   owner: string = '';
   listPrice: string = '0.00';
+  processing: boolean = false;
 
   constructor(
     private alchemy: AlchemyService

@@ -16,7 +16,7 @@ export class IpfsService {
   async getIpfs(ipfsAddress: string): Promise<boolean> {
     return new Promise(async (res, rej) => {
       await this.sendRequest(
-        ipfsAddress,
+        'https://ipfs.flowfrenznft.com/ipfs/' + ipfsAddress,
         RequestMethod.GET)
         .then((result) => {
           this.IpfsResult.next({

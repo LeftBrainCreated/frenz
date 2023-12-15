@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, AfterContentInit } from '@angular/core';
 import { time } from 'console';
+import { Breadcrumb } from 'src/app/interfaces/breadcrumb';
 import { UiService } from 'src/app/services/ui.service';
 
 var timeout: number = 30000;
@@ -15,19 +16,21 @@ export class HeaderBarComponent implements OnInit, AfterContentInit {
 
   backArrowFileName = "assets/icons/1.png";
   navPage = 0;
+  bcTrail: Breadcrumb[] = [];
 
   constructor(
     private ui: UiService
   ) { }
 
   ngOnInit(): void {
-    this.ui.backNavObs.subscribe((page) => {
-      this.navPage = this.navPage + page;
-    })
+    this.ui.BreadcrumbPushObs.subscribe((bcTrail: Breadcrumb[]) => {
+      this.bcTrail = bcTrail;
+    });
   }
 
   public backArrow() {
-    this.ui.backNavObs.next(-1);
+    this.ui.popBreadcrumb();
+    // this.bcTrail.pop();
   }
 
   ngAfterContentInit(): void {

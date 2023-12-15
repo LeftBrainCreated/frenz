@@ -1,11 +1,12 @@
 .main {
     padding: 5%;
-    padding-bottom: 1%;
     display: flex;
     flex-direction: column;
-    max-width: 200px;
+    max-width: 300px;
     // border: 2px;
     border-radius: 20px;
+    height: 100%;
+    position: relative;
 
     // border-color: #15bffd;
     outline: groove;
@@ -31,16 +32,123 @@
         color: crimson;
         text-align: end;
     }
+
+    :hover {
+        cursor: pointer;
+    }
+}
+
+loading-spot {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 25px);
+}
+
+.price-button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+
+    button {
+        width: 100%;
+        margin: 4px;
+        padding: 20px;
+        border-radius: 60px;
+        cursor: pointer;
+    }
+
+    #buy {
+        background-color: #15BFFD;
+        color: black;
+    }
+
+    #offer {
+        background-color: transparent;
+        color: white;
+    }
+
+    #list {
+        background-color: white;
+        color: #15BFFD;
+    }
+
+    #cancel {
+        background-color: white;
+        color: red;
+    }
+
+    #disallowed {
+        background-color: rgba(128, 128, 128, 0.356);
+        color: white
+    }
+
+    :disabled {
+        cursor: not-allowed;
+        filter: grayscale(20%);
+    }
 }
 
 .card-main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: space-around;
-    max-width: 200px;
-}
+    justify-content: space-spa;
+    height: 100%;
+    // max-width: 250px;
 
-.main:hover {
-    cursor: pointer;
+    img#asset {
+        flex: 5;
+    }
+
+    img {
+        flex: 2;
+    }
+
+    span.collection-title {
+        flex: 1;
+    }
+
+    p.image-Title {
+        flex: 1;
+    }
+
+    app-action-buttons.price,
+    div.price {
+        flex: 3;
+        outline: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 5px px;
+
+        span {
+            margin-left: 5px;
+            color: white;
+        }
+
+        div {
+            flex: 1;
+        }
+
+        div img {
+            width: 25px;
+        }
+
+        div span#price {
+            font-size: xx-large;
+            color: #15BFFD;
+        }
+
+        div.disallowed {
+            flex: 2;
+
+            button#disallowed {
+                border-radius: 5px;
+                cursor: not-allowed;
+            }
+        }
+    }
 }

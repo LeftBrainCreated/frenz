@@ -1,0 +1,35 @@
+<div class="card-main">
+    <div *ngIf="whitelisted" class="price">
+
+        <span *ngIf="listedAsset"><small>Current Price</small></span>
+        <div *ngIf="listedAsset" class="list-price">
+            <img src="assets/icons/eth.png">
+            <span *ngIf="listedAsset" id="price">{{asset?.listing?.price}}</span>
+        </div>
+        <div *ngIf="!listedAsset"></div>
+
+        <!-- Owned and Listed -->
+        <div *ngIf="listedAsset && ownedAsset" class="price-button">
+            <button id="cancel" (click)="cancelListing($event)" [disabled]="processing">Cancel Listing</button>
+        </div>
+
+        <!-- Not Owned and Is Listed -->
+        <div *ngIf="listedAsset && !ownedAsset" class="price-button">
+            <button id="buy" (click)="buyItem($event)" [disabled]="processing">Buy Now</button>
+            <!-- <button id="offer">Make Offer</button> -->
+        </div>
+
+        <!-- Owned and Not Listed -->
+        <div *ngIf="!listedAsset && ownedAsset" class="price-button">
+            <button id="list" (click)="listAsset($event)" [disabled]="processing">List Item</button>
+        </div>
+
+        <!-- Not Owned, Not Listed -->
+        <!-- nothing to see here -->
+    </div>
+    <div *ngIf="!whitelisted" class="price">
+        <div class="price-button disallowed">
+            <button id="disallowed" [disabled]="true">Not whitelisted</button>
+        </div>
+    </div>
+</div>

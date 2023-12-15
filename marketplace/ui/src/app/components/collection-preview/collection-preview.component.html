@@ -1,9 +1,12 @@
 <div class="main">
     <div class="card-main">
-        <img src="https://bronze-royal-tiglon-325.mypinata.cloud/ipfs/{{collection.ipfs}}">
+        <img src="https://ipfs.flowfrenznft.com/ipfs/{{collection.ipfs}}">
         <!-- <img src="{{collection.collectionDefaultImage}}"> -->
         <span class="collection-title">{{collection.collectionName}}</span>
-        <p class="image-Title">StonkSock #31</p>
+        <div class="image-Title">
+            <span>{{collection.symbol}}</span>
+            <span class="qty">Qty: {{collection.totalSupply}}</span>
+        </div>
         <span class="creator-handle">{{collection.creatorName}}</span>
     </div>
 </div>

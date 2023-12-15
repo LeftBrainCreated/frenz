@@ -48,3 +48,15 @@ export const getOwnersForNft = async (contractAddress: string, assetId: number):
             });
     })
 }
+
+export const getNftsForWallet = async (walletAddress: string): Promise<any> => {
+    return new Promise(async (res, rej) => {
+        await alchemy.nft.getNftsForOwner(walletAddress)
+            .then((result: any) => {
+                res(result);
+            })
+            .catch((ex: any) => {
+                rej(ex);
+            })
+    })
+}

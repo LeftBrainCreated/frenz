@@ -22,6 +22,8 @@ import { ContractDetailsComponent } from './components/contract-details/contract
 import { WalletConnectComponent } from './components/wallet-connect/wallet-connect.component';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import { WalletConnectHeaderComponent } from './components/wallet-connect-header/wallet-connect-header.component';
+import { LoadingSpotComponent } from './components/loading-spot/loading-spot.component';
+import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 
 
 
@@ -44,6 +46,8 @@ import { WalletConnectHeaderComponent } from './components/wallet-connect-header
     WalletConnectComponent,
     LoginViewComponent,
     WalletConnectHeaderComponent,
+    LoadingSpotComponent,
+    ActionButtonsComponent,
   ],
   imports: [
     BrowserModule,

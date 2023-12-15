@@ -1,5 +1,5 @@
 import { Component, Input, AfterContentInit } from '@angular/core';
-import { Collection } from 'src/app/interfaces/Collection';
+import { Collection } from 'src/app/interfaces/collection';
 
 @Component({
   selector: 'app-compact-list-view',
@@ -9,7 +9,7 @@ import { Collection } from 'src/app/interfaces/Collection';
 export class CompactListViewComponent implements AfterContentInit {
   @Input() collection!: Collection;
   imageUri = '';
-  ipfsGateway = 'https://bronze-royal-tiglon-325.mypinata.cloud/ipfs/';
+  ipfsGateway = 'https://ipfs.flowfrenznft.com/ipfs/';
 
   ngAfterContentInit(): void {
     if (this.collection.collectionDefaultImage.indexOf('/ipfs/') > -1) {

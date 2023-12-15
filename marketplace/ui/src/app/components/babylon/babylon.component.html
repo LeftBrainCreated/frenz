@@ -25,8 +25,8 @@
         <!-- ViewType: Collection = 2 -->
         <div *ngIf="currentView == 2" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
             <div class="skewed-up">
-                <app-asset-preview *ngFor="let asset of selectedCollection" (click)="selectObject(3, asset)"
-                    [asset]="asset" trackVisibility></app-asset-preview>
+                <app-asset-preview *ngFor="let asset of assets" (click)="selectObject(3, asset)" [asset]="asset"
+                    trackVisibility></app-asset-preview>
             </div>
         </div>
 
@@ -35,14 +35,13 @@
         <div *ngIf="currentView == 3" class="scale-box {{scaledUp ? 'scaledWider': ''}}">
             <app-asset-detail-view [asset]="selectedAsset!"></app-asset-detail-view>
         </div>
+
+        <!-- ViewType: Wallet-->
+        <div *ngIf="currentView == 4" class="scale-box {{scaledUp ? 'scaledUp' : ''}}">
+            <div class="skewed-up">
+                <app-asset-preview *ngFor="let asset of ownedAssets" (click)="selectObject(3, asset)" [asset]="asset"
+                    trackVisibility></app-asset-preview>
+            </div>
+        </div>
     </div>
 </div>
-
-<!-- <div id="devControls">
-    <button class="dev-button" (click)="moveCamera(-1)">Enter</button>
-    <button class="dev-button" (click)="moveCamera(1)">North</button>
-    <button class="dev-button" (click)="moveCamera(2)">East</button>
-    <button class="dev-button" (click)="moveCamera(3)">South</button>
-    <button class="dev-button" (click)="moveCamera(4)">West</button>
-</div> -->
-<!-- <button class="dev-button"  -->

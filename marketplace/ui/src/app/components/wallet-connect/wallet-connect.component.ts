@@ -50,13 +50,13 @@ export class WalletConnectComponent {
       // this.openChainDialog(res);
     });
 
-    this.web3.web3AccountChanged.subscribe((_res) => {
-      this.recoonect();
-    })
+    // this.web3.web3AccountChanged.subscribe((_res) => {
+    //   this.recoonect();
+    // })
 
-    this.web3.web3NetworkChanged.subscribe((_res) => {
-      this.recoonect();
-    })
+    // this.web3.web3NetworkChanged.subscribe((_res) => {
+    //   this.recoonect();
+    // })
 
     this.web3.onLoadConnectObs.subscribe((res) => {
       this.connect(true);
@@ -66,18 +66,18 @@ export class WalletConnectComponent {
     })
   }
 
-  private recoonect() {
-    var load = this.web3.web3Loaded;
-    var connect = this.web3.web3Connected;
+  // private recoonect() {
+  //   var load = this.web3.web3Loaded;
+  //   var connect = this.web3.web3Connected;
 
-    if (load) {
-      this.prepWeb3();
+  //   if (load) {
+  //     this.prepWeb3();
 
-      if (connect) {
-        this.connect(true);
-      }
-    }
-  }
+  //     if (connect) {
+  //       this.connect(true);
+  //     }
+  //   }
+  // }
 
   private prepWeb3() {
     this.web3.loadWeb3().then((res) => {
@@ -111,7 +111,10 @@ export class WalletConnectComponent {
 
     if (w3Connect && this.chainValidated() === true) {
       if (window.ethereum !== undefined) {
-        this.web3.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
+
+        if (this.web3.selectedAddress == undefined) {
+          await this.web3.setSelectedAddress();
+        }
         // this.uiService.adminWalletObs.next(this.adminWalletAddress.includes(this.web3.selectedAddress.toLowerCase()));
 
         new Promise((_res, _rej) => {

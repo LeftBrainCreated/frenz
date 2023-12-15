@@ -1,0 +1,49 @@
+.main {
+    width: 100%;
+
+    div.dropdown {
+        width: 100%;
+        background-color: #080B2A;
+        color: whitesmoke;
+
+        p {
+            text-align: center;
+        }
+    }
+
+    text-align: left;
+    color: whitesmoke;
+    font-size: medium;
+    font-style: normal;
+    font-family: Orbitron;
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.body {
+    height: 150px;
+    transition-property: height;
+    transition-duration: 200ms;
+    margin: 20px;
+}
+
+
+
+.hidden {
+    height: 0;
+    contain: paint;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+// .outer-box {
+//     border-top: 1px;
+//     border-bottom: 1px;
+//     border-style: solid;
+//     // border-color: #a5a5a5b2;
+// }

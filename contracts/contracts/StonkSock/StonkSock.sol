@@ -1,6 +1,6 @@
 // Contract based on [https://docs.openzeppelin.com/contracts/3.x/erc721](https://docs.openzeppelin.com/contracts/3.x/erc721)
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity 0.8.22;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -9,7 +9,12 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 
-contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorage {
+contract StonkSock is
+    ERC721Enumerable,
+    Ownable,
+    ERC721Pausable,
+    ERC721URIStorage
+{
     using Counters for Counters.Counter;
     using SafeMath for uint256;
 
@@ -23,7 +28,8 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
     uint256 public constant PRESALE_PRICE = 0.03 ether;
     uint256 public constant MAX_PER_WALLET = 20;
     uint256 public constant MAX_MINT_PRESALE = 5;
-    address public constant devAddress = 0x28CC536e3C340c4D3a9BA751a3FB970D1867F4a4;
+    address public constant devAddress =
+        0x28CC536e3C340c4D3a9BA751a3FB970D1867F4a4;
 
     string public baseTokenURI;
 
@@ -32,22 +38,28 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
 
     event CreateNft(uint256 indexed id);
 
-    constructor() ERC721("StonkSock", "SOCK") {
+    constructor() ERC721("StonkSock", "SOCK") Ownable() {
         setBaseURI("ipfs://");
         presaleLive = false;
         saleLive = false;
     }
 
-    function setPresaleAddress(address[] calldata addresses) external onlyOwner {
+    function setPresaleAddress(
+        address[] calldata addresses
+    ) external onlyOwner {
         for (uint256 i = 0; i < addresses.length; i++) {
             require(addresses[i] != address(0), "Invalid Wallet Address");
 
             _presaleList[addresses[i]] = true;
-            _presaleListClaimed[addresses[i]] > 0 ? _presaleListClaimed[addresses[i]] : 0;
+            _presaleListClaimed[addresses[i]] > 0
+                ? _presaleListClaimed[addresses[i]]
+                : 0;
         }
     }
 
-    function invalidatePresale(address[] calldata addresses) external onlyOwner {
+    function invalidatePresale(
+        address[] calldata addresses
+    ) external onlyOwner {
         for (uint256 i = 0; i < addresses.length; i++) {
             require(addresses[i] != address(0), "Invalid Wallet Address");
 
@@ -55,7 +67,7 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         }
     }
 
-    modifier presaleIsLive {
+    modifier presaleIsLive() {
         require(_totalSupply() < MINT_LIMIT, "Presale ended");
 
         if (_msgSender() != owner()) {
@@ -65,7 +77,7 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         _;
     }
 
-    modifier saleIsLive {
+    modifier saleIsLive() {
         require(_totalSupply() < MINT_LIMIT, "Sale ended");
 
         if (_msgSender() != owner()) {
@@ -83,7 +95,11 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         return _totalSupply();
     }
 
-    function mintReserve(address _to, uint256 startId, string[] memory URIs) public onlyOwner {
+    function mintReserve(
+        address _to,
+        uint256 startId,
+        string[] memory URIs
+    ) public onlyOwner {
         uint _count = URIs.length;
 
         require(_totalSupply() + _count < MINT_LIMIT, "Max limit");
@@ -95,12 +111,16 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         }
     }
 
-    function presaleMint(address _to, uint256 startId, string[] memory URIs) public payable presaleIsLive returns (uint256[] memory ids)  {
+    function presaleMint(
+        address _to,
+        uint256 startId,
+        string[] memory URIs
+    ) public payable presaleIsLive returns (uint256[] memory ids) {
         uint _count = URIs.length;
 
         require(presaleLive == true, "Sale is not Active");
-        require(_presaleList[_to], 'Address Not Whitelisted for Presale');
-        require(balanceOf(_to) + _count <= MAX_MINT_PRESALE, 'Max 5 Presale');
+        require(_presaleList[_to], "Address Not Whitelisted for Presale");
+        require(balanceOf(_to) + _count <= MAX_MINT_PRESALE, "Max 5 Presale");
         require(_totalSupply() + _count < PRESAL_LIMIT, "Presale Max Limit");
         require(msg.value >= price(_count), "Insufficient Funds For Mint");
 
@@ -115,11 +135,21 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         return ids;
     }
 
-    function mint(address _to, uint startId, string[] memory URIs) public payable saleIsLive returns (uint256[] memory ids) {
+    function mint(
+        address _to,
+        uint startId,
+        string[] memory URIs
+    ) public payable saleIsLive returns (uint256[] memory ids) {
         uint _count = URIs.length;
 
-        require(_totalSupply() + _count < MINT_LIMIT, "Not enough Tokens remaining for this Request");
-        require(_count + balanceOf(_to) <= MAX_PER_WALLET, "Exceeds Max Number");
+        require(
+            _totalSupply() + _count < MINT_LIMIT,
+            "Not enough Tokens remaining for this Request"
+        );
+        require(
+            _count + balanceOf(_to) <= MAX_PER_WALLET,
+            "Exceeds Max Number"
+        );
         require(msg.value >= price(_count), "Insufficient Funds For Mint");
 
         for (uint256 i = 0; i < _count; i++) {
@@ -131,7 +161,10 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         return ids;
     }
 
-    function _mintAnElement(address _to, string memory metadataURI) private returns (uint256) {
+    function _mintAnElement(
+        address _to,
+        string memory metadataURI
+    ) private returns (uint256) {
         _tokenIds.increment();
 
         uint256 id = _tokenIds.current();
@@ -139,7 +172,7 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
         _setTokenURI(id, metadataURI);
 
         uint returnValue = id;
-        
+
         emit CreateNft(id);
         return returnValue;
     }
@@ -147,9 +180,9 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
     function price(uint256 _count) public view returns (uint256) {
         if (presaleLive) {
             if (saleLive == false) {
-            return PRESALE_PRICE.mul(_count);
+                return PRESALE_PRICE.mul(_count);
             }
-        } 
+        }
 
         return PRICE.mul(_count);
     }
@@ -182,23 +215,66 @@ contract StonkSock is ERC721Enumerable, Ownable, ERC721Pausable, ERC721URIStorag
     }
 
     function _widthdraw(address _address, uint256 _amount) private {
-        (bool success,) = _address.call{value : _amount}("");
+        (bool success, ) = _address.call{value: _amount}("");
         require(success, "Transfer failed.");
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override(ERC721, ERC721Enumerable, ERC721Pausable) {
-        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
-    }
-
-    function _burn(uint tokenId) internal virtual override (ERC721, ERC721URIStorage) {
-        super._burn(tokenId);
-    }
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, ERC721Enumerable, ERC721URIStorage) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    )
+        public
+        view
+        virtual
+        override(ERC721, ERC721Enumerable, ERC721URIStorage)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
+    function tokenURI(
+        uint256 tokenId
+    )
+        public
+        view
+        virtual
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
         return super.tokenURI(tokenId);
+    }
+
+    // function _increaseBalance(
+    //     address account,
+    //     uint128 value
+    // ) internal virtual override(ERC721, ERC721Enumerable) {
+    //     return super._increaseBalance(account, value);
+    // }
+
+    // function _update(
+    //     address to,
+    //     uint256 tokenId,
+    //     address auth
+    // )
+    //     internal
+    //     virtual
+    //     override(ERC721, ERC721Pausable, ERC721Enumerable)
+    //     returns (address)
+    // {
+    //     return super._update(to, tokenId, auth);
+    // }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint firstTokenId,
+        uint batchSize
+    ) internal virtual override(ERC721, ERC721Enumerable, ERC721Pausable) {
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
+    }
+
+    function _burn(
+        uint256 tokenId
+    ) internal virtual override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
     }
 }

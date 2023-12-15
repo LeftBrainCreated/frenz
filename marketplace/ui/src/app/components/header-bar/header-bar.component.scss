@@ -21,6 +21,14 @@ div.flex-3 {
     }
 }
 
+#backNav {
+    padding-left: 50px;
+}
+
+#backNav.mobile {
+    padding-left: 10px;
+}
+
 app-view-toggle {
     flex: 3;
 }

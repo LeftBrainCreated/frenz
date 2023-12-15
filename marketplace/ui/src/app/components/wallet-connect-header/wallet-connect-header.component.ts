@@ -3,6 +3,8 @@ import { UiService } from 'src/app/services/ui.service';
 import { Web3Service } from 'src/app/services/web3.service';
 import { GlobalConstants } from 'src/app/app.component';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
+import { AlchemyService } from 'src/app/services/alchemy.service';
+import Web3 from 'web3';
 
 declare let window: any;
 
@@ -27,6 +29,7 @@ export class WalletConnectHeaderComponent {
   constructor(
     private uiService: UiService
     , private web3: MarketplaceService
+    , private alchemy: AlchemyService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +59,7 @@ export class WalletConnectHeaderComponent {
 
     this.web3.web3AccountChanged.subscribe((_res) => {
       this.recoonect();
+
     })
 
     this.web3.web3NetworkChanged.subscribe((_res) => {
@@ -70,15 +74,18 @@ export class WalletConnectHeaderComponent {
     })
   }
 
-  private recoonect() {
+  private async recoonect() {
     var load = this.web3.web3Loaded;
     var connect = this.web3.web3Connected;
+    this.web3.selectedAddress = undefined;
 
     if (load) {
       this.prepWeb3();
 
       if (connect) {
-        this.connect(true);
+        await this.connect(true);
+        await this.alchemy.getNFTsForWallet(this.web3.selectedAddress);
+        this.web3.UiChangesObs.next();
       }
     }
   }
@@ -106,38 +113,74 @@ export class WalletConnectHeaderComponent {
     });
   }
 
-  async connect(w3Connect: boolean = false) {
-    this.uiService.loadingObs.next(true);
-    if (w3Connect && !this.web3.web3Connected) {
-      this.buttonText = "Checking...";
-      await this.web3.connectWallet(true);
-    }
+  async openWalletSelection() {
 
-    if (w3Connect && this.chainValidated() === true) {
-      if (window.ethereum !== undefined) {
-        this.web3.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
-        // this.uiService.adminWalletObs.next(this.adminWalletAddress.includes(this.web3.selectedAddress.toLowerCase()));
+    this.web3.disconnectWallet(true);
 
-        new Promise((_res, _rej) => {
-          if (this.web3.web3Connected) {
-            this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
-            this.uiService.walletAddressObs.next(this.web3.selectedAddress);
-            this.uiService.changeConnectedStateObs.next(true);
+    // await window.ethereum.request({
+    //   method: "disconnectWallet"
+    // }).then(async function () {
+    //   await window.ethereum.request({
+    //     method: "requestAccounts",
+    //   }).then((res) => {
+    //     console.log(res);
+    //     // if (res.length == 0) {
+    //     //   this.selectedAddress = window.ethereum.address;
+    //     // } else {
+    //     //   this.selectedAddress = res[0];
+    //     // }
+    //   })
+    // })
 
+    // // this.web3.web3.givenProvider
+    // //   .requestAccounts().then(console.log)
 
-          } else if (this.web3.web3Loaded) {
-            this.buttonText = "Authenticate";
-          } else {
-            this.buttonText = "Connect";
-          }
-          this.uiService.loadingObs.next(false);
-        }).catch((_err) => {
-          console.log('Connect Error');
-          this.uiService.loadingObs.next(false);
-        });
-      }
+  }
+
+  async connect(w3Connect: boolean = false, navigation = false) {
+    if (this.userConnected && navigation) {
+      // navigate to wallet view
+      this.uiService.CaptureBreadcrumbObs.next(null);
+      this.uiService.moveToWalletObs.next(null);
     } else {
-      this.uiService.loadingObs.next(false);
+      this.uiService.loadingObs.next(true);
+      if (w3Connect && !this.web3.web3Connected) {
+        this.buttonText = "Checking...";
+        await this.web3.connectWallet(true);
+      }
+
+      if (w3Connect && this.chainValidated() === true) {
+        if (window.ethereum !== undefined) {
+          if (this.web3.selectedAddress == undefined) {
+            await this.web3.setSelectedAddress();
+          }
+          if (this.web3.ownedAssets.length == 0) {
+            this.alchemy.getNFTsForWallet(this.web3.selectedAddress);
+          }
+          // this.web3.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
+          // this.uiService.adminWalletObs.next(this.adminWalletAddress.includes(this.web3.selectedAddress.toLowerCase()));
+
+          new Promise((_res, _rej) => {
+            if (this.web3.web3Connected) {
+              this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
+              this.uiService.walletAddressObs.next(this.web3.selectedAddress);
+              this.uiService.changeConnectedStateObs.next(true);
+
+
+            } else if (this.web3.web3Loaded) {
+              this.buttonText = "Authenticate";
+            } else {
+              this.buttonText = "Connect";
+            }
+            this.uiService.loadingObs.next(false);
+          }).catch((_err) => {
+            console.log('Connect Error');
+            this.uiService.loadingObs.next(false);
+          });
+        }
+      } else {
+        this.uiService.loadingObs.next(false);
+      }
     }
   }
 

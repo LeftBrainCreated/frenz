@@ -18,7 +18,7 @@ export abstract class Web3Service {
 
   private contractAddress: string;
   private contractAbi: string;
-  private web3: any;
+  public web3: any;
   private chainId: number;
 
   public contract: any;
@@ -38,13 +38,17 @@ export abstract class Web3Service {
     this.contractAbi = contractAbi;
   }
 
-  public init(targetedChainId: number) {
+  public async init(targetedChainId: number) {
     this.chainId = targetedChainId;
     this.connectWallet();
     if (this.web3Loaded && window.ethereum) {
-      this.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
+      this.setSelectedAddress();
     }
   }
+
+  // public async disconnectWallet(): Promise<void> {
+  //   await window.web3.eth.currentProvider.disconnect();
+  // }
 
   public async connectWallet(manual: boolean = false) {
     if (!this.web3Loaded) {
@@ -58,7 +62,7 @@ export abstract class Web3Service {
                 this.connectToContract();
                 this.web3Connected = true;
               } else {
-                var wa = this.getCookie('coOpSelectedWallet');
+                var wa = this.getCookie('frenzSelectedWallet');
                 if (res.includes(wa)) {
                   this.selectedAddress = wa;
                   this.connectToContract();
@@ -85,7 +89,7 @@ export abstract class Web3Service {
           this.connectToContract();
           this.web3Connected = true;
         } else {
-          var wa = this.getCookie('coOpSelectedWallet');
+          var wa = this.getCookie('frenzSelectedWallet');
           if (res.includes(wa)) {
             this.selectedAddress = wa;
             this.connectToContract();
@@ -98,6 +102,33 @@ export abstract class Web3Service {
 
     }
 
+  }
+
+  public async disconnectWallet(recoonect: boolean = false) {
+    await window.ethereum.request({
+      method: "wallet_revokePermissions",
+      params: [
+        {
+          "eth_accounts": {}
+        }
+      ]
+    }).then(() => {
+      if (recoonect) {
+        this.setSelectedAddress();
+      }
+    });
+  }
+
+  public async setSelectedAddress() {
+    await window.ethereum.request({
+      method: "eth_accounts",
+    }).then((res) => {
+      if (res.length == 0) {
+        this.selectedAddress = window.ethereum.address;
+      } else {
+        this.selectedAddress = res[0];
+      }
+    })
   }
 
   private connectToContract() {
@@ -154,13 +185,12 @@ export abstract class Web3Service {
     return this.web3.eth.getBalance(contractAddress);
   }
 
-  public async callToContract(functionName: string, args: any = [], gas: number = 500000) {
+  public async callToContract(functionName: string, args: any = [], contract = this.contract): Promise<any> {
     return new Promise((res, rej) => {
 
-      this.contract.methods[functionName](args)
+      contract.methods[functionName](...args)
         .call({
-          from: this.selectedAddress,
-          gas: gas
+          from: this.selectedAddress
         })
         .then((result: string) => {
           res(result);
@@ -171,23 +201,22 @@ export abstract class Web3Service {
     });
   }
 
-  public async sendToContract(functionName: string, value: string = '0', args: any = null, gas: number = 500000) {
-    return new Promise((res, rej) => {
+  public async sendToContract(functionName: string, value: string = '0', args: any = null, contract = this.contract): Promise<any> {
+    return new Promise(async (res, rej) => {
 
       var call: any;
       var chain = GlobalConstants.NETWORKS[this.chainId];
       this.uiService.loadingObs.next(true);
 
       if (args == null) {
-        call = this.contract.methods[functionName]();
+        call = contract.methods[functionName]();
       } else {
-        call = this.contract.methods[functionName](args);
+        call = contract.methods[functionName](...args);
       }
 
       call.send({
         from: this.selectedAddress,
-        value: value,
-        gas: gas
+        value: value
       })
         .on('transactionHash', (id: string) => {
           if (id) {

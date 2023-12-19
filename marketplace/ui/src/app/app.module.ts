@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MaterialModule } from './material.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BabylonComponent } from './components/babylon/babylon.component';
@@ -24,6 +26,9 @@ import { LoginViewComponent } from './components/login-view/login-view.component
 import { WalletConnectHeaderComponent } from './components/wallet-connect-header/wallet-connect-header.component';
 import { LoadingSpotComponent } from './components/loading-spot/loading-spot.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
+import { ModalPriceSetComponent } from './components/modal-price-set/modal-price-set.component';
+import { ModalMintAssetComponent } from './components/modal-mint-asset/modal-mint-asset.component';
+
 
 
 
@@ -48,11 +53,14 @@ import { ActionButtonsComponent } from './components/action-buttons/action-butto
     WalletConnectHeaderComponent,
     LoadingSpotComponent,
     ActionButtonsComponent,
+    ModalPriceSetComponent,
+    ModalMintAssetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers: [BreakpointObserver],
   bootstrap: [AppComponent]

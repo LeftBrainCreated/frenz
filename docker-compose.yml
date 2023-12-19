@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: leftbraincreated/flowfrenz-express:1.1.9
+    image: leftbraincreated/flowfrenz-express:1.1.10
     build: ./marketplace/backend
     hostname: api
     environment:
@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   mp1:
-    image: leftbraincreated/flowfrenz-marketplace:1.1.17
+    image: leftbraincreated/flowfrenz-marketplace:1.1.21
     build: ./marketplace/ui
     hostname: mp1
     ports:

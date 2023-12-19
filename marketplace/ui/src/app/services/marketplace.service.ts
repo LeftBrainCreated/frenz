@@ -26,6 +26,7 @@ export class MarketplaceService extends Web3Service {
 
   public ListingObs = new Subject<ListedAsset>();
   public UiChangesObs = new Subject<void>();
+  public listPriceSet = new Subject<any>();
 
   constructor(
     uiService: UiService

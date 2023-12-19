@@ -1,0 +1,65 @@
+.main {
+    position: relative;
+    top: -190px;
+    z-index: 1950;
+    width: 100%;
+    color: whitesmoke;
+    border-radius: 20px;
+    outline: groove;
+    outline-color: darkblue;
+    outline-width: 1;
+    background-color: rgba(0, 0, 139, .3);
+    padding: 5px;
+
+    div.modal-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-bottom: 20px;
+
+        div.modal-header-button {
+            button.modal-header-btn {
+                padding: 5px;
+            }
+        }
+    }
+
+    div.modal {
+
+        #priceline {
+            padding-left: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+
+            input {
+                flex: 2;
+                font-size: xx-large;
+                background-color: transparent;
+                border: none;
+                border-bottom: outset;
+                width: 100%;
+                font-family: monospace;
+                color: whitesmoke;
+            }
+
+            span {
+                font-size: large;
+                flex: 1;
+            }
+
+        }
+    }
+
+    button {
+        width: 100%;
+        max-width: 500px;
+        margin: 4px;
+        padding: 20px;
+        border-radius: 60px;
+        cursor: pointer;
+        background-color: white;
+        color: #15BFFD;
+    }
+}

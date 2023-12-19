@@ -5,9 +5,11 @@ import { ListedAsset, OwnedAsset } from 'src/app/interfaces/marketplace-assets';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
 import Web3 from 'web3';
+import { ModalPriceSetComponent } from '../modal-price-set/modal-price-set.component';
 
 var _asset: Asset;
 var _mp: MarketplaceService;
+
 
 @Component({
   selector: 'app-action-buttons',
@@ -18,6 +20,8 @@ export class ActionButtonsComponent implements OnInit {
   ownedAsset: boolean = false;
   listedAsset: boolean = false;
   whitelisted: boolean = false;
+  priceModalVisible: boolean = false;
+  listPrice: string;
 
   @Input() asset: Asset;
   @Output() processingChange = new EventEmitter();
@@ -42,6 +46,12 @@ export class ActionButtonsComponent implements OnInit {
     this.mpWeb3.UiChangesObs.subscribe(() => {
       this.updateUi();
     })
+
+    this.mpWeb3.listPriceSet.subscribe((args: any) => {
+      if (args.id == this.asset.tokenId) {
+        this.listAssetCallback(args.listPrice);
+      }
+    })
   }
 
   private async updateUi() {
@@ -56,18 +66,25 @@ export class ActionButtonsComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  public async listAsset(e: Event) {
+  public async listAssetCallback(listPrice: string) {
     this.processing = true;
-    e.stopPropagation();
-    await this.mpWeb3.listNft(this.asset.contract.address, this.asset.tokenId, .0002)
-      .then(() => {
-        this.mpWeb3.getListing(this.asset.contract.address, this.asset.tokenId);
-        this.mpWeb3.getListedAssets();
-        this.processing = false;
-      }).catch((ex) => {
-        console.log(ex);
-        this.processing = false;
-      });
+    if (listPrice == '' || listPrice == undefined) {
+      console.log('invalid list price');
+      this.processing = false;
+    } else {
+      // e.stopPropagation();
+      await this.mpWeb3.listNft(this.asset.contract.address, this.asset.tokenId, parseInt(listPrice))
+        .then(() => {
+          this.mpWeb3.getListing(this.asset.contract.address, this.asset.tokenId);
+          this.mpWeb3.getListedAssets();
+          this.processing = false;
+          this.closePriceModal(undefined);
+        }).catch((ex) => {
+          console.log(ex);
+          this.processing = false;
+          this.closePriceModal(undefined);
+        });
+    }
   }
 
   public async updateListing(e: Event) {
@@ -112,6 +129,20 @@ export class ActionButtonsComponent implements OnInit {
         console.log(ex);
         this.processing = false;
       });
+  }
+
+  public openPriceModal(e: Event) {
+    e.stopPropagation();
+    this.priceModalVisible = true;
+    // const dialogRef = this.dialog.open(ModalPriceSetComponent, {
+    //   // data: { landId: landId, walletConnected: this.walletConnected },
+    //   panelClass: 'price-set-modal',
+    // });
+  }
+
+  public closePriceModal(e: Event) {
+    e.stopPropagation();
+    this.priceModalVisible = false;
   }
 
   private isOwnedAsset(oa: OwnedAsset) {

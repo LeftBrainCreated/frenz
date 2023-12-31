@@ -1,0 +1,141 @@
+.main {
+    position: absolute;
+    height: 85%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: hsla(0, 0%, 4%, 0.678);
+    z-index: 500;
+    padding-top: 100px;
+    overflow: hidden;
+}
+
+// div.box {
+//     outline: groove;
+//     outline-color: #08ffff;
+//     outline-width: thick;
+//     border-radius: 75px;
+// }
+
+div.form-container {
+    width: 60%;
+    height: auto;
+    background-color: #00008b96;
+    z-index: 600;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    color: whitesmoke;
+    font-size: xx-large;
+    font-family: monospace;
+    overflow-y: auto;
+
+    div.form-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    h1 {
+        font-family: Kanit;
+        font-weight: 600;
+        color: #fff;
+        font-size: 76px;
+        margin-top: 0;
+
+        span {
+            color: #15bffd;
+        }
+    }
+
+    div.form-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 45px;
+        padding-left: 100px;
+        padding-right: 100px;
+
+        div.asset-input-container {
+            display: flex;
+            flex-direction: row;
+
+            .asset-input-values {
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .asset-media-input {
+                flex: 2;
+            }
+        }
+
+        div.trait-container {
+            flex-grow: 100%;
+            display: flex;
+            flex-direction: row;
+            outline: groove;
+            outline-width: thin;
+            outline-color: whitesmoke;
+
+
+            .trait-input {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .trait-entry {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                justify-content: left;
+
+                padding: 40px;
+                padding-bottom: 0px;
+            }
+
+            .trait-add-button {
+                padding: 75px;
+                align-self: center;
+                cursor: pointer;
+
+                div {
+                    padding: 10px;
+                    outline: groove;
+                    outline-width: medium;
+                    outline-color: whitesmoke;
+                    border-radius: 25px;
+                }
+            }
+
+            .added-traits {
+                display: flex;
+                flex-direction: row;
+                padding: 40px;
+                gap: 50px;
+                flex-wrap: wrap;
+
+                .trait {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+
+                    div.clear-button {
+                        height: fit-content;
+                        border-radius: 25px;
+                        background-color: whitesmoke;
+                        color: red;
+                        padding: 3px;
+                    }
+                }
+            }
+        }
+
+        div.mdc-radio {
+            padding-right: 10px;
+        }
+    }
+}

@@ -1,1 +1,81 @@
-<p>modal-mint-asset works!</p>
+<div class="main">
+    <div class="form-container box">
+        <div class="form-header">
+            <h1>FlowFrenz<span>NFT</span></h1>
+            <h2>New Asset</h2>
+        </div>
+        <div class="form-main">
+            <div class="asset-input-container">
+                <div class="asset-input-values">
+                    <mat-form-field>
+                        <mat-label>Asset name</mat-label>
+                        <input matInput placeholder="(.2)" [(ngModel)]="assetName">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Asset Description</mat-label>
+                        <textarea matInput placeholder="Description" [(ngModel)]="assetDescription"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Asset URL</mat-label>
+                        <input matInput placeholder="ipfs://my.ipfs.com" [(ngModel)]="assetUrl">
+                    </mat-form-field>
+                </div>
+                <div class="asset-media-input">
+                    <!-- <mat-label>Media</mat-label>
+                    File Dialog -->
+                </div>
+            </div>
+            <div>
+                Traits
+                <div class="trait-container">
+                    <div class="trait-input">
+                        <div class="trait-entry">
+                            <mat-label>Name</mat-label>
+                            <mat-form-field>
+                                <div class="trait-input">
+                                    <input matInput (keypress)="checkSubmit($event)" placeholder="(trait-name)"
+                                        [(ngModel)]="pendingTraitName">
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="trait-entry">
+                            <mat-label>Value</mat-label>
+                            <mat-form-field>
+                                <div class="trait-input">
+                                    <input matInput (keypress)="checkSubmit($event)" placeholder="(trait-value)"
+                                        [(ngModel)]="pendingTraitValue">
+                                </div>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="trait-add-button">
+                        <div (click)="addTrait()" class="add-trait">+</div>
+                        <span>Add</span>
+                    </div>
+                    <div class="added-traits">
+                        <div *ngFor="let t of traits" class="trait">
+                            <div (click)="removeTrait(t.trait_type)" class="clear-button">X</div>
+                            <app-trait [trait]="t"></app-trait>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="radio-collection">
+                <mat-radio-group aria-label="New Collection Or Existing" [(ngModel)]="collectionRadioValue">
+                    <mat-radio-button value="1">New Collection</mat-radio-button>
+                    <mat-radio-button value="2">Existing Collection</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div *ngIf="collectionRadioValue == 1">
+                <input matInput placeholder="My NFT Collection" [(ngModel)]="collectionName">
+                <textarea matInput placeholder="Description" [(ngModel)]="collectionDescription"></textarea>
+            </div>
+            <div *ngIf="collectionRadioValue == 2">
+            </div>
+        </div>
+    </div>
+</div>

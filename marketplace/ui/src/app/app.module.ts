@@ -28,6 +28,8 @@ import { LoadingSpotComponent } from './components/loading-spot/loading-spot.com
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { ModalPriceSetComponent } from './components/modal-price-set/modal-price-set.component';
 import { ModalMintAssetComponent } from './components/modal-mint-asset/modal-mint-asset.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -58,9 +60,11 @@ import { ModalMintAssetComponent } from './components/modal-mint-asset/modal-min
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [BreakpointObserver],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 <div class="main">
   <app-login-view [hidden]="!blockerVisible" [targetChainId]="targetChainId" [mobileView]="mobileView"></app-login-view>
   <app-header-bar [targetChainId]="targetChainId" [mobileView]="mobileView"></app-header-bar>
+  <app-modal-mint-asset></app-modal-mint-asset>
   <app-babylon id="app-babylon" [isMobile]="mobileView"></app-babylon>
 </div>

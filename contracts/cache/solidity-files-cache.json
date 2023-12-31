@@ -428,8 +428,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator.sol": {
-      "lastModificationDate": 1700684740860,
-      "contentHash": "da9827a8a3601c1af962f0f467c780d5",
+      "lastModificationDate": 1703989156728,
+      "contentHash": "ccc2ae0732ad07f30e76a53389c5f07b",
       "sourceName": "contracts/contract-factory/ERC721Creator.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -472,8 +472,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\core\\Core.sol": {
-      "lastModificationDate": 1699295536734,
-      "contentHash": "6b303b5d0ddc8f1dc1f388dd8112d3e5",
+      "lastModificationDate": 1703979403392,
+      "contentHash": "f49b3ff5ce5cd8d1939b290c0da69656",
       "sourceName": "contracts/contract-factory/core/Core.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -515,8 +515,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\token\\ERC721\\ERC721Core.sol": {
-      "lastModificationDate": 1699295536737,
-      "contentHash": "24eb42c12d00068dd10fc9e7e03072a7",
+      "lastModificationDate": 1703988844062,
+      "contentHash": "7cfd4b39729b0609af3be82740608a16",
       "sourceName": "contracts/contract-factory/token/ERC721/ERC721Core.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -941,8 +941,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\MP.sol": {
-      "lastModificationDate": 1702484366190,
-      "contentHash": "660464b0a297142dcae0e6fadb55fa9a",
+      "lastModificationDate": 1703888715644,
+      "contentHash": "59e7fc515b1065ae9fc2e54c3a1b43aa",
       "sourceName": "contracts/ff-mp/MP.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -984,8 +984,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\functionality\\TransactionsMgr.sol": {
-      "lastModificationDate": 1702484366126,
-      "contentHash": "e80ade40e16c775280fb9be1fd9cfcb9",
+      "lastModificationDate": 1702589345866,
+      "contentHash": "fa5719adf793d4f54d0309ca555f1987",
       "sourceName": "contracts/ff-mp/functionality/TransactionsMgr.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -1104,8 +1104,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\AdminControl.sol": {
-      "lastModificationDate": 1699379425218,
-      "contentHash": "6ad9033dc5e78eae44e2af4684dce132",
+      "lastModificationDate": 1702589345731,
+      "contentHash": "cb8f4f4e11f52f7500b5b5ea05176cfb",
       "sourceName": "contracts/ff-mp/deps/AdminControl.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -1136,6 +1136,7 @@
         "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
         "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "./IAdminControl.sol"
       ],
       "versionPragmas": [
@@ -1772,6 +1773,43 @@
       ],
       "artifacts": [
         "IERC721Enumerable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
+      "lastModificationDate": 1700684684801,
+      "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
       ]
     }
   }

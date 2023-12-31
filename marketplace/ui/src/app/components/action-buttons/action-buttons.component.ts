@@ -1,11 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TrackVisibilityDirective } from 'src/app/directives/track-visibility.directive';
 import { Asset } from 'src/app/interfaces/asset';
 import { ListedAsset, OwnedAsset } from 'src/app/interfaces/marketplace-assets';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
 import Web3 from 'web3';
-import { ModalPriceSetComponent } from '../modal-price-set/modal-price-set.component';
 
 var _asset: Asset;
 var _mp: MarketplaceService;
@@ -17,15 +15,15 @@ var _mp: MarketplaceService;
   styleUrls: ['./action-buttons.component.scss']
 })
 export class ActionButtonsComponent implements OnInit {
+  @Input() asset: Asset;
+  @Output() processingChange = new EventEmitter<boolean>();
+  private _processing: boolean = false;
+
   ownedAsset: boolean = false;
   listedAsset: boolean = false;
   whitelisted: boolean = false;
   priceModalVisible: boolean = false;
   listPrice: string;
-
-  @Input() asset: Asset;
-  @Output() processingChange = new EventEmitter();
-  processing: boolean = false
 
   constructor(
     private mpWeb3: MarketplaceService,
@@ -49,9 +47,19 @@ export class ActionButtonsComponent implements OnInit {
 
     this.mpWeb3.listPriceSet.subscribe((args: any) => {
       if (args.id == this.asset.tokenId) {
-        this.listAssetCallback(args.listPrice);
+        this.listAsset(args.listPrice);
       }
     })
+  }
+
+  get processing(): boolean {
+    return this._processing;
+  }
+
+  @Input()
+  set processing(value: boolean) {
+    this._processing = value;
+    this.processingChange.emit(value);
   }
 
   private async updateUi() {
@@ -66,14 +74,14 @@ export class ActionButtonsComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  public async listAssetCallback(listPrice: string) {
+  public async listAsset(listPrice: string) {
     this.processing = true;
     if (listPrice == '' || listPrice == undefined) {
       console.log('invalid list price');
       this.processing = false;
     } else {
       // e.stopPropagation();
-      await this.mpWeb3.listNft(this.asset.contract.address, this.asset.tokenId, parseInt(listPrice))
+      await this.mpWeb3.listNft(this.asset.contract.address, this.asset.tokenId, parseFloat(listPrice))
         .then(() => {
           this.mpWeb3.getListing(this.asset.contract.address, this.asset.tokenId);
           this.mpWeb3.getListedAssets();
@@ -104,10 +112,13 @@ export class ActionButtonsComponent implements OnInit {
     this.processing = true;
     e.stopPropagation();
     await this.mpWeb3.cancelListing(this.asset.contract.address, this.asset.tokenId)
-      .then(() => {
-        this.listedAsset = false;
-        this.mpWeb3.getListedAssets();
-        this.processing = false;
+      .then(async () => {
+        // this.listedAsset = false;
+        await this.mpWeb3.getListedAssets()
+          .then(() => {
+            this.updateUi();
+            this.processing = false;
+          });
       }).catch((ex) => {
         console.log(ex);
         this.processing = false;
@@ -124,16 +135,18 @@ export class ActionButtonsComponent implements OnInit {
         this.listedAsset = false;
         this.mpWeb3.getListedAssets();
         this.alchemy.getNFTsForWallet(this.mpWeb3.selectedAddress);
-        this.processing = false;
+        this.closePriceModal(undefined);
       }).catch((ex) => {
         console.log(ex);
-        this.processing = false;
+        this.closePriceModal(undefined);
       });
   }
 
   public openPriceModal(e: Event) {
     e.stopPropagation();
+    this.processing = true;
     this.priceModalVisible = true;
+    this.cdr.detectChanges();
     // const dialogRef = this.dialog.open(ModalPriceSetComponent, {
     //   // data: { landId: landId, walletConnected: this.walletConnected },
     //   panelClass: 'price-set-modal',
@@ -141,8 +154,11 @@ export class ActionButtonsComponent implements OnInit {
   }
 
   public closePriceModal(e: Event) {
-    e.stopPropagation();
+    if (e !== undefined) {
+      e.stopPropagation();
+    }
     this.priceModalVisible = false;
+    this.processing = false;
   }
 
   private isOwnedAsset(oa: OwnedAsset) {

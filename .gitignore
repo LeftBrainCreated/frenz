@@ -7,3 +7,6 @@ docker-compose.yml
 mongo_data/*
 .deps/*
 contracts/artifacts/**
+contracts/artifacts/contracts/contract-factory/**.dbg.json
+.deps/*
+contracts/cache

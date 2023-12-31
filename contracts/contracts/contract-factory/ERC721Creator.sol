@@ -5,6 +5,26 @@
  * @dev: leftbrain
  */
 
+// *************************************************************************/
+// 88                  ,dPPYba,  88
+// 88                88P'    '8  88
+// 88                88          88
+// 88  ,adPPYYba, ,adPPPPP88  dPPPPP88
+// 88  88P    `Y8    8Y          88
+// 88  PPdPPPPP88    88          88
+// 88  88,           88          88
+// 8Y  `"8bbdP"Y^    8Y          8Y
+//
+// 88                                88
+// 88                                ""
+// 88
+// 88,dPPYba,  8b,dPPYba, ,adPPYYba, 88 8b,dPPYba,
+// 88P'    "8a 88P'   "8a 88P'   `Y8 88 88P'   `"8a
+// 88       d8 88         ,adPPPPP88 88 88       88
+// 88b,   ,a8" 88         88,    ,88 88 88       88
+// 8Y"Ybbd8"'  88         `"8bbdP"Y8 88 88       88
+// *************************************************************************/
+
 pragma solidity ^0.8.17;
 
 import {AdminControl} from "./admin-controls/AdminControl.sol";
@@ -54,14 +74,30 @@ contract ERC721Creator is Initializable, AdminControl, ERC721Upgradeable, Core {
         _tokenURIs[tokenId] = uri;
     }
 
+    function mintToken(
+        address to,
+        string calldata uri,
+        address payable[] calldata receivers,
+        uint256[] calldata basisPoints
+    ) external returns (uint) {
+        uint newTokenId = _tokenCount + 1;
+        _tokenURIs[newTokenId] = uri;
+        _safeMint(to, newTokenId);
+
+        setRoyalties(newTokenId, receivers, basisPoints);
+
+        return newTokenId;
+    }
+
     /**
      * @dev See {ICreatorCore-setRoyalties}.
      */
     function setRoyalties(
         address payable[] calldata receivers,
         uint256[] calldata basisPoints
-    ) external view override adminRequired {
-        require(true == false, "Not Implemented");
+    ) external override adminRequired {
+        _setDefaultRoyaltyBps(basisPoints);
+        _setDefaultRoyaltyReceivers(receivers);
     }
 
     /**
@@ -71,7 +107,7 @@ contract ERC721Creator is Initializable, AdminControl, ERC721Upgradeable, Core {
         uint256 tokenId,
         address payable[] calldata receivers,
         uint256[] calldata basisPoints
-    ) external override adminRequired {
+    ) public override adminRequired {
         require(_exists(tokenId), "Nonexistent token");
         _setRoyalties(tokenId, receivers, basisPoints);
     }
@@ -155,4 +191,13 @@ contract ERC721Creator is Initializable, AdminControl, ERC721Upgradeable, Core {
         require(_exists(tokenId), "Nonexistent token");
         return _tokenURI(tokenId);
     }
+
+    // function getApproveTransfer()
+    //     external
+    //     view
+    //     override(Core)
+    //     returns (address)
+    // {
+    //     super._getApproveTransfer;
+    // }
 }

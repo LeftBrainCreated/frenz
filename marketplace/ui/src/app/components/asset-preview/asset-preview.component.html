@@ -6,7 +6,7 @@
         <p class="image-Title">{{asset.title}}</p>
         <img src="assets/images/lineArt.png">
 
-        <app-action-buttons [asset]="asset" (processing)="processing" class="price">
+        <app-action-buttons [asset]="asset" [(processing)]="processing" class="price">
         </app-action-buttons>
 
         <span class="creator-handle">{{asset.contract.contractDeployer.substring(0, 8) +

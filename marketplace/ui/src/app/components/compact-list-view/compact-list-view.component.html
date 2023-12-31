@@ -1,9 +1,10 @@
 <div class="main">
     <span class="collection-title">{{collection.collectionName}}</span>
     <div class="content">
-        <img src="{{imageUri}}">
+        <img src="https://ipfs.flowfrenznft.com/ipfs/{{collection.ipfs}}">
         <div class="asset-properties">
             <span class="symbol">{{collection.symbol}}</span>
+            <span class="qty">Qty: {{collection.totalSupply}}</span>
             <span class="creator-handle">{{collection.creatorName}}</span>
         </div>
     </div>

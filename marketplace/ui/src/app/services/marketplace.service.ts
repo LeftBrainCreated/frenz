@@ -41,6 +41,7 @@ export class MarketplaceService extends Web3Service {
     return new Promise(async (res, rej) => {
       await this.callToContract("fetchListedMarketItems")
         .then((result) => {
+          this.listedAssets = [];
           // this.ListedAssetObs.next(result);
           result.forEach((r: any) => {
             this.listedAssets.push(this.convertListingToListedAsset(r));

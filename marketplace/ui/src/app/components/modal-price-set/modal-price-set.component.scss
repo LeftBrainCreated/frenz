@@ -1,4 +1,5 @@
 .main {
+    padding: 40px;
     position: relative;
     top: -190px;
     z-index: 1950;
@@ -8,7 +9,7 @@
     outline: groove;
     outline-color: darkblue;
     outline-width: 1;
-    background-color: rgba(0, 0, 139, .3);
+    background-color: rgba(0, 0, 139, 0.8);
     padding: 5px;
 
     div.modal-header {

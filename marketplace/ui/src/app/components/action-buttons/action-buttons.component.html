@@ -35,5 +35,6 @@
     <div class="modal-cover" (click)="closePriceModal($event)"
         [style]="priceModalVisible ? 'display: flex' : 'display: none'">
     </div>
-    <modal-price-set [assetId]="asset.tokenId" hidden="{{priceModalVisible ? '' : 'hidden'}}"></modal-price-set>
+    <modal-price-set [(processing)]="processing" [(modalVisibility)]="priceModalVisible" [assetId]="asset.tokenId"
+        hidden="{{priceModalVisible ? '' : 'hidden'}}"></modal-price-set>
 </div>

@@ -16,9 +16,6 @@ abstract contract Core is ICore, ERC165 {
     using AddressUpgradeable for address;
 
     address internal _approveTransferBase;
-    uint256[] internal _defaultRoyalty;
-    address payable[] internal _defaultReceivers;
-
     // Royalty configurations
     struct RoyaltyConfig {
         address payable receiver;
@@ -108,16 +105,6 @@ abstract contract Core is ICore, ERC165 {
         }
     }
 
-    function _setDefaultRoyaltyBps(uint[] calldata defaultBps) internal {
-        _defaultRoyalty = defaultBps;
-    }
-
-    function _setDefaultRoyaltyReceivers(
-        address payable[] calldata defaultAddresses
-    ) internal {
-        _defaultReceivers = defaultAddresses;
-    }
-
     function _getRoyaltyReceivers(
         uint256 tokenId
     ) internal view returns (address payable[] memory recievers) {
@@ -158,6 +145,19 @@ abstract contract Core is ICore, ERC165 {
         uint256[] calldata basisPoints
     ) internal {
         _checkRoyalties(receivers, basisPoints);
+        delete _tokenRoyalty[tokenId];
+        _setRoyalties(receivers, basisPoints, _tokenRoyalty[tokenId]);
+        emit RoyaltiesUpdated(tokenId, receivers, basisPoints);
+    }
+
+    /**
+     * Set royalties for a token
+     */
+    function _setRoyaltiesInternal(
+        uint256 tokenId,
+        address payable[] memory receivers,
+        uint256[] memory basisPoints
+    ) internal {
         delete _tokenRoyalty[tokenId];
         _setRoyalties(receivers, basisPoints, _tokenRoyalty[tokenId]);
         emit RoyaltiesUpdated(tokenId, receivers, basisPoints);

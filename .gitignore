@@ -10,3 +10,7 @@ contracts/artifacts/**
 contracts/artifacts/contracts/contract-factory/**.dbg.json
 .deps/*
 contracts/cache
+contracts/contracts/contract-factory/core/artifacts/**.json
+contracts/contracts/contract-factory/artifacts/**.json
+contracts/contracts/contract-factory/artifacts/
+contracts/contracts/contract-factory/core/artifacts/

@@ -7,8 +7,8 @@ import {EnumerableSetUpgradeable} from "@openzeppelin/contracts-upgradeable/util
 import {Core} from "./CoreValues.sol";
 
 abstract contract CollectionManager is OwnableUpgradeable, Core {
-    function init(address owner) internal {
-        __Ownable_init(owner);
+    function init() internal {
+        __Ownable_init();
     }
 
     // function tokenMint(address to, uint tokenId) internal {

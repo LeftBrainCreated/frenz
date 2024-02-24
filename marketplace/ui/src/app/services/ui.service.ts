@@ -19,6 +19,7 @@ export class UiService {
   public BreadcrumbPopObs = new Subject<Breadcrumb>();
   public CaptureBreadcrumbObs = new Subject<any>();
   public moveToWalletObs = new Subject<any>();
+  public UiChangesObs = new Subject<void>();
 
   public breadcrumbTrail: Breadcrumb[] = [];
 
@@ -38,5 +39,9 @@ export class UiService {
 
   public clearBreadcrumb(): void {
     this.breadcrumbTrail = [];
+  }
+
+  loadingBar(isLoading: boolean) {
+    this.loadingObs.next(isLoading);
   }
 }

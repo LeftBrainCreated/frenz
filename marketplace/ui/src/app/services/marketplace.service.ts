@@ -5,10 +5,12 @@ import { OwnedAsset } from '../interfaces/marketplace-assets';
 import { ListedAsset } from '../interfaces/marketplace-assets';
 import ERC721Abi from '../contract-abi/GenericERC721.json';
 import { Subject } from 'rxjs';
-import Web3 from 'web3';
+// import Web3 from 'web3';
+import { ContractService } from './contract.service';
+import { Erc721Service } from './erc721.service';
 
 const contract_json = require("../contract-abi/marketplace.json");
-const MP_CONTRACT_ADDRESS = '0x79a9614BC43852a3DB76402a4F8e83797fE0f238';
+const MP_CONTRACT_ADDRESS = '0x07a70FEA55F85D6e77A1c7bD16c02B0F5a8748E6';
 const SHIB_CONTRACT_ADDRESS = '0x495eea66b0f8b636d441dc6a98d8f5c3d455c4c0';
 const BONE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000001010';
 const LOCALHOST_CHAIN_ID = 0;
@@ -19,21 +21,24 @@ const GOERLI_CHAIN_ID = 3;
 @Injectable({
   providedIn: 'root'
 })
-export class MarketplaceService extends Web3Service {
+export class MarketplaceService extends ContractService {
   targetedChainId: number;
   ownedAssets: OwnedAsset[] = [];
   listedAssets: ListedAsset[] = [];
 
   public ListingObs = new Subject<ListedAsset>();
-  public UiChangesObs = new Subject<void>();
   public listPriceSet = new Subject<any>();
+  // private web3: Web3;
 
   constructor(
-    uiService: UiService
+    uiService: UiService,
+    web3Service: Web3Service
   ) {
-    super(MP_CONTRACT_ADDRESS, contract_json, uiService);
-    this.loadWeb3().then(() => {
-      this.init(GOERLI_CHAIN_ID);
+    super(uiService);
+    // this.mpContract = new Erc721Service(uiService);
+    web3Service.loadWeb3().then(() => {
+      web3Service.init(SHIBARIUM_CHAIN_ID);
+      this.initializeContract(MP_CONTRACT_ADDRESS, contract_json);
     });
   }
 
@@ -151,7 +156,7 @@ export class MarketplaceService extends Web3Service {
       listingId: listing['listing']['listingId'],
       contractAddress: listing['contractAddress'],
       active: listing['active'],
-      price: Number(Web3.utils.fromWei(listing['listing']['price'], "ether")),
+      price: Number(this.web3.utils.fromWei(listing['listing']['price'], "ether")),
       seller: listing['listing']['seller'],
       tokenId: listing['tokenId']
     };
@@ -164,11 +169,11 @@ export class MarketplaceService extends Web3Service {
       var c = new this.web3.eth.Contract(ERC721Abi, contractAddress);
 
       await this.callToContract(
-        "getApproved", [tokenId], c
+        "getApproved", [tokenId]
       ).then(async (approval) => {
         if (approval != MP_CONTRACT_ADDRESS) {
           // get approval
-          await this.sendToContract("approve", "0", [MP_CONTRACT_ADDRESS, tokenId], c)
+          await this.sendToContract("approve", "0", [MP_CONTRACT_ADDRESS, tokenId])
             .then(() => {
               res();
             }).catch((ex) => {

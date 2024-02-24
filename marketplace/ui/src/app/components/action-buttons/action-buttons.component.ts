@@ -3,6 +3,7 @@ import { Asset } from 'src/app/interfaces/asset';
 import { ListedAsset, OwnedAsset } from 'src/app/interfaces/marketplace-assets';
 import { AlchemyService } from 'src/app/services/alchemy.service';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
+import { UiService } from 'src/app/services/ui.service';
 import Web3 from 'web3';
 
 var _asset: Asset;
@@ -28,7 +29,8 @@ export class ActionButtonsComponent implements OnInit {
   constructor(
     private mpWeb3: MarketplaceService,
     private alchemy: AlchemyService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private ui: UiService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class ActionButtonsComponent implements OnInit {
       }
     })
 
-    this.mpWeb3.UiChangesObs.subscribe(() => {
+    this.ui.UiChangesObs.subscribe(() => {
       this.updateUi();
     })
 

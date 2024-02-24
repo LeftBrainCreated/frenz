@@ -10,6 +10,7 @@ import { UiService } from 'src/app/services/ui.service';
 export class LoginViewComponent {
 
   @Input() mobileView: boolean = false;
+  visibleAnimation: boolean = true;
 
   // _mp_web3: MarketplaceService;
 
@@ -17,6 +18,10 @@ export class LoginViewComponent {
     private ui: UiService
   ) {
     // this._mp_web3 = mp_web3;
+    setTimeout(() => {
+      this.enterMarketplace();
+      this.visibleAnimation = false;
+    }, 5000)
   }
 
   @Input() targetChainId: number;

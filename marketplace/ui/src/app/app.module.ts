@@ -30,6 +30,9 @@ import { ModalPriceSetComponent } from './components/modal-price-set/modal-price
 import { ModalMintAssetComponent } from './components/modal-mint-asset/modal-mint-asset.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { LoadingAnimationComponent } from "./components/loading-animation/loading-animation.component";
 
 
 
@@ -58,15 +61,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModalPriceSetComponent,
     ModalMintAssetComponent,
   ],
+  providers: [BreakpointObserver],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    FormsModule
-  ],
-  providers: [BreakpointObserver],
-  bootstrap: [AppComponent]
+    FormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    LoadingAnimationComponent
+  ]
 })
 export class AppModule { }

@@ -1,28 +1,29 @@
 const { ethers, upgrades } = require("hardhat");
 
-// async function main() {
-    
-//     const AdminControl_v1 = await ethers.getContractFactory("ERC721Creator");
+async function main() {
 
-//     upgrades.deployBeacon(AdminControl_v1, { unsafeAllow: ['constructor'] })
-//         .then(async (beacon) => {
-//             console.log(`Beacon as implementation is deployed to address: ${beacon.target}`);
-
-//             const beaconProxy1 = await upgrades.deployBeaconProxy(beacon.target, AdminControl_v1, ["TST", "Testing"]);
-
-//             console.log(`Proxy Address: ${beaconProxy1.target}`);
-        
-//             // await beaconProxy1.initialize();
+    const CFactory = await ethers.getContractFactory("ERC721Creator");
+    const beaconProxy1 = await upgrades.deployBeaconProxy("0xF1Df2f7c11Aeda67922B56f979846598d3709389", CFactory);
 
 
+    // upgrades.deployBeacon(CFactory, { unsafeAllow: ['constructor'] })
+    //     .then(async (beacon) => {
+    //         console.log(`Beacon as implementation is deployed to address: ${beacon.target}`);
+    //         const beaconProxy1 = await upgrades.deployBeaconProxy("0xF1Df2f7c11Aeda67922B56f979846598d3709389", CFactory);
 
-//         });
-// }
+    //         console.log(`Proxy Address: ${beaconProxy1.target}`);
+
+    //         // await beaconProxy1.initialize();
+
+
+
+    //     });
+}
 
 async function main() {
-    
+
     const AdminControl_v1 = await ethers.getContractFactory("ERC721Creator");
-    const BEACON = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0';
+    const BEACON = '0x8712B29eb93baAE1Bd0007DFE834CE972488a1F0';
 
     console.log(`Beacon as implementation is deployed to address: ${BEACON}`);
 

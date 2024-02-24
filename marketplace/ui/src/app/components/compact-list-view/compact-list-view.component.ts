@@ -10,7 +10,7 @@ export class CompactListViewComponent {
   @Input() collection!: Collection;
 
   imageUri = '';
-  ipfsGateway = 'https://ipfs.flowfrenznft.com/ipfs/';
+  ipfsGateway = 'https://ipfs.leftbrain.ninja/ipfs/';
 
   // ngAfterContentInit(): void {
   //   if (this.collection.collectionDefaultImage.indexOf('/ipfs/') > -1) {

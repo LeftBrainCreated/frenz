@@ -5,12 +5,19 @@ import cors from 'cors';
 
 import * as alchemy from './services/alchemy.service';
 import * as mongo from './services/mongo.service';
+import * as pinata from './services/pinata.service';
+import multer from 'multer';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
 const allowedOrigins = process.env.CORS_ORIGIN;
+const upload = multer({ dest: 'uploads/' });
+
+// const upload = multer({
+//     dest: 'uploads/'
+// });
 
 const options: cors.CorsOptions = {
     origin: allowedOrigins == undefined ? 'http://localhost:4200' : allowedOrigins
@@ -58,6 +65,15 @@ app.get('/api/wallet/:walletAddress', async (req: Request, res: Response) => {
     })
 })
 
+app.post('/api/pinata/ipfs/upload', upload.single('file'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    pinata.pinFile(req.file).then((result) => {
+        res.send(result);
+    })
+});
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running - ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️`);

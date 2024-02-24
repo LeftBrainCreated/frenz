@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
-import { Web3Service } from 'src/app/services/web3.service';
 import { GlobalConstants } from 'src/app/app.component';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
+import { Web3Service } from 'src/app/services/web3.service';
 
 declare let window: any;
 
@@ -26,7 +26,8 @@ export class WalletConnectComponent {
 
   constructor(
     private uiService: UiService
-    , private web3: MarketplaceService
+    , private mp: MarketplaceService
+    , private web3: Web3Service
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class WalletConnectComponent {
       this.userConnected = res;
     })
 
-    this.web3.invalidTargetChainObs.subscribe((_res) => {
+    this.mp.invalidTargetChainObs.subscribe((_res) => {
       // this.openChainDialog(res);
     });
 
@@ -58,7 +59,7 @@ export class WalletConnectComponent {
     //   this.recoonect();
     // })
 
-    this.web3.onLoadConnectObs.subscribe((res) => {
+    this.mp.onLoadConnectObs.subscribe((res) => {
       this.connect(true);
       // this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
       // this._auth.emitAuthComplete(true);
@@ -112,20 +113,20 @@ export class WalletConnectComponent {
     if (w3Connect && this.chainValidated() === true) {
       if (window.ethereum !== undefined) {
 
-        if (this.web3.selectedAddress == undefined) {
+        if (this.mp.selectedAddress == undefined) {
           await this.web3.setSelectedAddress();
         }
         // this.uiService.adminWalletObs.next(this.adminWalletAddress.includes(this.web3.selectedAddress.toLowerCase()));
 
         new Promise((_res, _rej) => {
           if (this.web3.web3Connected) {
-            this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
-            this.uiService.walletAddressObs.next(this.web3.selectedAddress);
+            this.buttonText = this.mp.selectedAddress.substring(0, 5) + "....";
+            this.uiService.walletAddressObs.next(this.mp.selectedAddress);
             this.uiService.changeConnectedStateObs.next(true);
             this.uiService.enterMarketplaceObs.next(true);
 
 
-          } else if (this.web3.web3Loaded) {
+          } else if (this.mp.web3Loaded) {
             this.buttonText = "Authenticate";
           } else {
             this.buttonText = "Connect";

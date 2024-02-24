@@ -53,27 +53,121 @@ div.form-container {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        gap: 45px;
-        padding-left: 100px;
+        // padding-left: 100px;
         padding-right: 100px;
+
+        textarea.text-input {
+            font-size: large;
+            min-height: 150px;
+        }
+
+        .text-input {
+            background-color: rgba(0, 0, 139, 0.5882352941);
+            border-radius: 10px;
+            font-size: larger;
+            color: white;
+            padding: 5px;
+            padding-left: 10px;
+            width: 85%;
+        }
 
         div.asset-input-container {
             display: flex;
             flex-direction: row;
 
+            .text-input-container {
+                label {
+                    padding: 15px;
+                }
+            }
+
             .asset-input-values {
-                flex: 3;
                 display: flex;
-                flex-direction: column;
-                gap: 40px;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 60px;
+                width: 100%;
+
+                div.asset-input-left {
+                    display: flex;
+                    flex: 3;
+                    flex-direction: column;
+                    gap: 40px;
+                    justify-content: space-evenly;
+                    margin-left: 40px;
+
+                    div.collection-input-container {
+                        width: 85%;
+
+                        option {
+                            background-color: #11112c96;
+                        }
+
+                        option:last-child {
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                        }
+
+                        mat-form-field {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                div.asset-input-right {
+                    flex: 2;
+
+                    img {
+                        max-width: 400px;
+                        max-height: 400px;
+                        min-width: 400px;
+                        min-height: 400px;
+                        object-fit: contain;
+                    }
+                }
             }
 
             .asset-media-input {
                 flex: 2;
             }
+
+            .radio-group {
+                font-size: smaller;
+                padding-left: 40px;
+
+                mat-radio-group {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            }
         }
 
-        div.trait-container {
+        div.asset-input-bottom {
+            padding-left: 100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-bottom: 45px;
+            padding-top: 25px;
+
+            div.upload-container {
+                width: 550px;
+            }
+
+            .upload-input {
+                font-size: medium;
+            }
+
+            .upload-control {
+                width: 85%;
+            }
+
+        }
+
+        div.trait-container,
+        div.submit-container {
             flex-grow: 100%;
             display: flex;
             flex-direction: row;
@@ -136,6 +230,33 @@ div.form-container {
 
         div.mdc-radio {
             padding-right: 10px;
+        }
+
+        div.submit-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 80px;
+            outline: none;
+
+            button {
+                flex: 3;
+                width: 100%;
+                margin: 4px;
+                padding: 20px;
+                border-radius: 60px;
+                cursor: pointer;
+            }
+
+            #save {
+                background-color: white;
+                color: #15BFFD;
+            }
+
+            #cancel {
+                background-color: transparent;
+                color: white;
+            }
         }
     }
 }

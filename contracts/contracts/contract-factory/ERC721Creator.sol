@@ -59,7 +59,7 @@ contract ERC721Creator is
     ) public initializer {
         __ERC721_init(_name, _symbol);
         __ERC721Enumerable_init();
-        CollectionManager.init(msg.sender);
+        CollectionManager.init();
 
         _baseTokenURI = "ipfs://";
         _tokenCount = 0;
@@ -168,27 +168,27 @@ contract ERC721Creator is
         return super.supportsInterface(interfaceId);
     }
 
-    function _increaseBalance(
-        address account,
-        uint128 value
-    )
-        internal
-        virtual
-        override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
-    {
-        super._increaseBalance(account, value);
-    }
+    // function _increaseBalance(
+    //     address account,
+    //     uint128 value
+    // )
+    //     internal
+    //     virtual
+    //     override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
+    // {
+    //     super._increaseBalance(account, value);
+    // }
 
-    function _update(
-        address to,
-        uint256 tokenId,
-        address auth
-    )
-        internal
-        virtual
-        override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
-        returns (address)
-    {
-        return super._update(to, tokenId, auth);
-    }
+    // function _update(
+    //     address to,
+    //     uint256 tokenId,
+    //     address auth
+    // )
+    //     internal
+    //     virtual
+    //     override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
+    //     returns (address)
+    // {
+    //     return super._update(to, tokenId, auth);
+    // }
 }

@@ -1,4 +1,5 @@
 import { config as dotEnvConfig } from "dotenv";
+import { HardhatUserConfig } from "hardhat/types";
 
 dotEnvConfig();
 
@@ -13,9 +14,7 @@ const {
   , PUPPYNET_URI
   , SHIBARIUM_URI
   , ETHERSCAN_API_KEY
-  , DEPLOY_PRIVATE
-  , PRIVATE_KEY
-  , HOT_PRIVATE
+  , SPARK_PRIVATE
   , LOCAL_NODE_PRIVATEKEY
   , ALCHEMY_GOERLI_RPC
 } = process.env;
@@ -27,12 +26,12 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       url: MAINNET_URL,
-      accounts: [`0x${DEPLOY_PRIVATE}`],
+      accounts: [`0x${SPARK_PRIVATE}`],
       chainId: 1
     },
     goerli: {
       url: ALCHEMY_GOERLI_RPC,
-      accounts: [`0x${HOT_PRIVATE}`],
+      accounts: [`0x${SPARK_PRIVATE}`],
       chainId: 5
     },
     localhost: {
@@ -44,12 +43,12 @@ const config: HardhatUserConfig = {
     },
     puppynet: {
       url: PUPPYNET_URI,
-      accounts: [`0x${PRIVATE_KEY}`],
+      accounts: [`0x${SPARK_PRIVATE}`],
       chainId: 719,
     },
     shibarium: {
       url: SHIBARIUM_URI,
-      accounts: [`0x${HOT_PRIVATE}`],
+      accounts: [`0x${SPARK_PRIVATE}`],
       // accounts: [`0x${DEPLOY_PRIVATE}`],
       chainId: 109,
       gas: 3000000,

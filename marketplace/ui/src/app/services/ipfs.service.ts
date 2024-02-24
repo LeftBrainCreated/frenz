@@ -1,22 +1,39 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { WebService } from './web.service';
+import { RequestMethod } from '../enumerations/request-methods';
+import * as fs from 'fs'
+
+//* PROD Change
+// const FRENZ_API_ROOT_URI = 'http://localhost/api/';
+// const FRENZ_API_ROOT_URI = 'https://marketplace.flowfrenznft.com/api/';
+const FRENZ_API_ROOT_URI = isDevMode ? 'http://localhost:8000/api/' : 'http://marketplace.flowfrenznft.com/api/';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IpfsService {
+export class IpfsService extends WebService {
 
   public IpfsResult = new Subject<any>();
 
   constructor(
-    private http: HttpClient
-  ) { }
+    protected override http: HttpClient
+  ) {
+    super(http);
+  }
 
   async getIpfs(ipfsAddress: string): Promise<boolean> {
     return new Promise(async (res, rej) => {
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        })
+      };
+
       await this.sendRequest(
-        'https://ipfs.flowfrenznft.com/ipfs/' + ipfsAddress,
+        'https://ipfs.leftbrain.ninja/ipfs/' + ipfsAddress,
         RequestMethod.GET)
         .then((result) => {
           this.IpfsResult.next({
@@ -32,40 +49,53 @@ export class IpfsService {
     })
   }
 
+  public async createIpfsMetaFile(fileName: string, metadata: any): Promise<string> {
+    return new Promise(async (res, rej) => {
+      const blob = new Blob([metadata.toString()], { type: 'application/json' });
+      const file = new File([blob], fileName + '.txt', { type: 'application/json' });
 
+      res(await this.sendFileToIPFS(file));
+    })
+  }
 
-  private sendRequest(uri: string, method: RequestMethod = RequestMethod.GET, payload: any = null) {
-    return new Promise((res, rej) => {
-      var httpOptions = {
+  public async sendFileToIPFS(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const params = new FormData();
+      params.append('file', file);
+      params.append('pinataMetadata', JSON.stringify({ name: 'file name here' }));
+      params.append('pinataOptions', JSON.stringify({
+        cidVersion: 0,
+      }));
+
+      const httpOptions = {
         headers: new HttpHeaders({
-          'Accept': 'application/json, text/plain, */*',
-          // 'Content-Type': 'application/json',
+          'Accept': 'application/json, text/plain, */*'
         })
       };
 
+      // this.sendRequest(
+      //   FRENZ_API_ROOT_URI + 'pinata/ipfs/upload',
+      //   RequestMethod.POST,
+      //   params,
+      //   httpOptions
+      // ).then((res) => {
+      //   resolve(res);
+      // }).catch((err) => {
+      //   reject(err);
+      // });
 
-
-      switch (method) {
-        case RequestMethod.GET:
-          this.http.get(uri, httpOptions)
-            .subscribe(async (body: any) => {
-              res(body);
-            });
-          break;
-
-        case RequestMethod.POST:
-          this.http.post(uri, JSON.stringify(payload), httpOptions)
-            .subscribe(async (body: any) => {
-              res(body);
-            });
-
-          break;
-      }
-    })
+      this.http.post(FRENZ_API_ROOT_URI + 'pinata/ipfs/upload', params, httpOptions)
+        .subscribe({
+          next: (res: string) => {
+            resolve(res);
+          },
+          error: (err) => {
+            reject(err);
+          }
+        });
+    });
   }
-}
 
-enum RequestMethod {
-  GET,
-  POST
+
+
 }

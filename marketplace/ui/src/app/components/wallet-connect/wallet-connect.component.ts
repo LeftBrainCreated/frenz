@@ -22,6 +22,7 @@ export class WalletConnectComponent {
   userConnected: boolean = false;
   targetNetwork: any;
   validChain?: boolean;
+  web3Loaded: boolean;
 
 
   constructor(
@@ -47,9 +48,9 @@ export class WalletConnectComponent {
       this.userConnected = res;
     })
 
-    this.mp.invalidTargetChainObs.subscribe((_res) => {
-      // this.openChainDialog(res);
-    });
+    // this.mp.invalidTargetChainObs.subscribe((_res) => {
+    //   // this.openChainDialog(res);
+    // });
 
     // this.web3.web3AccountChanged.subscribe((_res) => {
     //   this.recoonect();
@@ -59,12 +60,12 @@ export class WalletConnectComponent {
     //   this.recoonect();
     // })
 
-    this.mp.onLoadConnectObs.subscribe((res) => {
-      this.connect(true);
-      // this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
-      // this._auth.emitAuthComplete(true);
-      // this.uiService.walletAddressObs.next(this.web3.selectedAddress);
-    })
+    // this.mp.onLoadConnectObs.subscribe((res) => {
+    //   this.connect(true);
+    //   // this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
+    //   // this._auth.emitAuthComplete(true);
+    //   // this.uiService.walletAddressObs.next(this.web3.selectedAddress);
+    // })
   }
 
   // private recoonect() {
@@ -126,7 +127,7 @@ export class WalletConnectComponent {
             this.uiService.enterMarketplaceObs.next(true);
 
 
-          } else if (this.mp.web3Loaded) {
+          } else if (this.web3Loaded) {
             this.buttonText = "Authenticate";
           } else {
             this.buttonText = "Connect";

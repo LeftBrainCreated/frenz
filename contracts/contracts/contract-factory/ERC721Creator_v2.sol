@@ -38,7 +38,7 @@ import {StringsUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/Stri
 import {CollectionManager} from "./imports/Collection_Manager.sol";
 // import {DistributionManager} from "./imports/Distribution_Manager.sol";
 
-contract ERC721Creator is
+contract ERC721CreatorV2 is
     Initializable,
     CollectionManager
     // DistributionManager

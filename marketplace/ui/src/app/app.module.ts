@@ -33,9 +33,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { LoadingAnimationComponent } from "./components/loading-animation/loading-animation.component";
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 
-
-
+const APP_NAME = 'FlowFrenz NFT Marketplace';
+const APP_LOGO_URL = './assets/icons/ff-icon.png';
+const darkMode: boolean = true;
 
 @NgModule({
   declarations: [
@@ -76,3 +78,9 @@ import { LoadingAnimationComponent } from "./components/loading-animation/loadin
   ]
 })
 export class AppModule { }
+
+export const coinbaseWallet = new CoinbaseWalletSDK({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: darkMode
+})

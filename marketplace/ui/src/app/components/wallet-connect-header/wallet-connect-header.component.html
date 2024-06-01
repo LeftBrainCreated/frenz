@@ -1,20 +1,38 @@
 <div class="main">
-    <!-- <div id="wallet-id"> -->
-    <span class="buttonText">{{buttonText}}</span>
-    <!-- <small *ngIf="userConnected" (click)="openWalletSelection()">change</small> -->
-    <!-- </div> -->
-    <div class="outer">
-        <div class="inner disengaged centered">
-            <a href="#" class="
-                        {{loading ? 'loading' : '' }}
-                        {{userConnected ? 'connected' : ''}}
-                        {{!supportedWallet ? 'disabled' : ''}}
-                    " (click)="connect(true, true)">
-                <span class="icon-home centered" class="
-                        {{userConnected ? 'connected' : ''}} 
-                        {{loading ? 'loading' : ''}} 
-                    "></span>
-            </a>
+    <button id="web3-connect" class="basic-btn {{userConnected === true ? 'connectedButton' : 'gray-btn'}}"
+        mat-flat-button [disabled]="!web3Loaded" (click)="connect($event)">
+        <div class="walletConnect">
+            <button *ngIf="mmWallet" id="mmConnect" (click)="connect($event, 'isMetaMask')">
+
+            </button>
+            <button *ngIf="cbWallet" id="cbConnect" (click)="connect($event, 'isCoinbaseWallet')">
+
+            </button>
+            <button *ngIf="trustWallet" id="trustConnect" (click)="connect($event, 'isTrust')">
+
+            </button>
         </div>
+        <div class="button-text">
+            {{buttonText}}
+        </div>
+    </button>
+
+    <div *ngIf="validChain === false" class="web3-warning">
+        <p>You are on the wrong network, please switch to <button>{{targetNetwork.name}}</button></p>
     </div>
+</div>
+
+<div id="walletConnectModal" [class]="walletSelectVisible ? '' : 'hidden'">
+    <div class="wallets-list">
+        <div *ngFor="let w of connectedWallets"><span (click)="selectNewWallet(w.split('|')[0], w.split('|')[1])"
+                [style]="w.split('|')[0].toLowerCase() == selectedAddress.toLowerCase() ? 'selected' : ''">{{w.split('|')[0].substring(0,
+                6)}}....{{w.split('|')[0].slice(-6)}}</span></div>
+    </div>
+    <button *ngIf="hasWalletView" id="wallet-nav" class="basic-btn}}" mat-flat-button (click)="goToWallet()">My Profile
+    </button>
+</div>
+
+<div *ngIf="loading" class="toolbar-label">
+    <mat-spinner mode="indeterminate" color="warn" diameter="12"></mat-spinner>
+    Loading
 </div>

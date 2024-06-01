@@ -38,5 +38,7 @@ export interface Asset {
         format: string,
         bytes: number
     }],
+    owned: boolean,
+    owner: string,
     listing: ListedAsset
 }

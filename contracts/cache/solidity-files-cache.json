@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator.sol": {
-      "lastModificationDate": 1704852599663,
-      "contentHash": "13b0da0f125250c22de19e9e60a68938",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator.sol": {
+      "lastModificationDate": 1716338741558,
+      "contentHash": "e51e0f575d980ed426248c06d5573e11",
       "sourceName": "contracts/contract-factory/ERC721Creator.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -33,12 +33,7 @@
       "imports": [
         "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
         "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721RoyaltyUpgradeable.sol",
-        "./imports/Collection_Manager.sol",
-        "./imports/Distribution_Manager.sol"
+        "./imports/Collection_Manager.sol"
       ],
       "versionPragmas": [
         "^0.8.22"
@@ -47,9 +42,9 @@
         "ERC721Creator"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\Collection_Manager.sol": {
-      "lastModificationDate": 1704846343021,
-      "contentHash": "2021403c1e5f8a204b1781324ef91b28",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\Collection_Manager.sol": {
+      "lastModificationDate": 1716338730965,
+      "contentHash": "1e4672d3cf2689f63b312783ec452d47",
       "sourceName": "contracts/contract-factory/imports/Collection_Manager.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -77,8 +72,13 @@
         }
       },
       "imports": [
+        "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721RoyaltyUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol",
+        "./AdminControl.sol",
         "./CoreValues.sol"
       ],
       "versionPragmas": [
@@ -88,47 +88,7 @@
         "CollectionManager"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\Distribution_Manager.sol": {
-      "lastModificationDate": 1704846341135,
-      "contentHash": "9eb67284abbb7b650d08dac00a0410f1",
-      "sourceName": "contracts/contract-factory/imports/Distribution_Manager.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./CoreValues.sol",
-        "./AdminControl.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.22"
-      ],
-      "artifacts": [
-        "DistributionManager"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\StringsUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\StringsUpgradeable.sol": {
       "lastModificationDate": 1700684008634,
       "contentHash": "c221361be1c4953f5b71f47475b90266",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
@@ -168,7 +128,125 @@
         "StringsUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol": {
+      "lastModificationDate": 1700684008458,
+      "contentHash": "b0970a564d121abf9adfff8d1a01eb16",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../utils/AddressUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "Initializable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\AdminControl.sol": {
+      "lastModificationDate": 1704851752800,
+      "contentHash": "3c12541f5a22b7e5d49f40128dd4315b",
+      "sourceName": "contracts/contract-factory/imports/AdminControl.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.22"
+      ],
+      "artifacts": [
+        "AdminControl"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\CoreValues.sol": {
+      "lastModificationDate": 1704846343021,
+      "contentHash": "7b6a8d66589cc5bf33ccc39a18484785",
+      "sourceName": "contracts/contract-factory/imports/CoreValues.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.22"
+      ],
+      "artifacts": [
+        "Core"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol": {
       "lastModificationDate": 1700684008545,
       "contentHash": "db24b956904575cc79d02867ec03263c",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
@@ -208,83 +286,7 @@
         "OwnableUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\IERC165Upgradeable.sol": {
-      "lastModificationDate": 1700684008291,
-      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC165Upgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol": {
-      "lastModificationDate": 1700684008458,
-      "contentHash": "b0970a564d121abf9adfff8d1a01eb16",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../../utils/AddressUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.2"
-      ],
-      "artifacts": [
-        "Initializable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\ERC721Upgradeable.sol": {
       "lastModificationDate": 1700684007930,
       "contentHash": "523926739c7d64c61fd57080f4bbcb05",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
@@ -330,7 +332,85 @@
         "ERC721Upgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721EnumerableUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\structs\\EnumerableSetUpgradeable.sol": {
+      "lastModificationDate": 1700684007559,
+      "contentHash": "b5cad7eaf6f7db7b48d990721ee0d89e",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableSetUpgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721URIStorageUpgradeable.sol": {
+      "lastModificationDate": 1700684007940,
+      "contentHash": "47e0570153178b284d04fdc8947af91b",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC721Upgradeable.sol",
+        "../../../interfaces/IERC4906Upgradeable.sol",
+        "../../../proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721URIStorageUpgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721EnumerableUpgradeable.sol": {
       "lastModificationDate": 1700684007864,
       "contentHash": "84e3aaecd9d661d539dd5c41faf2c02b",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol",
@@ -371,10 +451,10 @@
         "ERC721EnumerableUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\CoreValues.sol": {
-      "lastModificationDate": 1704846343021,
-      "contentHash": "7b6a8d66589cc5bf33ccc39a18484785",
-      "sourceName": "contracts/contract-factory/imports/CoreValues.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721RoyaltyUpgradeable.sol": {
+      "lastModificationDate": 1700684007913,
+      "contentHash": "44183d5b8989dad82e9e9959a68ce210",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721RoyaltyUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -401,129 +481,19 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.22"
-      ],
-      "artifacts": [
-        "Core"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\IERC721Upgradeable.sol": {
-      "lastModificationDate": 1700684008397,
-      "contentHash": "f6c6e71ba8413a4ba32871610dba0658",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../../utils/introspection/IERC165Upgradeable.sol"
+        "../ERC721Upgradeable.sol",
+        "../../common/ERC2981Upgradeable.sol",
+        "../../../utils/introspection/ERC165Upgradeable.sol",
+        "../../../proxy/utils/Initializable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC721Upgradeable"
+        "ERC721RoyaltyUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\structs\\EnumerableSetUpgradeable.sol": {
-      "lastModificationDate": 1700684007559,
-      "contentHash": "b5cad7eaf6f7db7b48d990721ee0d89e",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "EnumerableSetUpgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\AddressUpgradeable.sol": {
-      "lastModificationDate": 1700684007257,
-      "contentHash": "c30c805386fda8a42ff515da963d3a95",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "AddressUpgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol": {
       "lastModificationDate": 1700684007297,
       "contentHash": "6200b84950eb05b4a92a39fd1d6e0f9b",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol",
@@ -562,7 +532,83 @@
         "ContextUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\ERC165Upgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\AddressUpgradeable.sol": {
+      "lastModificationDate": 1700684007257,
+      "contentHash": "c30c805386fda8a42ff515da963d3a95",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "AddressUpgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\IERC721Upgradeable.sol": {
+      "lastModificationDate": 1700684008397,
+      "contentHash": "f6c6e71ba8413a4ba32871610dba0658",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Upgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\ERC165Upgradeable.sol": {
       "lastModificationDate": 1700684007650,
       "contentHash": "5f2d8b81c0ff5bd2047b4846c20b998d",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
@@ -602,7 +648,7 @@
         "ERC165Upgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\IERC721ReceiverUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\IERC721ReceiverUpgradeable.sol": {
       "lastModificationDate": 1700684008392,
       "contentHash": "ba28cf60b52b00d2b3a190bcdf0952bd",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol",
@@ -639,7 +685,7 @@
         "IERC721ReceiverUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\IERC721MetadataUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\IERC721MetadataUpgradeable.sol": {
       "lastModificationDate": 1700684008390,
       "contentHash": "76212ca0265501d1eb3dd1175e6afca4",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/IERC721MetadataUpgradeable.sol",
@@ -678,44 +724,7 @@
         "IERC721MetadataUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\math\\SignedMathUpgradeable.sol": {
-      "lastModificationDate": 1700684008619,
-      "contentHash": "2a6b819b2e241091ada6d645df3e3929",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/math/SignedMathUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SignedMathUpgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\math\\MathUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\math\\MathUpgradeable.sol": {
       "lastModificationDate": 1700684008506,
       "contentHash": "5a2a749b45b6a8eb035f4bf75addcb27",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/math/MathUpgradeable.sol",
@@ -752,10 +761,84 @@
         "MathUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\AdminControl.sol": {
-      "lastModificationDate": 1704846343347,
-      "contentHash": "3c12541f5a22b7e5d49f40128dd4315b",
-      "sourceName": "contracts/contract-factory/imports/AdminControl.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\math\\SignedMathUpgradeable.sol": {
+      "lastModificationDate": 1700684008619,
+      "contentHash": "2a6b819b2e241091ada6d645df3e3929",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/math/SignedMathUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SignedMathUpgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\IERC165Upgradeable.sol": {
+      "lastModificationDate": 1700684008291,
+      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC165Upgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC4906Upgradeable.sol": {
+      "lastModificationDate": 1700684008367,
+      "contentHash": "fe5233feb20121d3fcadf24db464f5f8",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC4906Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -782,17 +865,91 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
+        "./IERC165Upgradeable.sol",
+        "./IERC721Upgradeable.sol"
       ],
       "versionPragmas": [
-        "^0.8.22"
+        "^0.8.0"
       ],
       "artifacts": [
-        "AdminControl"
+        "IERC4906Upgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\IERC721EnumerableUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC721Upgradeable.sol": {
+      "lastModificationDate": 1700684008393,
+      "contentHash": "b6d2f759a0c41967c68a26c21d5ecbe4",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC721Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/ERC721/IERC721Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC165Upgradeable.sol": {
+      "lastModificationDate": 1700684008279,
+      "contentHash": "0ce0dc23b57eb688403ad5169cc18a7d",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC165Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\IERC721EnumerableUpgradeable.sol": {
       "lastModificationDate": 1700684008385,
       "contentHash": "bed9876900f8c465d42317f566c03828",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/IERC721EnumerableUpgradeable.sol",
@@ -831,10 +988,10 @@
         "IERC721EnumerableUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\MP.sol": {
-      "lastModificationDate": 1704168517659,
-      "contentHash": "91ab36ac865213402658cec5e5cd1f65",
-      "sourceName": "contracts/ff-mp/MP.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\common\\ERC2981Upgradeable.sol": {
+      "lastModificationDate": 1700684007816,
+      "contentHash": "9411256b542c58a547af4a3d4a3ecb6e",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/common/ERC2981Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -861,22 +1018,100 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
-        "./functionality/TransactionsMgr.sol",
-        "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol"
+        "../../interfaces/IERC2981Upgradeable.sol",
+        "../../utils/introspection/ERC165Upgradeable.sol",
+        "../../proxy/utils/Initializable.sol"
       ],
       "versionPragmas": [
-        "^0.8.22"
+        "^0.8.0"
       ],
       "artifacts": [
-        "NAMELESS"
+        "ERC2981Upgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\functionality\\TransactionsMgr.sol": {
-      "lastModificationDate": 1704168517643,
-      "contentHash": "1bd6e7f906ebb1f4dc7e790afb68e7c1",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC2981Upgradeable.sol": {
+      "lastModificationDate": 1700684008350,
+      "contentHash": "3b5e5b2f0bf0cd93cbedfe7994c99264",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/introspection/IERC165Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC2981Upgradeable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\Interfaces.sol": {
+      "lastModificationDate": 1714493143160,
+      "contentHash": "b7b70e1335a796da5bcb3dc296975ac0",
+      "sourceName": "contracts/ff-mp/deps/Interfaces.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/interfaces/IERC721Upgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "NFTGeneric",
+        "RoyaltyManager"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\functionality\\TransactionsMgr.sol": {
+      "lastModificationDate": 1716340896502,
+      "contentHash": "a15ff8c5409061a276aa6b10c48d0a99",
       "sourceName": "contracts/ff-mp/functionality/TransactionsMgr.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -907,57 +1142,22 @@
         "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "../deps/AdminControl.sol",
+        "../deps/Interfaces.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
         "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/interfaces/IERC2981.sol",
         "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol"
       ],
       "versionPragmas": [
         "^0.8.22"
       ],
       "artifacts": [
-        "NAMELESSTransactionMgr"
+        "TransactionMgr"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\CountersUpgradeable.sol": {
-      "lastModificationDate": 1700684007306,
-      "contentHash": "2e908c762a799baea365e68a50500e2c",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "CountersUpgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\AdminControl.sol": {
-      "lastModificationDate": 1702589345731,
-      "contentHash": "cb8f4f4e11f52f7500b5b5ea05176cfb",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\AdminControl.sol": {
+      "lastModificationDate": 1716340866535,
+      "contentHash": "3c395404a776024596cc21115a547c93",
       "sourceName": "contracts/ff-mp/deps/AdminControl.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -998,7 +1198,46 @@
         "AdminControl"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC2981.sol": {
+      "lastModificationDate": 1700684684807,
+      "contentHash": "23ed9f4f05068d7fc726138726c34bee",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC2981.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC2981"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
       "lastModificationDate": 1700684684618,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
@@ -1035,7 +1274,7 @@
         "Counters"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol": {
       "lastModificationDate": 1700684008564,
       "contentHash": "efeffcf5034292d7ea635de588c95995",
       "sourceName": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol",
@@ -1074,7 +1313,7 @@
         "ReentrancyGuardUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
       "lastModificationDate": 1700684684821,
       "contentHash": "48de4c9a3a4ae5ef66a2aa620843413f",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
@@ -1113,7 +1352,7 @@
         "IERC721"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\IAdminControl.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\IAdminControl.sol": {
       "lastModificationDate": 1699321348655,
       "contentHash": "fe9eb900ec6164df20583a32ff5a8d72",
       "sourceName": "contracts/ff-mp/deps/IAdminControl.sol",
@@ -1152,7 +1391,7 @@
         "IAdminControl"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
       "lastModificationDate": 1700684684801,
       "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
@@ -1189,7 +1428,7 @@
         "IERC20"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
       "lastModificationDate": 1700684684664,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
@@ -1228,7 +1467,7 @@
         "ERC165"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
       "lastModificationDate": 1700684684795,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
@@ -1265,10 +1504,10 @@
         "IERC165"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
-      "lastModificationDate": 1700684684825,
-      "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\MP.sol": {
+      "lastModificationDate": 1716340794836,
+      "contentHash": "86bfe186de4196d62be278d07d97c252",
+      "sourceName": "contracts/ff-mp/MP.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -1295,17 +1534,58 @@
         }
       },
       "imports": [
-        "../IERC721.sol"
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "./functionality/TransactionsMgr.sol",
+        "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol"
       ],
+      "versionPragmas": [
+        "^0.8.22"
+      ],
+      "artifacts": [
+        "ffMp"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\CountersUpgradeable.sol": {
+      "lastModificationDate": 1700684007306,
+      "contentHash": "2e908c762a799baea365e68a50500e2c",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC721Metadata"
+        "CountersUpgradeable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
-      "lastModificationDate": 1700684684702,
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
+      "lastModificationDate": 1717255423494,
       "contentHash": "95602b04f0b53f1139f4668d123ddeb7",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -1349,9 +1629,9 @@
         "ERC721"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1700684684616,
-      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
+      "lastModificationDate": 1717255420979,
+      "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -1386,7 +1666,7 @@
         "Context"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
       "lastModificationDate": 1700684684601,
       "contentHash": "211ffd288c1588ba8c10eae668ca3c66",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
@@ -1423,7 +1703,7 @@
         "Address"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
       "lastModificationDate": 1700684684999,
       "contentHash": "48686fc32a22a3754b8e63321857dd2a",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
@@ -1463,7 +1743,7 @@
         "Strings"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
       "lastModificationDate": 1700684684827,
       "contentHash": "c22d4395e33763de693fd440c6fd10e1",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
@@ -1500,7 +1780,46 @@
         "IERC721Receiver"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
+      "lastModificationDate": 1700684684825,
+      "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Metadata"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
       "lastModificationDate": 1700684684858,
       "contentHash": "fe63409d8a06818b926cf89e0ea88b1b",
       "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
@@ -1537,7 +1856,7 @@
         "Math"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SignedMath.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SignedMath.sol": {
       "lastModificationDate": 1700684684954,
       "contentHash": "9488ebd4daacfee8ad04811600d7d061",
       "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
@@ -1574,10 +1893,10 @@
         "SignedMath"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC165.sol": {
-      "lastModificationDate": 1700684684792,
-      "contentHash": "ee9624272968c23d93d4c2e39f06e6e2",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC721.sol": {
+      "lastModificationDate": 1700684684819,
+      "contentHash": "e6da7798a8c22c5043cc42d64a2a8f80",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC721.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -1604,14 +1923,14 @@
         }
       },
       "imports": [
-        "../utils/introspection/IERC165.sol"
+        "../token/ERC721/IERC721.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": []
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC4906.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC4906.sol": {
       "lastModificationDate": 1700684684816,
       "contentHash": "d3f355e15269d1476d86c84730cebb5e",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC4906.sol",
@@ -1651,10 +1970,10 @@
         "IERC4906"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC721.sol": {
-      "lastModificationDate": 1700684684819,
-      "contentHash": "e6da7798a8c22c5043cc42d64a2a8f80",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC721.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC165.sol": {
+      "lastModificationDate": 1700684684792,
+      "contentHash": "ee9624272968c23d93d4c2e39f06e6e2",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -1681,15 +2000,15 @@
         }
       },
       "imports": [
-        "../token/ERC721/IERC721.sol"
+        "../utils/introspection/IERC165.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": []
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
-      "lastModificationDate": 1700684684717,
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
+      "lastModificationDate": 1717255423507,
       "contentHash": "de368c6a87e159c86544ae5041b58cf3",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
@@ -1728,7 +2047,7 @@
         "ERC721URIStorage"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\contracts\\StonkSock\\StonkSock.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\StonkSock\\StonkSock.sol": {
       "lastModificationDate": 1704168517581,
       "contentHash": "7a901593f7cbf588c75aa99cc465be13",
       "sourceName": "contracts/StonkSock/StonkSock.sol",
@@ -1772,8 +2091,8 @@
         "StonkSock"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1700684684866,
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1717255423618,
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -1811,7 +2130,7 @@
         "Ownable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SafeMath.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SafeMath.sol": {
       "lastModificationDate": 1700684684936,
       "contentHash": "f6f4fda16c536e57069af40a245c985e",
       "sourceName": "@openzeppelin/contracts/utils/math/SafeMath.sol",
@@ -1848,48 +2167,8 @@
         "SafeMath"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721Pausable.sol": {
-      "lastModificationDate": 1700684684712,
-      "contentHash": "4abbd308a5b282586dce88479ecae3d1",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../ERC721.sol",
-        "../../../security/Pausable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721Pausable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721Enumerable.sol": {
-      "lastModificationDate": 1700684684707,
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721Enumerable.sol": {
+      "lastModificationDate": 1717255423499,
       "contentHash": "212e86880d210b6cac8c3eb0cd6b1fad",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
       "solcConfig": {
@@ -1928,10 +2207,10 @@
         "ERC721Enumerable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\security\\Pausable.sol": {
-      "lastModificationDate": 1700684684871,
-      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
-      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721Pausable.sol": {
+      "lastModificationDate": 1717255423503,
+      "contentHash": "4abbd308a5b282586dce88479ecae3d1",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -1958,16 +2237,17 @@
         }
       },
       "imports": [
-        "../utils/Context.sol"
+        "../ERC721.sol",
+        "../../../security/Pausable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "Pausable"
+        "ERC721Pausable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Enumerable.sol": {
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Enumerable.sol": {
       "lastModificationDate": 1700684684824,
       "contentHash": "f4dd06783f321aa26179bc2b6e361c29",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
@@ -2006,10 +2286,10 @@
         "IERC721Enumerable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721URIStorageUpgradeable.sol": {
-      "lastModificationDate": 1700684007940,
-      "contentHash": "47e0570153178b284d04fdc8947af91b",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\security\\Pausable.sol": {
+      "lastModificationDate": 1717255423622,
+      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
+      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -2036,21 +2316,19 @@
         }
       },
       "imports": [
-        "../ERC721Upgradeable.sol",
-        "../../../interfaces/IERC4906Upgradeable.sol",
-        "../../../proxy/utils/Initializable.sol"
+        "../utils/Context.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC721URIStorageUpgradeable"
+        "Pausable"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\ERC721\\extensions\\ERC721RoyaltyUpgradeable.sol": {
-      "lastModificationDate": 1700684007913,
-      "contentHash": "44183d5b8989dad82e9e9959a68ce210",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721RoyaltyUpgradeable.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\imports\\Distribution_Manager.sol": {
+      "lastModificationDate": 1716330973727,
+      "contentHash": "993b779109c9ed222f8973c536423ad7",
+      "sourceName": "contracts/contract-factory/imports/Distribution_Manager.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -2076,100 +2354,14 @@
           }
         }
       },
-      "imports": [
-        "../ERC721Upgradeable.sol",
-        "../../common/ERC2981Upgradeable.sol",
-        "../../../utils/introspection/ERC165Upgradeable.sol",
-        "../../../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721RoyaltyUpgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC4906Upgradeable.sol": {
-      "lastModificationDate": 1700684008367,
-      "contentHash": "fe5233feb20121d3fcadf24db464f5f8",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC4906Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC165Upgradeable.sol",
-        "./IERC721Upgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC4906Upgradeable"
-      ]
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC165Upgradeable.sol": {
-      "lastModificationDate": 1700684008279,
-      "contentHash": "0ce0dc23b57eb688403ad5169cc18a7d",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC165Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/introspection/IERC165Upgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
+      "imports": [],
+      "versionPragmas": [],
       "artifacts": []
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC721Upgradeable.sol": {
-      "lastModificationDate": 1700684008393,
-      "contentHash": "b6d2f759a0c41967c68a26c21d5ecbe4",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC721Upgradeable.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\ff-mp\\deps\\IMP.sol": {
+      "lastModificationDate": 1715261560748,
+      "contentHash": "2bfab5032739683c1ad0dc711f9ae370",
+      "sourceName": "contracts/ff-mp/deps/IMP.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -2195,59 +2387,18 @@
           }
         }
       },
-      "imports": [
-        "../token/ERC721/IERC721Upgradeable.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": []
-    },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\token\\common\\ERC2981Upgradeable.sol": {
-      "lastModificationDate": 1700684007816,
-      "contentHash": "9411256b542c58a547af4a3d4a3ecb6e",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/common/ERC2981Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.22",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/IERC2981Upgradeable.sol",
-        "../../utils/introspection/ERC165Upgradeable.sol",
-        "../../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
+        "^0.8.22"
       ],
       "artifacts": [
-        "ERC2981Upgradeable"
+        "IShop"
       ]
     },
-    "Z:\\Users\\LeftBrain\\Repos\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts-upgradeable\\interfaces\\IERC2981Upgradeable.sol": {
-      "lastModificationDate": 1700684008350,
-      "contentHash": "3b5e5b2f0bf0cd93cbedfe7994c99264",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol",
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\Beacon.sol": {
+      "lastModificationDate": 1717258960488,
+      "contentHash": "b7d57d9711df37966ff5b68e150cbfe2",
+      "sourceName": "contracts/Beacon.sol",
       "solcConfig": {
         "version": "0.8.22",
         "settings": {
@@ -2274,13 +2425,403 @@
         }
       },
       "imports": [
-        "../utils/introspection/IERC165Upgradeable.sol"
+        "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC2981Upgradeable"
+        "Beacon"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\proxy\\beacon\\UpgradeableBeacon.sol": {
+      "lastModificationDate": 1717255423655,
+      "contentHash": "8ffefb755605824cf730ce4092b2f581",
+      "sourceName": "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IBeacon.sol",
+        "../../access/Ownable.sol",
+        "../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "UpgradeableBeacon"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\proxy\\beacon\\IBeacon.sol": {
+      "lastModificationDate": 1717255423539,
+      "contentHash": "b6bd23bf19e90b771337037706470933",
+      "sourceName": "@openzeppelin/contracts/proxy/beacon/IBeacon.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IBeacon"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\proxy\\ERC1967\\ERC1967Upgrade.sol": {
+      "lastModificationDate": 1717255423469,
+      "contentHash": "a127706394bead18392601a20d44867a",
+      "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../beacon/IBeacon.sol",
+        "../../interfaces/IERC1967.sol",
+        "../../interfaces/draft-IERC1822.sol",
+        "../../utils/Address.sol",
+        "../../utils/StorageSlot.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "ERC1967Upgrade"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC1967.sol": {
+      "lastModificationDate": 1717255423565,
+      "contentHash": "d0d060231a45da7a1eecbb5cd286fa40",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC1967.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1967"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\utils\\StorageSlot.sol": {
+      "lastModificationDate": 1717255423644,
+      "contentHash": "682f7dd1f2e1147c8390e7575deceb2d",
+      "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "StorageSlot"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC1822.sol": {
+      "lastModificationDate": 1717255423440,
+      "contentHash": "2858d98e74e67987ec81b39605230b74",
+      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1822Proxiable"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\proxy\\beacon\\BeaconProxy.sol": {
+      "lastModificationDate": 1717255420298,
+      "contentHash": "dc9dcb6e542154d9cfbfaece646c1092",
+      "sourceName": "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IBeacon.sol",
+        "../Proxy.sol",
+        "../ERC1967/ERC1967Upgrade.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BeaconProxy"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\node_modules\\@openzeppelin\\contracts\\proxy\\Proxy.sol": {
+      "lastModificationDate": 1717255423626,
+      "contentHash": "40b3d81a836d50ff47e03893dcaaf204",
+      "sourceName": "@openzeppelin/contracts/proxy/Proxy.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Proxy"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\BeaconProxy.sol": {
+      "lastModificationDate": 1717258960608,
+      "contentHash": "ef5934084fad0ab59ac0d2069c5ba734",
+      "sourceName": "contracts/BeaconProxy.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ProxyContract"
+      ]
+    },
+    "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator_v2.sol": {
+      "lastModificationDate": 1717259482400,
+      "contentHash": "4507537720210b468fad66a1fa681a02",
+      "sourceName": "contracts/contract-factory/ERC721Creator_v2.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
+        "./imports/Collection_Manager.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.22"
+      ],
+      "artifacts": [
+        "ERC721CreatorV2"
       ]
     }
   }

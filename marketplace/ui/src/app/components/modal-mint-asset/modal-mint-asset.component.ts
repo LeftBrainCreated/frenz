@@ -8,6 +8,7 @@ import { Collection } from 'src/app/interfaces/collection';
 import { NewAsset } from 'src/app/interfaces/newAsset';
 import { Web3Service } from 'src/app/services/web3.service';
 import { ContractService } from 'src/app/services/contract.service';
+import { ContractConnectService } from 'src/app/services/contract-connect.service';
 import { UiService } from 'src/app/services/ui.service';
 import CREATOR_ABI_json from "src/app/contract-abi/ERC721Creator.json";
 import { ethers } from 'ethers';
@@ -42,7 +43,8 @@ export class ModalMintAssetComponent implements OnInit {
     private cdk: ChangeDetectorRef,
     private ipfs: IpfsService,
     private web3: Web3Service,
-    private ui: UiService
+    private ui: UiService,
+    private cc: ContractConnectService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,8 @@ export class ModalMintAssetComponent implements OnInit {
       // if (res.id == this.asset.tokenUri.gateway) {
       // }
     })
+
+
   }
 
   checkSubmit(e: KeyboardEvent): void {
@@ -127,7 +131,11 @@ export class ModalMintAssetComponent implements OnInit {
 
   async submitNewAsset() {
     if (this.collectionSelectValue == "newCol") {
-      this.collectionAddress = await this.web3.deployNewCollection();
+      this.web3.loadWeb3().then(async () => {
+        this.collectionAddress = await this.web3.deployNewCollection();
+      }).catch((er) => {
+        console.log(`error submitting new collection: ${er.toString()}`);
+      })
     }
     this.asset.name = this.assetName;
     this.asset.description = this.assetDescription;
@@ -137,11 +145,14 @@ export class ModalMintAssetComponent implements OnInit {
 
     var metaIpfs: string = await this.ipfs.createIpfsMetaFile(this.assetName + this.collectionName, this.asset)
 
-    var dynamicCollectionContract = new Erc721Service(this.ui);
-    dynamicCollectionContract.initializeContract(this.collectionAddress, CREATOR_ABI)
+    var dynamicCollectionContract = new Erc721Service(this.ui, this.cc);
+    dynamicCollectionContract.initContract(this.collectionAddress, CREATOR_ABI)
       .then((res) => {
         dynamicCollectionContract.createAsset(this.web3.selectedAddress, metaIpfs)
       })
   }
 }
 
+    // sepolia
+    // Implementation deployed at: 0x24f69aB4d6fc3724C3418b8db13f3e353DF5696c
+    // Beacon deployed at: 0x2a7CbB054ab1ED97E5fa023B58Cb42585903B737

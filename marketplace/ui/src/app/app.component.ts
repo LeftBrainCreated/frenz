@@ -88,10 +88,10 @@ export class GlobalConstants {
       decimals: 18
     }
   }, {
-    name: "Goerli"
-    , "chainHex": "0x5"
-    , rpc: ['https://ethereum-goerli.publicnode.com']
-    , explorer: ['https://goerli.etherscan.io/']
+    name: "Sepolia"
+    , chainHex: "0xaa36a7"
+    , rpc: ['https://ethereum-sepolia-rpc.publicnode.com']
+    , explorer: ['https://sepolia.etherscan.io/']
     , symbol: 'ETH'
     , decimals: 18
   }]

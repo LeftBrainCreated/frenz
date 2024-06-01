@@ -96,7 +96,7 @@ export class AlchemyService extends WebService {
         `${FRENZ_API_ROOT_URI}collection/${contractAddress}/nft/${tokenId}`,
         RequestMethod.GET,
         this.httpOptions = this.httpOptions)
-        .then((result: Asset) => {
+        .then((result: any) => {
           res(result);
         })
         .catch((ex: any) => {
@@ -112,7 +112,7 @@ export class AlchemyService extends WebService {
         `${FRENZ_API_ROOT_URI}collection/${contractAddress}/nft/${tokenId}/owner`,
         RequestMethod.GET,
         this.httpOptions = this.httpOptions)
-        .then((result: string) => {
+        .then((result: any) => {
           res(result);
         })
         .catch((ex: any) => {

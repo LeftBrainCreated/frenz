@@ -84,7 +84,7 @@ export class IpfsService extends WebService {
       //   reject(err);
       // });
 
-      this.http.post(FRENZ_API_ROOT_URI + 'pinata/ipfs/upload', params, httpOptions)
+      this.http.post<string>(FRENZ_API_ROOT_URI + 'pinata/ipfs/upload', params, httpOptions)
         .subscribe({
           next: (res: string) => {
             resolve(res);

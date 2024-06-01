@@ -8,8 +8,10 @@ import { Subject } from 'rxjs';
 // import Web3 from 'web3';
 import { ContractService } from './contract.service';
 import { Erc721Service } from './erc721.service';
+import { ContractConnectService } from './contract-connect.service';
+import { AbiItem } from 'web3-utils';
 
-const contract_json = require("../contract-abi/marketplace.json");
+const mpContractAbi = require("../contract-abi/marketplace.json");
 const MP_CONTRACT_ADDRESS = '0x07a70FEA55F85D6e77A1c7bD16c02B0F5a8748E6';
 const SHIB_CONTRACT_ADDRESS = '0x495eea66b0f8b636d441dc6a98d8f5c3d455c4c0';
 const BONE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000001010';
@@ -29,17 +31,15 @@ export class MarketplaceService extends ContractService {
   public ListingObs = new Subject<ListedAsset>();
   public listPriceSet = new Subject<any>();
   // private web3: Web3;
+  private uiService: UiService;
 
   constructor(
     uiService: UiService,
-    web3Service: Web3Service
+    ccService: ContractConnectService
   ) {
-    super(uiService);
-    // this.mpContract = new Erc721Service(uiService);
-    web3Service.loadWeb3().then(() => {
-      web3Service.init(SHIBARIUM_CHAIN_ID);
-      this.initializeContract(MP_CONTRACT_ADDRESS, contract_json);
-    });
+    super(uiService, ccService);
+    this.init(MP_CONTRACT_ADDRESS, mpContractAbi, SHIBARIUM_CHAIN_ID);
+    this.uiService = uiService;
   }
 
   async getListedAssets(): Promise<boolean> {
@@ -61,7 +61,7 @@ export class MarketplaceService extends ContractService {
   }
 
   public async buyItem(contractAddress: string, tokenId: string | number, value: number) {
-    await this.sendToContract("buyItem", this.web3.utils.toWei(value, 'ether').toString(), [
+    await this.sendToContract("buyItem", this.web3.utils.toWei(value.toString(), 'ether').toString(), [
       contractAddress,
       tokenId
     ]).then((res) => {
@@ -79,7 +79,7 @@ export class MarketplaceService extends ContractService {
           await this.sendToContract("listItem", null, [
             contractAddress,
             tokenId,
-            this.web3.utils.toWei(price, 'ether').toString()
+            this.web3.utils.toWei(price.toString(), 'ether').toString()
           ]).then((result) => {
             console.log(`Listing Created: CA: ${contractAddress} - ID: ${tokenId} - Price: ${price}`);
             res(result);
@@ -96,7 +96,7 @@ export class MarketplaceService extends ContractService {
         await this.sendToContract("updateListing", null, [
           contractAddress,
           tokenId,
-          this.web3.utils.toWei(price, 'ether').toString()
+          this.web3.utils.toWei(price.toString(), 'ether').toString()
         ]).then((res) => {
           console.log(`Listing Created: CA: ${contractAddress} - ID: ${tokenId} - Price: ${price}`);
           return res;
@@ -166,7 +166,7 @@ export class MarketplaceService extends ContractService {
 
   private checkForNftApproval(contractAddress: string, operator: string, tokenId: string): Promise<void> {
     return new Promise(async (res, rej) => {
-      var c = new this.web3.eth.Contract(ERC721Abi, contractAddress);
+      var c = new this.web3.eth.Contract(ERC721Abi as AbiItem[], contractAddress);
 
       await this.callToContract(
         "getApproved", [tokenId]

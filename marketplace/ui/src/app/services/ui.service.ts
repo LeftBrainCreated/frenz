@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Breadcrumb } from '../interfaces/breadcrumb';
+import { WalletProvider } from '../interfaces/walletProvider';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,15 @@ export class UiService {
   public walletAddressObs = new Subject<string>();
   public changeConnectedStateObs = new Subject<boolean>();
   public enterMarketplaceObs = new Subject<any>();
+  public royaltyCheckObs = new Subject<number>();
+  public mintResultObs = new Subject<string>();
   public BreadcrumbPushObs = new Subject<Breadcrumb[]>();
   public BreadcrumbPopObs = new Subject<Breadcrumb>();
+  public walletSelected = new Subject<WalletProvider>();
   public CaptureBreadcrumbObs = new Subject<any>();
   public moveToWalletObs = new Subject<any>();
   public UiChangesObs = new Subject<void>();
+  public navigateToTargetObs = new Subject<number>();
 
   public breadcrumbTrail: Breadcrumb[] = [];
 

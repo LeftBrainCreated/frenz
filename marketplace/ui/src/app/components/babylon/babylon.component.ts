@@ -20,6 +20,7 @@ import { AlchemyService } from 'src/app/services/alchemy.service';
 import { Asset } from 'src/app/interfaces/asset';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
 import Web3 from 'web3';
+import { ComponentArbiterService } from 'src/app/services/component-arbiter.service';
 
 const fixtureLength = 2.28;
 
@@ -31,6 +32,8 @@ const fixtureLength = 2.28;
 export class BabylonComponent {
 
   @Input() isMobile: boolean = false
+
+  loading: boolean = true;
 
   engine!: Engine;
   startPosition = new Vector3(0, 10, 45);
@@ -49,6 +52,9 @@ export class BabylonComponent {
   selectedAsset?: Asset;
   singleViewId: number = 0;
 
+  walletConnected: boolean = false;
+  walletAddress?: string;
+
   collectionPanelHidden = true;
   previewPanel!: HTMLElement | null;
   multiView: boolean = true;
@@ -66,96 +72,34 @@ export class BabylonComponent {
   constructor(
     private uiService: UiService,
     private alchemy: AlchemyService,
-    private mpWeb3: MarketplaceService
+    private mpWeb3: MarketplaceService,
+    private arbiter: ComponentArbiterService
   ) { }
 
   ngOnInit() {
     let canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
-
     this.launchBabylon(canvas);
 
     this.engine.runRenderLoop(() => {
       this.scene.render();
     });
 
-    this.uiService.switchViewModeObs.subscribe((multiView: boolean) => {
-      this.multiView = multiView;
-    })
-
-    this.uiService.scaleObjectObs.subscribe((scaleUp: boolean) => {
-      this.scaledUp = scaleUp;
-    })
-
-    this.alchemy.CollectionResults.subscribe((res: Asset[]) => {
-      this.assets = res;
-    })
-
-    this.alchemy.MarketplaceCollectionsObs.subscribe((res) => {
-      this.collectionList = res;
-      res.forEach(element => {
-        this.alchemy.whitelistedCollections.push(Web3.utils.toChecksumAddress(element['contractAddress']));
-      });
-    })
-
-    this.uiService.moveToWalletObs.subscribe((res) => {
-      this.moveCamera();
-      this.currentView = viewType.wallet;
-    })
-
-
-
-    this.alchemy.OwnedAssetsObs.subscribe((res) => {
-      this.ownedAssets = res;
-
-      this.mpWeb3.ownedAssets = [];
-      this.ownedAssets.forEach((oa) => {
-        this.mpWeb3.ownedAssets.push({ contractAddress: oa.contract.address, tokenId: oa.tokenId });
-      })
-    })
-
-    this.uiService.enterMarketplaceObs.subscribe(() => {
-      if (this.splashPanel) {
-        this.moveCamera(-1);
+    this.arbiter.walletConnected$.subscribe(wallet => {
+      if (wallet) {
+        this.walletConnected = true;
+        this.walletAddress = wallet.selectedAddress;
+        Promise.all([
+          this.alchemy.getNFTsForWallet(wallet.selectedAddress),
+        ]).then(async ([nftsResult]) => {
+          this.loading = false;
+        });
+        if (this.selectedAsset) {
+          this.selectedAsset.owned = Web3.utils.toChecksumAddress(this.selectedAsset.owner) == Web3.utils.toChecksumAddress(wallet.selectedAddress)
+        }
       }
     })
 
-    this.uiService.changeConnectedStateObs.subscribe((res) => {
-      this.alchemy.getNFTsForWallet(this.mpWeb3.selectedAddress);
-      this.mpWeb3.getListedAssets();
-    })
-
-    this.uiService.CaptureBreadcrumbObs.subscribe(() => {
-      this.uiService.pushToBreadcrumb({
-        viewType: this.currentView,
-        collectionAddress: this.selectedCollection?.contractAddress,
-        assetId: this.selectedAsset?.tokenId
-      })
-    })
-
-    this.uiService.BreadcrumbPopObs.subscribe((res: Breadcrumb) => {
-      // this.navPos = this.navPos + res;
-
-      this.currentView = res.viewType;
-      switch (this.currentView) {
-        case 1:
-          this.moveCamera();
-          break;
-        case 2:
-          this.alchemy.getNFTsForCollection(res.collectionAddress);
-          break;
-
-        case 3:
-          this.alchemy.getNFTMetadata(res.collectionAddress, res.assetId)
-            .then((asset) => {
-              this.selectedAsset = asset;
-            })
-          break;
-
-        case 4:
-          this.moveCamera();
-      }
-
-    })
+    this.loadListeners();
   }
 
   ngAfterViewInit() {
@@ -494,6 +438,86 @@ export class BabylonComponent {
     skybox.material = skyboxMaterial;
   }
 
+  async loadListeners() {
+    this.uiService.switchViewModeObs.subscribe((multiView: boolean) => {
+      this.multiView = multiView;
+    })
+
+    this.uiService.scaleObjectObs.subscribe((scaleUp: boolean) => {
+      this.scaledUp = scaleUp;
+    })
+
+    this.alchemy.CollectionResults.subscribe((res: Asset[]) => {
+      this.assets = res;
+    })
+
+    this.alchemy.MarketplaceCollectionsObs.subscribe((res) => {
+      this.collectionList = res;
+      res.forEach((element: any) => {
+        this.alchemy.whitelistedCollections.push(Web3.utils.toChecksumAddress(element['contractAddress']));
+      });
+    })
+
+    this.uiService.moveToWalletObs.subscribe((res) => {
+      this.moveCamera();
+      this.currentView = viewType.wallet;
+    })
+
+
+
+    this.alchemy.OwnedAssetsObs.subscribe((res) => {
+      this.ownedAssets = res;
+
+      this.mpWeb3.ownedAssets = [];
+      this.ownedAssets.forEach((oa) => {
+        this.mpWeb3.ownedAssets.push({ contractAddress: oa.contract.address, tokenId: oa.tokenId });
+      })
+    })
+
+    this.uiService.enterMarketplaceObs.subscribe(() => {
+      if (this.splashPanel) {
+        this.moveCamera(-1);
+      }
+    })
+
+    this.uiService.changeConnectedStateObs.subscribe((res) => {
+      this.alchemy.getNFTsForWallet(this.mpWeb3.selectedAddress);
+      this.mpWeb3.getListedAssets();
+    })
+
+    this.uiService.CaptureBreadcrumbObs.subscribe(() => {
+      this.uiService.pushToBreadcrumb({
+        viewType: this.currentView,
+        collectionAddress: this.selectedCollection?.contractAddress,
+        assetId: this.selectedAsset?.tokenId
+      })
+    })
+
+    this.uiService.BreadcrumbPopObs.subscribe((res: Breadcrumb) => {
+      // this.navPos = this.navPos + res;
+
+      this.currentView = res.viewType;
+      switch (this.currentView) {
+        case 1:
+          this.moveCamera();
+          break;
+        case 2:
+          this.alchemy.getNFTsForCollection(res.collectionAddress);
+          break;
+
+        case 3:
+          this.alchemy.getNFTMetadata(res.collectionAddress, res.assetId)
+            .then((asset) => {
+              this.selectedAsset = asset;
+            })
+          break;
+
+        case 4:
+          this.moveCamera();
+      }
+
+    })
+  }
 }
 
 enum viewType {

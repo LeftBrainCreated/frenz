@@ -1,10 +1,15 @@
 {
 	"compiler": {
-		"version": "0.8.23+commit.f704f362"
+		"version": "0.8.25+commit.b61c2a91"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
 			{
 				"inputs": [
 					{
@@ -1159,7 +1164,7 @@
 		"compilationTarget": {
 			"contracts/contracts/contract-factory/ERC721Creator.sol": "ERC721Creator"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1380,11 +1385,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/ERC721Creator.sol": {
-			"keccak256": "0x9183609c56f84e6e382048aa26f7a7e37a709a95f6f76380606828a427f72d29",
+			"keccak256": "0x0ebff7d28b3a27c6ad275ec1727363eb9e6d0cddb126bb3294574d0894a13586",
 			"license": "Unlicense",
 			"urls": [
-				"bzz-raw://19d840a266a505c28d94097a5d366b3c64b939c8d8ed97aa2cfa031f9712bc2c",
-				"dweb:/ipfs/QmbTHKCjc2cw4J4Ms3qatc64FEvRJr9sWEggXcEGtYWTeD"
+				"bzz-raw://d93d82370acda1fce94e020e3ea0ec3345b5a50ed986a0d510f9e8cc4a380e23",
+				"dweb:/ipfs/QmPd4wUMgXhzYB3rq8fTCsuFpo3vzDwPRbNBx34jVCvhZL"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/AdminControl.sol": {
@@ -1396,11 +1401,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/imports/Collection_Manager.sol": {
-			"keccak256": "0xaf7b33c4ec7b4e18a8a7ebdbb587b25a6681935146c38d9fe5f4ab1c8f76ff93",
+			"keccak256": "0xd49c00f22c337c629d66b456b5be466053cc518245c15d66860eee888674b372",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ce772504156e3aae46e6572c1788c66b5fe2d3f417ae14adc3dc30c4ede33c48",
-				"dweb:/ipfs/QmSmL9x4steHDNmEEgrgCskC9TTjfrf43humsbz6K81x5j"
+				"bzz-raw://2f92ba122a86855131303affc301d58742ed2e4469ee20cd92fdfee48c76cc19",
+				"dweb:/ipfs/QmXCc8nxJAStMtvc4JvyvCEt4DKiSfZWU21GCfHxYb2bMb"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/CoreValues.sol": {
@@ -1409,14 +1414,6 @@
 			"urls": [
 				"bzz-raw://0d9279e752a104451a12c419b67f0bd8436a684218e66b9d948d3c6148f4fc5e",
 				"dweb:/ipfs/QmSSzqyQEkrtQxo7QWXxmpxmwHu5cKvN1Cjehzjfh2KZqS"
-			]
-		},
-		"contracts/contracts/contract-factory/imports/Distribution_Manager.sol": {
-			"keccak256": "0xf1f2658fa64f5b11514dbdeb3b48a12593a16eb6a8e2bcb98576cb122be786e5",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://ba57233096ec8d6f7264e72b0da7b40e8da6f5c18f97b7776209fbdca3cd16f5",
-				"dweb:/ipfs/QmWjhoBeKeygyP7kFL7juqYLPS3CxVVoKsnFYfaSTt5hmM"
 			]
 		}
 	},

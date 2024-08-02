@@ -17,3 +17,4 @@ contracts/contracts/contract-factory/core/artifacts/
 marketplace/backend/uploads/*
 contracts/.openzeppelin/*
 contracts/cache/*
+.vscode/

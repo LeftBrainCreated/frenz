@@ -122,6 +122,22 @@ export class AlchemyService extends WebService {
     })
   }
 
+  async getCollectionsOwnedByWallet(walletAddress: string): Promise<any> {
+    return new Promise(async (res, rej) => {
+      await this.sendRequest(
+        `${FRENZ_API_ROOT_URI}collections/bydeployer/${walletAddress}`,
+        RequestMethod.GET,
+        this.httpOptions = this.httpOptions)
+        .then((result: any) => {
+          res(result);
+        })
+        .catch((ex: any) => {
+          console.log(ex);
+          rej();
+        })
+    })
+  }
+
   // private sendRequest(uri: string, method: RequestMethod = RequestMethod.GET, payload: any = null) {
   //   return new Promise((res, rej) => {
   //     var httpOptions = {

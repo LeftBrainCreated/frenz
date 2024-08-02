@@ -17,6 +17,16 @@
 //     border-radius: 75px;
 // }
 
+div.seperator {
+    height: 1px;
+    width: 90%;
+    outline: groove;
+    outline-width: thin;
+    outline-color: whitesmoke;
+    align-self: center;
+    margin-top: 40px;
+}
+
 div.form-container {
     width: 60%;
     height: auto;
@@ -71,7 +81,7 @@ div.form-container {
             width: 85%;
         }
 
-        div.asset-input-container {
+        div.asset-input-container, div.collection-container {
             display: flex;
             flex-direction: row;
 
@@ -81,14 +91,14 @@ div.form-container {
                 }
             }
 
-            .asset-input-values {
+            .asset-input-values, .collection-input-values {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 gap: 60px;
                 width: 100%;
 
-                div.asset-input-left {
+                div.asset-input-left, div.collection-input-left {
                     display: flex;
                     flex: 3;
                     flex-direction: column;
@@ -114,7 +124,8 @@ div.form-container {
                     }
                 }
 
-                div.asset-input-right {
+                div.asset-input-right, div.collection-input-right {
+                    text-align: center;
                     flex: 2;
 
                     img {
@@ -124,6 +135,20 @@ div.form-container {
                         min-height: 400px;
                         object-fit: contain;
                     }
+
+                    button {
+                        flex: 3;
+                        width: 100%;
+                        margin: 4px;
+                        padding: 20px;
+                        border-radius: 60px;
+                        cursor: pointer;
+                    }
+        
+                }
+
+                div.asset-input-right {
+                    margin-top: 25px
                 }
             }
 

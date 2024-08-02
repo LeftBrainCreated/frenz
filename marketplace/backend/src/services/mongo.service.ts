@@ -19,9 +19,9 @@ export async function connectToDatabase() {
 
     const db: mongoDb.Db = client.db('frenz_mp');
 
-    const wl: mongoDb.Collection = db.collection('whitelist');
+    const wl: mongoDb.Collection = db.collection('collections');
 
-    collections.whiteList = wl;
+    collections.collections = wl;
 
     console.log(`Successfully connected to database: ${db.databaseName} and collection: ${wl.collectionName}`);
 }
@@ -30,7 +30,7 @@ export const getMarketplaceCollections = async (): Promise<any> => {
     // return new Promise(async (res, rej) => {
 
     try {
-        const cols = (await collections.whiteList?.find({}).toArray()) as unknown as MpCollection[];
+        const cols = (await collections.collections?.find({}).toArray()) as unknown as MpCollection[];
 
         cols.forEach((col) => {
             console.log('Record: ' + col.collectionName);
@@ -45,4 +45,31 @@ export const getMarketplaceCollections = async (): Promise<any> => {
     }
 }
 
-export const collections: { whiteList?: mongoDb.Collection } = {}
+export const getCollectionsOwnedByWallet = async (deployerWallet: string): Promise<any> => {
+    try {
+        let q = { contractDeployer: deployerWallet }
+        const cols = await collections.collections?.find(q).toArray();
+
+        cols?.forEach((col) => {
+            console.log('Record: ' + col.collectionName);
+        });
+
+        return cols;
+    } catch (ex) {
+        console.log(ex);
+        throw ex; // Rethrow the error after logging it
+    }
+}
+
+export const createNewMarketplaceCollection = async (colDetails: any): Promise<any> => {
+    try {
+        let col = collections.collections;
+    
+        col?.insertOne(colDetails);
+        return true;
+    } catch(err) {
+        throw err;
+    }
+}
+
+export const collections: { collections?: mongoDb.Collection } = {}

@@ -13,6 +13,7 @@ import { UiService } from 'src/app/services/ui.service';
 import CREATOR_ABI_json from "src/app/contract-abi/ERC721Creator.json";
 import { ethers } from 'ethers';
 import { Erc721Service } from 'src/app/services/erc721.service';
+import { AlchemyService } from 'services/alchemy.service';
 
 const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
 
@@ -23,7 +24,8 @@ const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
 })
 export class ModalMintAssetComponent implements OnInit {
   file: File = null;
-  fileAddress = 'assets/images/no-image-x.png';
+  assetImageAddress = '';
+  collectionImageAddress = 'assets/images/no-image-x.png';
 
   assetName: string = '';
   collectionSelectValue: string = "newCol";
@@ -44,18 +46,19 @@ export class ModalMintAssetComponent implements OnInit {
     private ipfs: IpfsService,
     private web3: Web3Service,
     private ui: UiService,
-    private cc: ContractConnectService
+    private cc: ContractConnectService,
+    private alchemy: AlchemyService
   ) { }
 
   ngOnInit(): void {
     this.ipfs.IpfsResult.subscribe((res) => {
-      this.fileAddress = res.data.image;
-      this.asset.image = this.fileAddress;
+      this.assetImageAddress = res.data.image;
+      this.asset.image = this.assetImageAddress;
       // if (res.id == this.asset.tokenUri.gateway) {
       // }
     })
 
-
+    this.getCollectionsOwnedByWallet();
   }
 
   checkSubmit(e: KeyboardEvent): void {
@@ -102,9 +105,9 @@ export class ModalMintAssetComponent implements OnInit {
 
   checkIpfsUrl(val: string) {
     if (val.indexOf("/") == -1) {
-      this.fileAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + val;
+      this.assetImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + val;
     } else {
-      this.fileAddress = val;
+      this.assetImageAddress = val;
     }
     // console.log(this.fileAddress);
     this.cdk.detectChanges();
@@ -115,11 +118,15 @@ export class ModalMintAssetComponent implements OnInit {
     this.file = event.target.files[0]
   }
 
+  addCollectionImage() {
+
+  }
+
   upload() {
     if (this.file) {
       this.ipfs.sendFileToIPFS(this.file).then((resp: any) => {
         // alert("Uploaded")
-        this.fileAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + resp.IpfsHash;
+        this.assetImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + resp.IpfsHash;
         this.cdk.detectChanges();
         // this.ipfs.getIpfs(resp.IpfsHash);
         console.log(resp);
@@ -131,15 +138,13 @@ export class ModalMintAssetComponent implements OnInit {
 
   async submitNewAsset() {
     if (this.collectionSelectValue == "newCol") {
-      this.web3.loadWeb3().then(async () => {
-        this.collectionAddress = await this.web3.deployNewCollection();
-      }).catch((er) => {
-        console.log(`error submitting new collection: ${er.toString()}`);
-      })
+      this.collectionAddress = await this.deployNewCollection();
     }
+
     this.asset.name = this.assetName;
+    
     this.asset.description = this.assetDescription;
-    this.asset.image = this.fileAddress;
+    this.asset.image = this.assetImageAddress;
     this.asset.attributes = this.traits;
     this.asset.date = Math.floor(Date.now() / 1000);
 
@@ -151,6 +156,40 @@ export class ModalMintAssetComponent implements OnInit {
         dynamicCollectionContract.createAsset(this.web3.selectedAddress, metaIpfs)
       })
   }
+
+  async deployNewCollection(): Promise<string> {
+    let col: Collection = {
+      collectionName: this.collectionName,
+      description: this.collectionDescription,
+      contractAddress: null,
+      bannerImageUrl: null,
+      collectionDefaultImage: null,
+      collectionSlug:this.collectionName.replace(' ', '_'),
+      contractDeployer: this.web3.selectedAddress,
+      creatorName:null,
+      discrodUrl: '',
+      imageUrl: '',
+      ipfs: '',
+      symbol: '',
+      tokenType: '',
+      twitterUsername: ''
+    }
+
+    return await this.web3.loadWeb3().then(async () => {
+      this.collectionAddress = await this.web3.deployNewCollection();
+
+      return this.collectionAddress;
+    }).catch((er) => {
+      console.log(`error submitting new collection: ${er.toString()}`);
+
+      return '';
+    })
+  }
+
+  async getCollectionsOwnedByWallet(): Promise<any> {
+    this.walletCollections = await this.alchemy.getCollectionsOwnedByWallet(this.web3.selectedAddress);
+  }
+
 }
 
     // sepolia

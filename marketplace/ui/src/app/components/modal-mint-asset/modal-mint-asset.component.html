@@ -5,13 +5,9 @@
             <h2>New Asset</h2>
         </div>
         <div class="form-main">
-            <div class="asset-input-container">
-                <div class="asset-input-values">
-                    <div class="asset-input-left">
-                        <div class="text-input-container">
-                            <label>Asset Name</label><br />
-                            <input type="text" class="text-input" [value]="assetName" required>
-                        </div>
+            <div class="collection-container">
+                <div class="collection-input-values">
+                    <div class="collection-input-left">
                         <div class="collection-input-container">
                             <mat-form-field>
                                 <select matNativeControl [(ngModel)]="collectionSelectValue" required>
@@ -33,6 +29,22 @@
                                 </mat-form-field>
                             </div>
                         </div>
+                    </div>
+                    <div class="collection-input-right">
+                        <!-- <label for="formFile" class="form-label">NFT File Upload</label> -->
+                        <img src="{{collectionImageAddress}}">
+                        <button *ngIf="collectionSelectValue == 'newCol'" (click)="addCollectionImage()" type="button" class="btn btn-primary mt-3">Add New Collection Image</button>
+                    </div>
+                </div>
+            </div>
+            <div class="seperator"></div>
+            <div class="asset-input-container">
+                <div class="asset-input-values">
+                    <div class="asset-input-left">
+                        <div class="text-input-container">
+                            <label>Asset Name</label><br />
+                            <input type="text" class="text-input" [value]="assetName" required>
+                        </div>
                         <div class="text-input-container">
                             <label>Asset Description</label>
                             <textarea class="text-input" [value]="assetDescription"></textarea>
@@ -40,7 +52,7 @@
                     </div>
                     <div class="asset-input-right">
                         <!-- <label for="formFile" class="form-label">NFT File Upload</label> -->
-                        <img src="{{fileAddress}}">
+                        <img *ngIf="assetImageAddress" src="{{assetImageAddress}}">
                     </div>
                 </div>
             </div>
@@ -59,7 +71,7 @@
                         <button (click)="this.upload()" type="button" class="btn btn-primary mt-3">Upload</button>
                     </div>
                     <div class="text-input-container" *ngIf="radioFileUpload==1">
-                        <label>Asset URL</label><br />
+                        <label>Asset IPFS Address</label><br />
                         <input type="text" class="text-input upload-input" placeholder="ipfs://my.ipfs.com/{ipfs-hash}"
                             (blur)="checkIpfsUrl(assetUrl)" [(ngModel)]="assetUrl">
                     </div>

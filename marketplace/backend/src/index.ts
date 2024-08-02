@@ -59,9 +59,29 @@ app.get('/api/collections', async (req: Request, res: Response) => {
         });
 })
 
+app.get('/api/collections/byDeployer/:deployerWallet', async (req: Request, res: Response) => {
+    try {
+        mongo.connectToDatabase()
+        .then(async () => {
+            const collections = await mongo.getCollectionsOwnedByWallet(req.params.deployerWallet);
+            res.send(collections);
+        });
+    } catch (ex) {
+        res.status(500).send('An error occurred');
+    }
+});
+
 app.get('/api/wallet/:walletAddress', async (req: Request, res: Response) => {
     alchemy.getNftsForWallet(req.params.walletAddress).then((collection) => {
         res.send(collection['ownedNfts']);
+    })
+})
+
+app.post('/api/collections/create', async (req: Request, res: Response) => {
+    // check for whitelisted creator address
+
+    mongo.createNewMarketplaceCollection(req.body).then((result: boolean) => {
+        res.send(result);
     })
 })
 

@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -1346,11 +1346,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/imports/Collection_Manager.sol": {
-			"keccak256": "0xd49c00f22c337c629d66b456b5be466053cc518245c15d66860eee888674b372",
+			"keccak256": "0x2e390fc274fe207d16da4b612a6c1fa24cb091c5f7a94de93d8accd2e3feaf0f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2f92ba122a86855131303affc301d58742ed2e4469ee20cd92fdfee48c76cc19",
-				"dweb:/ipfs/QmXCc8nxJAStMtvc4JvyvCEt4DKiSfZWU21GCfHxYb2bMb"
+				"bzz-raw://f33ff877c1f4076d9196368aa586f525ba7a962790e095b94d3e85e09eecf332",
+				"dweb:/ipfs/QmNVYxyuwrebh4PdhsbtxUvs9eDXaQH8Z8qsmj59fBb5LL"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/CoreValues.sol": {

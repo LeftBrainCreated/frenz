@@ -3,7 +3,7 @@ import { ContractService } from './contract.service';
 import { UiService } from './ui.service';
 import { ContractConnectService } from './contract-connect.service';
 
-const OPERATING_CHAIN_ID: number = 2;
+const OPERATING_CHAIN_ID: number = 3;
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +26,12 @@ export class Erc721Service extends ContractService {
   }
 
   public async createAsset(deliveryAddress: string, ipfsUri: string): Promise<any> {
-    return new Promise(async (res, rej) => {
-      await this.callToContract("mintToken", [
-        deliveryAddress, ipfsUri,
-      ]).then((result) => {
-        console.log(`Listing Created: DeliveredTo: ${deliveryAddress}`);
-        res(result);
-      }).catch((ex) => {
-        rej(ex);
-      })
-    })
+    try {
+      const result = await this.callToContract("mintToken", [deliveryAddress, ipfsUri]);
+      console.log(`Listing Created: DeliveredTo: ${deliveryAddress}`);
+      return result;
+    } catch (ex) {
+      throw ex;
+    }
   }
 }

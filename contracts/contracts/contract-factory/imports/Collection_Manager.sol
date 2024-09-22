@@ -3,7 +3,6 @@
 pragma solidity ^0.8.22;
 
 import {ERC721Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {EnumerableSetUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol";
 import {ERC721URIStorageUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 import {ERC721RoyaltyUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721RoyaltyUpgradeable.sol";
@@ -12,8 +11,6 @@ import {AdminControl} from "./AdminControl.sol";
 import {Core} from "./CoreValues.sol";
 
 abstract contract CollectionManager is
-    // ERC721Upgradeable,
-    // OwnableUpgradeable,
     ERC721URIStorageUpgradeable,
     ERC721RoyaltyUpgradeable,
     ERC721EnumerableUpgradeable,
@@ -67,37 +64,35 @@ abstract contract CollectionManager is
         _resetTokenRoyalty(tokenId);
     }
 
-    function _update(address to, uint256 tokenId, address auth) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (address updatedAddress) {
-        return super._update(to, tokenId, auth);
-    }
-
-     function _increaseBalance(address account, uint128 amount) internal virtual override (ERC721EnumerableUpgradeable, ERC721Upgradeable){
-        super._increaseBalance(account, amount);
-     }
-
-    // function _burn(
-    //     uint256 tokenId
-    // )
-    //     internal
-    //     virtual
-    //     override(
-    //         ERC721Upgradeable
-    //     )
-    // {
-    //     super._burn(tokenId);
-    // }
-
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256 firstTokenId,
+        uint256 tokenId,
         uint256 batchSize
     )
         internal
         virtual
+        override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
     {
-        _beforeTokenTransfer(from, to, firstTokenId, batchSize);
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
+
+    // Override _burn
+    function _burn(uint256 tokenId)
+        internal
+        virtual
+        override(ERC721Upgradeable, ERC721RoyaltyUpgradeable, ERC721URIStorageUpgradeable)
+    {
+        super._burn(tokenId);
+    }
+
+    //  function _increaseBalance(address account, uint128 amount) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) {
+    //     super._increaseBalance(account, amount);
+    //  }
+
+    // function _update(address to, uint256 tokenId, address auth) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (address) {
+    //     super._update(to, tokenId, auth);
+    // }
 
     function supportsInterface(
         bytes4 interfaceId
@@ -126,34 +121,4 @@ abstract contract CollectionManager is
     {
         return super.tokenURI(tokenId);
     }
-
-    // function totalSupply() public view override returns (uint256) {
-    //     return _tokenCount;
-    // }
-
-
-    // function init() internal {
-    //     __Ownable_init();
-    // }
-
-    // function tokenMint(address to, uint tokenId) internal {
-    // }
-
-    // } _exists(
-    //     uint256 tokenId
-    // ) internal view virtual override returns (bool) {
-    //     return tokenId > 0 && tokenId <= _tokenCount;
-    // }
-
-    // function supportsInterface(
-    //     bytes4 interfaceId
-    // )
-    //     public
-    //     view
-    //     virtual
-    //     override(ERC721Upgradeable)
-    //     returns (bool)
-    // {
-    //     super.supportsInterface(interfaceId);
-    // }
 }

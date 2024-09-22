@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { WebService } from './web.service';
 import { RequestMethod } from '../enumerations/request-methods';
 import * as fs from 'fs'
@@ -50,52 +50,34 @@ export class IpfsService extends WebService {
   }
 
   public async createIpfsMetaFile(fileName: string, metadata: any): Promise<string> {
-    return new Promise(async (res, rej) => {
-      const blob = new Blob([metadata.toString()], { type: 'application/json' });
-      const file = new File([blob], fileName + '.txt', { type: 'application/json' });
-
-      res(await this.sendFileToIPFS(file));
-    })
+    const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
+    const file = new File([blob], `${fileName}.txt`, { type: 'application/json' });
+  
+    return this.sendFileToIPFS(file);
   }
-
+  
   public async sendFileToIPFS(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const params = new FormData();
-      params.append('file', file);
-      params.append('pinataMetadata', JSON.stringify({ name: 'file name here' }));
-      params.append('pinataOptions', JSON.stringify({
-        cidVersion: 0,
-      }));
-
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Accept': 'application/json, text/plain, */*'
-        })
-      };
-
-      // this.sendRequest(
-      //   FRENZ_API_ROOT_URI + 'pinata/ipfs/upload',
-      //   RequestMethod.POST,
-      //   params,
-      //   httpOptions
-      // ).then((res) => {
-      //   resolve(res);
-      // }).catch((err) => {
-      //   reject(err);
-      // });
-
-      this.http.post<string>(FRENZ_API_ROOT_URI + 'pinata/ipfs/upload', params, httpOptions)
-        .subscribe({
-          next: (res: string) => {
-            resolve(res);
-          },
-          error: (err) => {
-            reject(err);
-          }
-        });
-    });
+    const params = new FormData();
+    params.append('file', file);
+    // params.append('pinataMetadata', JSON.stringify({ name: file.name }));
+    params.append('pinataOptions', JSON.stringify({ cidVersion: 0 }));
+  
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json, text/plain, */*'
+      })
+    };
+  
+    try {
+      const response = await firstValueFrom(
+        this.http.post<string>(`${FRENZ_API_ROOT_URI}pinata/ipfs/upload`, params, httpOptions)
+      );
+      return response;
+    } catch (error) {
+      throw new Error(`Failed to upload file to IPFS: ${error.message}`);
+    }
   }
-
+  
 
 
 }

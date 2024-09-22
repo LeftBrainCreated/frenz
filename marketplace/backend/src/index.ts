@@ -15,6 +15,8 @@ const port = process.env.PORT;
 const allowedOrigins = process.env.CORS_ORIGIN;
 const upload = multer({ dest: 'uploads/' });
 
+app.use(express.json());
+
 // const upload = multer({
 //     dest: 'uploads/'
 // });
@@ -95,6 +97,17 @@ app.post('/api/pinata/ipfs/upload', upload.single('file'), (req, res) => {
     })
 });
 
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running - ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️`);
-});
+(async () => {
+    try {
+        // Connect to the MongoDB database before starting the server
+        await mongo.connectToDatabase();
+        
+        // Start the server after the DB connection is successful
+        app.listen(port, () => {
+            console.log(`⚡️[server]: Server is running - ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️`);
+            console.log(`Server is running on port ${port}`);
+        });
+    } catch (err) {
+        console.error("Failed to connect to the database or start the server:", err);
+    }
+})();

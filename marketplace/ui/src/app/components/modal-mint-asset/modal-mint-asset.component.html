@@ -10,20 +10,30 @@
                     <div class="collection-input-left">
                         <div class="collection-input-container">
                             <mat-form-field>
-                                <select matNativeControl [(ngModel)]="collectionSelectValue" required>
+                                <select matNativeControl [(ngModel)]="collectionSelectValue" (change)="onCollectionSelectChange()" required>
                                     <option value="newCol">New Collection</option>
                                     <option value="existCol">Existing Collection</option>
                                 </select>
                             </mat-form-field>
+                            <div *ngIf="collectionSelectValue == 'newCol'" class="horiz-form">
+                                <div class="text-input-container">
+                                    <label>New Collection Name</label>
+                                    <input type="text" class="text-input" [(ngModel)]="colName">
+                                </div>
+                                <div class="text-input-container">
+                                    <label>Collection Symbol <i>(FFREN)</i></label>
+                                    <input type="text" class="text-input" [(ngModel)]="colSymbol">
+                                </div>
+                            </div>
                             <div *ngIf="collectionSelectValue == 'newCol'" class="text-input-container">
-                                <label>New Collection Name</label>
-                                <input type="text" class="text-input" [value]="collectionName">
+                                <label>Collection Description</label>
+                                <textarea class="text-input" [(ngModel)]="colDescription"></textarea>
                             </div>
                             <div *ngIf="collectionSelectValue == 'existCol'" class="text-input-container">
                                 <mat-form-field>
-                                    <select matNativeControl [(ngModel)]="collectionName"
+                                    <select matNativeControl [(ngModel)]="colName" (change)="setSelectedCollection($event)" 
                                         [disabled]="walletCollections.length == 0">
-                                        <option *ngFor="let col of walletCollections" value="{{col.contractAddress}}">
+                                        <option *ngFor="let col of walletCollections; let i = index" value="{{col.contractAddress}}">
                                             {{col.collectionName}}</option>
                                     </select>
                                 </mat-form-field>
@@ -33,7 +43,8 @@
                     <div class="collection-input-right">
                         <!-- <label for="formFile" class="form-label">NFT File Upload</label> -->
                         <img src="{{collectionImageAddress}}">
-                        <button *ngIf="collectionSelectValue == 'newCol'" (click)="addCollectionImage()" type="button" class="btn btn-primary mt-3">Add New Collection Image</button>
+                        <input *ngIf="collectionSelectValue == 'newCol'" (change)="this.onFilechange($event)" name="inputColImage" class="form-control" type="file" id="formFile">
+                        <button *ngIf="collectionSelectValue == 'newCol'" (click)="this.uploadColImage()" type="button" class="btn btn-primary mt-3">Upload</button>
                     </div>
                 </div>
             </div>
@@ -43,11 +54,11 @@
                     <div class="asset-input-left">
                         <div class="text-input-container">
                             <label>Asset Name</label><br />
-                            <input type="text" class="text-input" [value]="assetName" required>
+                            <input type="text" class="text-input" [(ngModel)]="assetName" required>
                         </div>
                         <div class="text-input-container">
                             <label>Asset Description</label>
-                            <textarea class="text-input" [value]="assetDescription"></textarea>
+                            <textarea class="text-input" [(ngModel)]="assetDescription"></textarea>
                         </div>
                     </div>
                     <div class="asset-input-right">
@@ -67,8 +78,8 @@
                 </div>
                 <div class="upload-container">
                     <div *ngIf="radioFileUpload==2" class="upload-control">
-                        <input (change)="this.onFilechange($event)" class="form-control" type="file" id="formFile">
-                        <button (click)="this.upload()" type="button" class="btn btn-primary mt-3">Upload</button>
+                        <input (change)="this.onFilechange($event)" name="inputAssetImage" class="form-control" type="file" id="formFile">
+                        <button (click)="this.uploadAssetFile()" type="button" class="btn btn-primary mt-3">Upload</button>
                     </div>
                     <div class="text-input-container" *ngIf="radioFileUpload==1">
                         <label>Asset IPFS Address</label><br />
@@ -126,7 +137,7 @@
             </div>
 
             <div *ngIf="collectionRadioValue == 1">
-                <input matInput placeholder="My NFT Collection" [(ngModel)]="collectionName">
+                <input matInput placeholder="My NFT Collection" [(ngModel)]="colName">
                 <textarea matInput placeholder="Description" [(ngModel)]="collectionDescription"></textarea>
             </div>
             <div *ngIf="collectionRadioValue == 2">

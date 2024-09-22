@@ -1,26 +1,23 @@
-const FormData = require('form-data');
-const fs = require('fs');
-const axios = require('axios');
-// const pinataSDK = require('@pinata/sdk');
-
+import fs from 'fs';
+import pinataSDK from '@pinata/sdk';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-export const pinFile = (file: any) => {
-    return new Promise((resolve, reject) => {
-        const formData = new FormData();
-        formData.append('file', fs.createReadStream(file.path), file.originalname);
+const pinata = new pinataSDK({
+    pinataJWTKey: process.env.PINATA_JWT_TOKEN || ''
+});
 
-        axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-            maxBodyLength: "Infinity",
-            headers: {
-                'Content-Type': `multipart/form-data; boundary=${file._boundary}`,
-                'Authorization': `Bearer ${process.env.PINATA_JWT_TOKEN}`
-            }
-        }).then((response: any) => {
-            resolve(response.data);
-        }).catch((error: any) => {
-            reject(error);
-        });
+export const pinFile = async (file: any): Promise<any> => {
+  try {
+    const stream = fs.createReadStream(file.path);
+    const response = await pinata.pinFileToIPFS(stream, {
+      pinataMetadata: { name: file.originalname },
+      pinataOptions: { cidVersion: 0 }
     });
+
+    return response;
+  } catch (error: any) {
+    throw new Error(`Failed to pin file to IPFS: ${error.message}`);
+  }
 };

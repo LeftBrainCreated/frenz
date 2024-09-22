@@ -27,6 +27,12 @@ div.seperator {
     margin-top: 40px;
 }
 
+div.horiz-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 div.form-container {
     width: 60%;
     height: auto;

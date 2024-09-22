@@ -13,12 +13,10 @@ import { AbiItem } from 'web3-utils';
 
 const mpContractAbi = require("../contract-abi/marketplace.json");
 const MP_CONTRACT_ADDRESS = '0x07a70FEA55F85D6e77A1c7bD16c02B0F5a8748E6';
-const SHIB_CONTRACT_ADDRESS = '0x495eea66b0f8b636d441dc6a98d8f5c3d455c4c0';
-const BONE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000001010';
 const LOCALHOST_CHAIN_ID = 0;
 const SHIBARIUM_CHAIN_ID = 2;
 const ETHEREUM_CHAIN_ID = 1;
-const GOERLI_CHAIN_ID = 3;
+const SEPOLIA_CHAIN_ID = 3;
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +36,7 @@ export class MarketplaceService extends ContractService {
     ccService: ContractConnectService
   ) {
     super(uiService, ccService);
-    this.init(MP_CONTRACT_ADDRESS, mpContractAbi, SHIBARIUM_CHAIN_ID);
+    this.init(MP_CONTRACT_ADDRESS, mpContractAbi, SEPOLIA_CHAIN_ID);
     this.uiService = uiService;
   }
 

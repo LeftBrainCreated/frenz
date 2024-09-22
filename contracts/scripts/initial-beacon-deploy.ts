@@ -42,5 +42,5 @@ main()
 
 
     // sepolia
-    // Implementation deployed at: 0x24f69aB4d6fc3724C3418b8db13f3e353DF5696c
-    // Beacon deployed at: 0x2a7CbB054ab1ED97E5fa023B58Cb42585903B737
+    // Implementation deployed at: 0x79EeAF2e0D90F5D35AD1d79e8dd382B6BB0ef1A6
+    // Beacon deployed at: 0x239C4c571bc8725245E554e5cf678a8508a71b53

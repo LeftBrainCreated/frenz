@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -1385,11 +1385,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/ERC721Creator.sol": {
-			"keccak256": "0x0ebff7d28b3a27c6ad275ec1727363eb9e6d0cddb126bb3294574d0894a13586",
+			"keccak256": "0x364cf8588063888354c9b9b4c4806e5d18312884c3c2247d28cd64ae51be41e6",
 			"license": "Unlicense",
 			"urls": [
-				"bzz-raw://d93d82370acda1fce94e020e3ea0ec3345b5a50ed986a0d510f9e8cc4a380e23",
-				"dweb:/ipfs/QmPd4wUMgXhzYB3rq8fTCsuFpo3vzDwPRbNBx34jVCvhZL"
+				"bzz-raw://ed8bcc6ef4cb829523ba6533f1bbaaf91d9eec1005c187ed2846d268b992785e",
+				"dweb:/ipfs/QmNnt8UvzW2KQeGhio34Ch1N2x7qQ1EYh6be8wmUGEmKGk"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/AdminControl.sol": {
@@ -1401,11 +1401,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/imports/Collection_Manager.sol": {
-			"keccak256": "0xd49c00f22c337c629d66b456b5be466053cc518245c15d66860eee888674b372",
+			"keccak256": "0x6bb3141cef284bf42edd3ecde997f15ffdec739cc418bef5f350f985c00a4564",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2f92ba122a86855131303affc301d58742ed2e4469ee20cd92fdfee48c76cc19",
-				"dweb:/ipfs/QmXCc8nxJAStMtvc4JvyvCEt4DKiSfZWU21GCfHxYb2bMb"
+				"bzz-raw://c2e44d6a5158e17da2a36c2adfb749e00a29542fd6adf790b0b9bc26deb34c93",
+				"dweb:/ipfs/QmZf1dXRLABA7j6CNz3yHWRuT13SoZ8hUfqZipfDVd5bYk"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/CoreValues.sol": {

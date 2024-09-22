@@ -100,6 +100,7 @@ export class BabylonComponent {
     })
 
     this.loadListeners();
+    this.arbiter.markMarketplaceAsReady();
   }
 
   ngAfterViewInit() {

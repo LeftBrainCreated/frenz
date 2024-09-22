@@ -60,11 +60,14 @@ export class WalletConnectHeaderComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    await this.loadWeb3();
+
     this.arbiter.marketplaceReady$.subscribe(ready => {
       if (ready) {
         this.checkForSessionWallet();
       }
     })
+
     this.targetNetwork = GlobalConstants.NETWORKS[this.chainId];
     this.setWalletProviders()
 
@@ -95,7 +98,7 @@ export class WalletConnectHeaderComponent implements OnInit {
 
     this.validChain = (this.w3Provider && this.w3Provider.chainId) || (this._eth && this._eth.isTrust) ? (this._eth.chainId == this.targetNetwork.chainHex) || this.w3Provider.isTrust : undefined;
 
-    await this.loadWeb3();
+    // await this.loadWeb3();
   }
 
   private async checkForSessionWallet() {

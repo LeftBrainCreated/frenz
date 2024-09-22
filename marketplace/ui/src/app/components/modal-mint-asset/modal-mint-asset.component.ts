@@ -23,23 +23,29 @@ const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
   styleUrls: ['./modal-mint-asset.component.scss']
 })
 export class ModalMintAssetComponent implements OnInit {
-  file: File = null;
+  private _collectionImageAddress: string;
+  fileColImage: File = null;
+  fileAsset: File = null;
   assetImageAddress = '';
-  collectionImageAddress = 'assets/images/no-image-x.png';
 
-  assetName: string = '';
-  collectionSelectValue: string = "newCol";
-  collectionAddress: string = '';
   radioFileUpload: number = undefined;
+  collectionSelectValue: string = "newCol";
+
+  collectionAddress: string = '';
+  colName: string = '';
+  colSymbol: string = '';
+  colDescription: string = '';
+
+  asset: NewAsset;
+  assetName: string = '';
   assetDescription: string = '';
   assetUrl: string = '';
-  collectionName: string = '';
-  collectionDescription: string = '';
+
+  selectedCollection?: Collection;
   pendingTraitName: string = '';
   pendingTraitValue: string = '';
   walletCollections: Collection[] = [];
   traits: any[] = []
-  asset: NewAsset;
 
   constructor(
     private cdk: ChangeDetectorRef,
@@ -51,6 +57,7 @@ export class ModalMintAssetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.collectionImageAddress = 'assets/images/no-image-x.png';
     this.ipfs.IpfsResult.subscribe((res) => {
       this.assetImageAddress = res.data.image;
       this.asset.image = this.assetImageAddress;
@@ -58,7 +65,21 @@ export class ModalMintAssetComponent implements OnInit {
       // }
     })
 
-    this.getCollectionsOwnedByWallet();
+    // this.getCollectionsOwnedByWallet();
+  }
+
+  set collectionImageAddress(value: string) {
+    if (value.indexOf('ipfs://') > -1) {
+      this._collectionImageAddress = value.replace('ipfs://', 'https://ipfs.leftbrain.ninja/ipfs/') + '?pinataGatewayToken=ae_xrzJ4FW6yognMc3KKN3ANPoqSg72FrP3sRBttfcb4BAVYkV8dSB-9KKPCjJwA';
+    } else if (value.indexOf('https://ipfs.io') > -1) {
+      this._collectionImageAddress = value.replace('https://ipfs.io', 'https://ipfs.leftbrain.ninja') + '?pinataGatewayToken=ae_xrzJ4FW6yognMc3KKN3ANPoqSg72FrP3sRBttfcb4BAVYkV8dSB-9KKPCjJwA';
+    } else {
+      this._collectionImageAddress = value;
+    }
+  }
+
+  get collectionImageAddress(): string {
+    return this._collectionImageAddress;
   }
 
   checkSubmit(e: KeyboardEvent): void {
@@ -107,7 +128,7 @@ export class ModalMintAssetComponent implements OnInit {
     if (val.indexOf("/") == -1) {
       this.assetImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + val;
     } else {
-      this.assetImageAddress = val;
+      this.assetImageAddress = val.replace('https://ipfs.io/ipfs/', 'https://ipfs.leftbrain.ninja/ipfs/');
     }
     // console.log(this.fileAddress);
     this.cdk.detectChanges();
@@ -115,20 +136,37 @@ export class ModalMintAssetComponent implements OnInit {
 
   onFilechange(event: any) {
     console.log(event.target.files[0])
-    this.file = event.target.files[0]
+    switch (event.target.name) {
+      case "inputColImage":
+        this.fileColImage = event.target.files[0];
+        break;
+
+      case "inputAssetImage":
+        this.fileAsset = event.target.files[0];
+        break;
+
+      default:
+        console.error('unknown');
+    }
   }
 
-  addCollectionImage() {
-
+  uploadColImage() {
+    if (this.fileColImage) {
+      this.ipfs.sendFileToIPFS(this.fileColImage).then((resp: any) => {
+        this.collectionImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + resp.IpfsHash;
+        this.cdk.detectChanges();
+        console.log(resp);
+      })
+    } else {
+      alert("Please select a file first")
+    }
   }
 
-  upload() {
-    if (this.file) {
-      this.ipfs.sendFileToIPFS(this.file).then((resp: any) => {
-        // alert("Uploaded")
+  uploadAssetFile() {
+    if (this.fileAsset) {
+      this.ipfs.sendFileToIPFS(this.fileAsset).then((resp: any) => {
         this.assetImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + resp.IpfsHash;
         this.cdk.detectChanges();
-        // this.ipfs.getIpfs(resp.IpfsHash);
         console.log(resp);
       })
     } else {
@@ -141,43 +179,48 @@ export class ModalMintAssetComponent implements OnInit {
       this.collectionAddress = await this.deployNewCollection();
     }
 
-    this.asset.name = this.assetName;
+    this.asset = {
+      name: this.assetName,
+      collectionName: this.selectedCollection.collectionName,
+      description: this.assetDescription,
+      image: this.assetImageAddress,
+      attributes: this.traits,
+      date: Math.floor(Date.now() / 1000)
+    };
     
-    this.asset.description = this.assetDescription;
-    this.asset.image = this.assetImageAddress;
-    this.asset.attributes = this.traits;
-    this.asset.date = Math.floor(Date.now() / 1000);
-
-    var metaIpfs: string = await this.ipfs.createIpfsMetaFile(this.assetName + this.collectionName, this.asset)
+    var metaIpfs: string = await this.ipfs.createIpfsMetaFile(`${this.assetName} ${this.colName}`, this.asset)
 
     var dynamicCollectionContract = new Erc721Service(this.ui, this.cc);
-    dynamicCollectionContract.initContract(this.collectionAddress, CREATOR_ABI)
+    dynamicCollectionContract.initContract(this.collectionAddress, CREATOR_ABI_json.abi)
       .then((res) => {
-        dynamicCollectionContract.createAsset(this.web3.selectedAddress, metaIpfs)
+        dynamicCollectionContract.createAsset(this.web3.web3.givenProvider.selectedAddress, metaIpfs)
       })
   }
 
   async deployNewCollection(): Promise<string> {
     let col: Collection = {
-      collectionName: this.collectionName,
-      description: this.collectionDescription,
+      collectionName: this.colName,
+      symbol: this.colSymbol,
+      description: this.colDescription,
       contractAddress: null,
       bannerImageUrl: null,
-      collectionDefaultImage: null,
-      collectionSlug:this.collectionName.replace(' ', '_'),
-      contractDeployer: this.web3.selectedAddress,
+      collectionDefaultImage: this.collectionImageAddress,
+      collectionSlug:this.colName.replace(' ', '_'),
+      contractDeployer: this.web3.web3.givenProvider.selectedAddress,
       creatorName:null,
       discrodUrl: '',
       imageUrl: '',
       ipfs: '',
-      symbol: '',
       tokenType: '',
       twitterUsername: ''
     }
 
     return await this.web3.loadWeb3().then(async () => {
-      this.collectionAddress = await this.web3.deployNewCollection();
+      col.contractAddress = await this.web3.deployNewCollection(col);
+      await this.alchemy.createNewCollection(col);
 
+
+      console.log(`New Collection: ${col.collectionName} at ${col.contractAddress}`)
       return this.collectionAddress;
     }).catch((er) => {
       console.log(`error submitting new collection: ${er.toString()}`);
@@ -186,12 +229,27 @@ export class ModalMintAssetComponent implements OnInit {
     })
   }
 
-  async getCollectionsOwnedByWallet(): Promise<any> {
-    this.walletCollections = await this.alchemy.getCollectionsOwnedByWallet(this.web3.selectedAddress);
+  async setSelectedCollection(event: Event): Promise<any> {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedIndex = selectElement.selectedIndex;
+
+    this.selectedCollection = this.walletCollections[selectedIndex];
+    this.collectionImageAddress = this.selectedCollection.collectionDefaultImage;
+
+    this.collectionAddress = this.selectedCollection.contractAddress;
   }
 
+  async getCollectionsOwnedByWallet(): Promise<any> {
+    this.walletCollections = await this.alchemy.getCollectionsOwnedByWallet(window.ethereum.selectedAddress);
+  }
+
+  onCollectionSelectChange(): void {
+    if (this.collectionSelectValue === 'existCol') {
+      this.getCollectionsOwnedByWallet();
+    }
+  }
 }
 
     // sepolia
-    // Implementation deployed at: 0x24f69aB4d6fc3724C3418b8db13f3e353DF5696c
-    // Beacon deployed at: 0x2a7CbB054ab1ED97E5fa023B58Cb42585903B737
+    // Implementation deployed at: 0x79EeAF2e0D90F5D35AD1d79e8dd382B6BB0ef1A6
+    // Beacon deployed at: 0x239C4c571bc8725245E554e5cf678a8508a71b53

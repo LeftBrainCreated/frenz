@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestMethod } from '../enumerations/request-methods';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +12,30 @@ export abstract class WebService {
     protected http: HttpClient
   ) { }
 
-  protected sendRequest(
+  protected async sendRequest(
     uri: string,
     method: RequestMethod = RequestMethod.GET,
     payload: any = null,
     httpOptions: any = {}
-  ) {
-    return new Promise((res, rej) => {
+  ): Promise<any> {
+    try {
+      let response;
+      
       switch (method) {
         case RequestMethod.GET:
-          this.http.get(uri, httpOptions)
-            .subscribe(async (body: any) => {
-              res(body);
-            });
+          response = await firstValueFrom(this.http.get(uri, httpOptions));
           break;
-
         case RequestMethod.POST:
-          this.http.post(uri, JSON.stringify(payload), httpOptions)
-            .subscribe(async (body: any) => {
-              res(body);
-            });
-
+          response = await firstValueFrom(this.http.post(uri, JSON.stringify(payload), httpOptions));
           break;
+        default:
+          throw new Error(`Unsupported request method: ${method}`);
       }
-    })
+  
+      return response;
+    } catch (error) {
+      throw new Error(`Error in ${RequestMethod[method]} request: ${error.message}`);
+    }
   }
-
+  
 }

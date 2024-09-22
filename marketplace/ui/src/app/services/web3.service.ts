@@ -13,19 +13,20 @@ import CREATOR_ABI_json from "../contract-abi/ERC721Creator.json";
 import BEACON_ABI_json from '../contract-abi/BeaconProxy.json';
 import { ContractConnectService } from './contract-connect.service';
 import { WalletProvider } from '../interfaces/walletProvider';
+import { Collection } from '../interfaces/collection';
 // import { Interface } from 'alchemy-sdk/dist/src/api/utils';
 
 declare let window: any;
 
-const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
-const BEACON_ABI = new ethers.Interface(BEACON_ABI_json.abi);
-const IMPLEMENTATION_BYTECODE = CREATOR_ABI_json.data.bytecode.object;
-const BEACON_BYTECODE = "0x608060405234801561001057600080fd5b50600436106100575760003560e01c80633659cfe61461005c5780635c60da1b14610071578063715018a61461009a5780638da5cb5b146100a2578063f2fde38b146100b3575b600080fd5b61006f61006a3660046102ee565b6100c6565b005b6001546001600160a01b03165b6040516001600160a01b03909116815260200160405180910390f35b61006f61010e565b6000546001600160a01b031661007e565b61006f6100c13660046102ee565b610122565b6100ce6101af565b6100d781610209565b6040516001600160a01b038216907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b90600090a250565b6101166101af565b610120600061029e565b565b61012a6101af565b6001600160a01b0381166101945760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084015b60405180910390fd5b61019d8161029e565b50565b6001600160a01b03163b151590565b6000546001600160a01b031633146101205760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640161018b565b6001600160a01b0381163b61027c5760405162461bcd60e51b815260206004820152603360248201527f5570677261646561626c65426561636f6e3a20696d706c656d656e746174696f6044820152721b881a5cc81b9bdd08184818dbdb9d1c9858dd606a1b606482015260840161018b565b600180546001600160a01b0319166001600160a01b0392909216919091179055565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561030057600080fd5b81356001600160a01b038116811461031757600080fd5b939250505056fea264697066735822122037f5e761a584b5cfedfedcacdd35de142872479851fbaecf66f55a175ffa1d1d64736f6c63430008090033";
-const COLLECTION_IMPLEMENTATION_ADDRESS = "0xF1Df2f7c11Aeda67922B56f979846598d3709389"
-const BEACON_ADDRESS = '0x2a7CbB054ab1ED97E5fa023B58Cb42585903B737';
+// const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
+// const BEACON_ABI = new ethers.Interface(BEACON_ABI_json.abi);
+// const IMPLEMENTATION_BYTECODE = CREATOR_ABI_json.data.bytecode.object;
+// const BEACON_BYTECODE = "0x608060405234801561001057600080fd5b50600436106100575760003560e01c80633659cfe61461005c5780635c60da1b14610071578063715018a61461009a5780638da5cb5b146100a2578063f2fde38b146100b3575b600080fd5b61006f61006a3660046102ee565b6100c6565b005b6001546001600160a01b03165b6040516001600160a01b03909116815260200160405180910390f35b61006f61010e565b6000546001600160a01b031661007e565b61006f6100c13660046102ee565b610122565b6100ce6101af565b6100d781610209565b6040516001600160a01b038216907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b90600090a250565b6101166101af565b610120600061029e565b565b61012a6101af565b6001600160a01b0381166101945760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084015b60405180910390fd5b61019d8161029e565b50565b6001600160a01b03163b151590565b6000546001600160a01b031633146101205760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640161018b565b6001600160a01b0381163b61027c5760405162461bcd60e51b815260206004820152603360248201527f5570677261646561626c65426561636f6e3a20696d706c656d656e746174696f6044820152721b881a5cc81b9bdd08184818dbdb9d1c9858dd606a1b606482015260840161018b565b600180546001600160a01b0319166001600160a01b0392909216919091179055565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561030057600080fd5b81356001600160a01b038116811461031757600080fd5b939250505056fea264697066735822122037f5e761a584b5cfedfedcacdd35de142872479851fbaecf66f55a175ffa1d1d64736f6c63430008090033";
+// const COLLECTION_IMPLEMENTATION_ADDRESS = "0xF1Df2f7c11Aeda67922B56f979846598d3709389"
+const BEACON_ADDRESS = '0x239C4c571bc8725245E554e5cf678a8508a71b53';
 
 const BeaconProxyArtifact = require('@openzeppelin/upgrades-core/artifacts/@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol/BeaconProxy.json');
-const UpgradableBeacon = require('@openzeppelin/upgrades-core/artifacts/@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol/UpgradeableBeacon.json');
+// const UpgradableBeacon = require('@openzeppelin/upgrades-core/artifacts/@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol/UpgradeableBeacon.json');
 
 @Injectable({
   providedIn: 'root'
@@ -221,68 +222,6 @@ export class Web3Service {
     return this.web3.eth.getBalance(contractAddress);
   }
 
-  // public async callToContract(functionName: string, args: any = [], contract = this.contract): Promise<any> {
-  //   return new Promise((res, rej) => {
-
-  //     contract.methods[functionName](...args)
-  //       .call({
-  //         from: this.selectedAddress
-  //       })
-  //       .then((result: string) => {
-  //         res(result);
-  //       })
-  //       .catch((ex: any) => {
-  //         console.log(ex);
-  //       })
-  //   });
-  // }
-
-  // public async sendToContract(functionName: string, value: string = '0', args: any = null, contract = this.contract): Promise<any> {
-  //   return new Promise(async (res, rej) => {
-
-  //     var call: any;
-  //     var chain = GlobalConstants.NETWORKS[this.chainId];
-  //     this.uiService.loadingObs.next(true);
-
-  //     if (args == null) {
-  //       call = contract.methods[functionName]();
-  //     } else {
-  //       call = contract.methods[functionName](...args);
-  //     }
-
-  //     call.send({
-  //       from: this.selectedAddress,
-  //       value: value
-  //     })
-  //       .on('transactionHash', (id: string) => {
-  //         if (id) {
-  //           console.log('success');
-  //           this.uiService.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${id}`);
-  //         } else {
-  //           console.log('success');
-  //           console.log(id)
-  //         }
-  //       })
-  //       .on('receipt', (receipt: any) => {
-  //         this.uiService.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`);
-  //         res({
-  //           success: receipt.status == true,
-  //           detail: receipt
-  //         });
-  //         this.uiService.loadingObs.next(false);
-  //       }).catch((ex: any) => {
-  //         if (ex.code == 4001) {
-  //           // user cancelled
-  //           console.log("User Cancelled Transaction");
-  //         } else {
-  //           this.uiService.snackBarObs.next("Failure");
-  //         }
-  //         this.uiService.loadingObs.next(false);
-  //         rej(ex);
-  //       });
-  //   });
-  // }
-
   public getCookie(name: string) {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
@@ -350,38 +289,29 @@ export class Web3Service {
     });
   }
 
-  public async deployNewCollection(): Promise<string> {
-    return new Promise(async (res, rej) => {
-      console.log(JSON.stringify(this.web3.providers['HttpProvider']));
+  public async deployNewCollection(col: Collection): Promise<string> {
+    try {
+      const deployedAddress = await this.deployProxyContract(this.web3.givenProvider.selectedAddress);
+      const erc721Creator = new this.web3.eth.Contract(CREATOR_ABI_json.abi, deployedAddress);
 
-      this.deployProxyContract(this.web3.givenProvider.selectedAddress)
-        .then((addy) => {
-          res(addy);
-        }).catch((ex) => {
-          console.log(ex);
-          rej(ex);
-        })
-    })
+      await erc721Creator.methods.initialize(col.collectionName, col.symbol).send({
+        from: this.web3.givenProvider.selectedAddress
+      });
+
+      return deployedAddress;
+    } catch (ex) {
+      console.log(ex);
+      throw ex;
+    }
   }
 
   private async deployProxyContract(fromAddress: string): Promise<string> {
     const BeaconProxy = new this.web3.eth.Contract(BeaconProxyArtifact.abi);
 
-    // const deployTx = BeaconProxy.deploy({
-    //   data: BeaconProxyArtifact.bytecode,
-    //   arguments: [this.getInitializerData(CREATOR_ABI, ["ColName", "SYM"])]
-    // });
-
     const deployTx = BeaconProxy.deploy({
       data: BeaconProxyArtifact.bytecode,
-      from: fromAddress,
       arguments: [BEACON_ADDRESS, "0x"]
     });
-
-    // const deployTx = BeaconProxy.deploy(
-    //   {data: BEACON_ADDRESS, "0x"},
-    //   "0x"
-    // )
 
     const gas = await deployTx.estimateGas({ from: fromAddress });
 
@@ -392,7 +322,6 @@ export class Web3Service {
 
     return newContractInstance.options.address;
   }
-
   private getInitializerData(contractInterface: ethers.Interface, args: any) {
     const fragment = contractInterface.getFunction('initialize');
     return contractInterface['encodeFunctionData'](fragment, args);

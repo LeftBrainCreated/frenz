@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Asset } from '../interfaces/asset';
 import { WebService } from './web.service';
 import { RequestMethod } from '../enumerations/request-methods';
+import { Collection } from '../interfaces/collection';
 
 
 //* PROD Change
@@ -122,22 +123,36 @@ export class AlchemyService extends WebService {
     })
   }
 
-  async getCollectionsOwnedByWallet(walletAddress: string): Promise<any> {
-    return new Promise(async (res, rej) => {
-      await this.sendRequest(
-        `${FRENZ_API_ROOT_URI}collections/bydeployer/${walletAddress}`,
-        RequestMethod.GET,
-        this.httpOptions = this.httpOptions)
-        .then((result: any) => {
-          res(result);
-        })
-        .catch((ex: any) => {
-          console.log(ex);
-          rej();
-        })
-    })
+  async createNewCollection(col:Collection): Promise<boolean> {
+    try {
+      const result: boolean = await this.sendRequest(
+        `${FRENZ_API_ROOT_URI}collections/create`,
+        RequestMethod.POST,
+        col,
+        this.httpOptions
+      )
+
+      return result;
+    } catch (ex) {
+      console.log(ex.message)
+      return false;
+    }
   }
 
+  async getCollectionsOwnedByWallet(walletAddress: string): Promise<any> {
+    try {
+      const result = await this.sendRequest(
+        `${FRENZ_API_ROOT_URI}collections/bydeployer/${walletAddress}`,
+        RequestMethod.GET,
+        this.httpOptions
+      );
+      return result;
+    } catch (ex) {
+      console.log(ex);
+      throw ex;  // It's better to throw the error so the caller can handle it.
+    }
+  }
+  
   // private sendRequest(uri: string, method: RequestMethod = RequestMethod.GET, payload: any = null) {
   //   return new Promise((res, rej) => {
   //     var httpOptions = {

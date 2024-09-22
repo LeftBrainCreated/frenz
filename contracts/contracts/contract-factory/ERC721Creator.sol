@@ -33,6 +33,8 @@ pragma solidity ^0.8.22;
 
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {StringsUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+
 
 
 import {CollectionManager} from "./imports/Collection_Manager.sol";
@@ -40,13 +42,13 @@ import {CollectionManager} from "./imports/Collection_Manager.sol";
 
 contract ERC721Creator is
     Initializable,
+    OwnableUpgradeable,
     CollectionManager
-    // DistributionManager
 {
     uint256[] private _defaultRoyalty;
     address payable[] private _defaultReceivers;
 
-    constructor() {
+    constructor() OwnableUpgradeable() {
         _disableInitializers();
     }
 

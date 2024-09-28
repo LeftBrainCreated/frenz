@@ -17,20 +17,25 @@ export const getCreator = async (req: Request, res: Response) => {
 
   export const isCreator = async (req: Request, res: Response) => {
     try {
-        var walletAddress = req.body.walletAddress;
-        var jwt = '';
-
-        mongo.connectToDatabase()
-        .then(() => {
-            mongo.getCreator(req.params.walletAddress).then((wl) => {
-                if (wl != null) {
-                    jwt = auth.jwtToken(walletAddress);
-                    res.set('Set-Cookie', 'SESSIONID=' + jwt + '; Secure; HttpOnly;');
-    
-                }
-            });
-        });
+      const walletAddress = req.params.walletAddress;
+  
+      // Ensure the DB is connected once at app start and reused
+      await mongo.connectToDatabase();
+  
+      // Fetch the creator
+      const creator = await mongo.getCreator(walletAddress);
+  
+      if (creator != null) {
+        const jwt = auth.jwtToken(walletAddress);
+        res.set('Set-Cookie', 'SESSIONID=' + jwt + '; Secure; HttpOnly;');
+        return res.status(200).send(true);  // Return here to avoid further execution
+      }
+  
+      // Send false if no creator found
+      return res.status(200).send(false);
+      
     } catch (error) {
-      res.status(500).send('Error creating collection');
+      console.error('Error in isCreator:', error);
+      res.status(500).send('Error checking creator');
     }
-  }
+  };

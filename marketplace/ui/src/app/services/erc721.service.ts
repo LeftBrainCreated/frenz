@@ -27,7 +27,7 @@ export class Erc721Service extends ContractService {
 
   public async createAsset(deliveryAddress: string, ipfsUri: string): Promise<any> {
     try {
-      const result = await this.callToContract("mintToken", [deliveryAddress, ipfsUri]);
+      const result = await this.sendToContract("mintToken", "0",  [deliveryAddress, ipfsUri]);
       console.log(`Listing Created: DeliveredTo: ${deliveryAddress}`);
       return result;
     } catch (ex) {

@@ -23,17 +23,20 @@ import { AboutDropdownComponent } from './components/about-dropdown/about-dropdo
 import { ContractDetailsComponent } from './components/contract-details/contract-details.component';
 import { WalletConnectComponent } from './components/wallet-connect/wallet-connect.component';
 import { LoginViewComponent } from './components/login-view/login-view.component';
-import { WalletConnectHeaderComponent } from './components/wallet-connect-header/wallet-connect-header.component';
+import { Web3ConnectComponent } from './components/web3-connect/web3-connect.component';
 import { LoadingSpotComponent } from './components/loading-spot/loading-spot.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { ModalPriceSetComponent } from './components/modal-price-set/modal-price-set.component';
 import { ModalMintAssetComponent } from './components/modal-mint-asset/modal-mint-asset.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
 import { LoadingAnimationComponent } from "./components/loading-animation/loading-animation.component";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
+import { ToastrComponent } from "./components/toastr/toastr.component";
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 const APP_NAME = 'FlowFrenz NFT Marketplace';
 const APP_LOGO_URL = './assets/icons/ff-icon.png';
@@ -57,7 +60,7 @@ const darkMode: boolean = true;
     ContractDetailsComponent,
     WalletConnectComponent,
     LoginViewComponent,
-    WalletConnectHeaderComponent,
+    Web3ConnectComponent,
     LoadingSpotComponent,
     ActionButtonsComponent,
     ModalPriceSetComponent,
@@ -74,8 +77,9 @@ const darkMode: boolean = true;
     FormsModule,
     MatSelectModule,
     MatOptionModule,
-    LoadingAnimationComponent
-  ]
+    LoadingAnimationComponent,
+    ToastrComponent
+]
 })
 export class AppModule { }
 

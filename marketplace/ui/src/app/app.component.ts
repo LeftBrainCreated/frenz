@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { UiService } from './services/ui.service';
 import { Breadcrumb } from './interfaces/breadcrumb';
+import { ToastrComponent } from './components/toastr/toastr.component';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,15 @@ import { Breadcrumb } from './interfaces/breadcrumb';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  @ViewChild(ToastrComponent) toastr: ToastrComponent;
+
   title = 'flowfrenz-marketplace';
   breakpoint$: any;
   mobileView: boolean = false;
   blockerVisible: boolean = true;
   targetChainId: number = 3;
+  mintModalVisible = false; 
+  modalClosing = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -32,6 +37,14 @@ export class AppComponent implements OnInit {
     this.breakpoint$.subscribe(() =>
       this.breakpointChanged()
     );
+
+    this.uiService.newMintModalOpenObs.subscribe((res) => {
+      this.mintModalVisible = res;
+    })
+
+    this.uiService.snackBarObs.subscribe((res) => {
+      this.toastr.showToast(res.status, res.message, res.link);
+    })
 
     this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
       this.blockerVisible = !res;
@@ -54,6 +67,18 @@ export class AppComponent implements OnInit {
     } else {
       this.mobileView = false;
     }
+  }
+
+  openMintModal() {
+    this.mintModalVisible = true;
+    this.modalClosing = false;
+  }
+
+  closeMintModal() {
+    this.modalClosing = true; 
+    setTimeout(() => {
+      this.mintModalVisible = false;
+    }, 600); 
   }
 }
 

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator.sol": {
-      "lastModificationDate": 1726970149656,
-      "contentHash": "32660e864fea17d8383793568d9bfd2b",
+      "lastModificationDate": 1727059397429,
+      "contentHash": "dd5e45d8e0044dd60707c78164cba69a",
       "sourceName": "contracts/contract-factory/ERC721Creator.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -2784,8 +2784,8 @@
       ]
     },
     "Z:\\Users\\LeftBrain\\Repos\\_LeftBrainCreated_Contract_Projects\\FlowFrenz\\contracts\\contracts\\contract-factory\\ERC721Creator_v2.sol": {
-      "lastModificationDate": 1726970990151,
-      "contentHash": "4507537720210b468fad66a1fa681a02",
+      "lastModificationDate": 1727059381565,
+      "contentHash": "92e221c305105516dcb487d89651bc33",
       "sourceName": "contracts/contract-factory/ERC721Creator_v2.sol",
       "solcConfig": {
         "version": "0.8.22",
@@ -2815,6 +2815,7 @@
       "imports": [
         "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
         "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "./imports/Collection_Manager.sol"
       ],
       "versionPragmas": [

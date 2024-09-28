@@ -1,5 +1,6 @@
 export interface WalletProvider {
-    selectedAddress: string;
-    chainId: number;
-    provider: string;
+readonly selectedAddress: string;
+readonly chainId: number;
+readonly provider: string;
+readonly isCreator: boolean;
 }

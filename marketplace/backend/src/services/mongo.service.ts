@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { MongoClient, Db, Collection } from 'mongodb';
 import { MpCollection } from '../classes/Collection';
+import { Creator } from '../classes/Creator';
 import path from 'path';
 
 const isDebugMode = process.env.DEBUG_MODE === 'true';
@@ -19,24 +20,11 @@ const MONGO_PW = process.env.MONGO_PW;
 const MONGO_HOST = process.env.MONGO_HOST;
 const url = `mongodb://${MONGO_USER}:${MONGO_PW}@${MONGO_HOST}:27017/`;
 
-interface CollectionDetails {
-    collectionName: string;
-    description?: string;
-    contractAddress: string;
-    bannerImageUrl?: string | null;
-    collectionDefaultImage: string;
-    collectionSlug: string;
-    creatorName?: string | null;
-    discordUrl?: string;
-    imageUrl?: string;
-    ipfs?: string;
-    symbol?: string;
-    tokenType?: string;
-    twitterUsername?: string;
-}
-
 let client: MongoClient;
-let collections: { collections?: Collection } = {};
+let collections: {
+    collections?: Collection<MpCollection>;
+    creators?: Collection<Creator>;
+} = {};
 
 export async function connectToDatabase() {
     try {
@@ -44,8 +32,9 @@ export async function connectToDatabase() {
         await client.connect();
 
         const db: Db = client.db('frenz_mp');
-        collections.collections = db.collection('collections');
-
+        collections.collections = db.collection<MpCollection>('collections');
+        collections.creators = db.collection<Creator>('creators');
+        
         console.log(`Connected to database: ${db.databaseName}, collection: ${collections.collections.collectionName}`);
     } catch (error) {
         console.error("Error connecting to the database:", error);
@@ -64,7 +53,7 @@ export async function closeDatabaseConnection() {
 
 export const getMarketplaceCollections = async (): Promise<MpCollection[]> => {
     try {
-        const cols = (await collections.collections?.find({}).toArray()) as unknown as MpCollection[];
+        const cols = (await collections.collections?.find({}).toArray()) as MpCollection[];
         return cols;
     } catch (ex) {
         console.error(ex);
@@ -83,7 +72,7 @@ export const getCollectionsOwnedByWallet = async (deployerWallet: string): Promi
     }
 };
 
-export const createNewMarketplaceCollection = async (colDetails: CollectionDetails): Promise<boolean> => {
+export const createNewMarketplaceCollection = async (colDetails: MpCollection): Promise<boolean> => {
     try {
         if (!collections.collections) throw new Error("Collection is not initialized");
 
@@ -94,3 +83,17 @@ export const createNewMarketplaceCollection = async (colDetails: CollectionDetai
         throw err;
     }
 };
+
+export const getCreator = async (walletAddress: string): Promise<Creator> => {
+    try {
+        if (!collections.collections) throw new Error("DB Not Initialized");
+
+        const query = { walletAddress: walletAddress };
+        const res = await collections.creators?.findOne(query) as Creator
+
+        return res;
+    } catch (err) {
+        console.error("Error in creating marketplace collection:", err);
+        throw err;
+    }
+}

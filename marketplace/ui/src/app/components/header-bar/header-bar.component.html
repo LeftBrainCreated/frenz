@@ -3,5 +3,5 @@
         <img *ngIf="bcTrail.length > 0" [src]="backArrowFileName"> <small>Go Back</small>
     </div>
     <app-view-toggle *ngIf="!mobileView"></app-view-toggle>
-    <app-wallet-connect-header [chainId]="targetChainId"></app-wallet-connect-header>
+    <app-web3-connect [chainId]="targetChainId"></app-web3-connect>
 </div>

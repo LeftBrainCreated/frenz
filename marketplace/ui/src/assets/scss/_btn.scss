@@ -1,0 +1,81 @@
+.basic-btn {
+  font-size: 16px;
+  color: #000000;
+  border-radius: 5px;
+  border: 2px solid #000;
+  box-shadow: 0 0 0 2px #fff;
+  line-height: 24px; 
+  padding: 10px 10px 6px;
+  font-family: "Bebas Neue";
+  height: auto;
+  display: flex;
+  white-space: nowrap;
+  mat-icon {
+      padding-left: 4px;
+      line-height: initial;
+  }
+  .mdc-button__label {
+    display: flex;
+  }
+  ::ng-deep .mat-button-wrapper {
+      display: flex;
+      align-items: center;
+  }
+  ::ng-deep .mat-mdc-progress-spinner circle,
+  ::ng-deep .mat-mdc-spinner circle {
+      stroke: rgba(255, 255, 255, 0.3);
+  }
+  .spinner-wrapper {
+      padding: 4px;
+  }
+}
+.basic-btn:disabled {
+  color: #1b1b1e;
+  box-shadow: 0 0 0 2px #31323e;
+}
+
+.gray-btn {
+  color: #A19D9D;
+  background: #2d3039;
+  box-shadow: 0 0 0 2px #31323e;
+}
+
+.orange-btn {
+  color: #000;
+  background: #F68D36;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.green-btn {
+  background: #4dac53;
+  color: #fff;
+  // box-shadow: 0 0 0 2px #31323e;
+}
+
+.red-btn {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.blue-btn {
+  background-color: rgb(32, 129, 226);
+  color: #fff;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+
+::ng-deep .modal-header-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  .mat-mdc-button-ripple,
+  .mat-mdc-focus-indicator,
+  .mat-mdc-button-touch-target {
+    background-color: transparent !important;
+  }
+  .mat-mdc-focus-indicator,
+  .mat-mdc-button-touch-target,
+  .mat-mdc-button-ripple {
+    display: none;
+    visibility: hidden;
+  }
+  --mat-mdc-button-persistent-ripple-color: rgba(225, 225, 225, .1);
+}

@@ -271,7 +271,7 @@ export class Web3Service {
           gas: 50000
         })
         .on('receipt', (receipt: any) => {
-          this.ui.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`);
+          this.ui.snackBarObs.next({ status: 'info', message: `Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`});
           res({
             success: true,
             status: 'Success!',

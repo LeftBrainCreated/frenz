@@ -5,3 +5,90 @@
 #app-babylon {
     height: 100%;
 }
+
+#newAsset {
+    position: absolute;
+    top:10px;
+    left: 5%;
+    border-radius: 25px;
+    z-index: 10000;
+    width: 200px;
+    max-width: 500px;
+    margin: 4px;
+    padding: 20px;
+    cursor: pointer;
+    background-color: white;
+    color: #15BFFD;    
+}
+
+#newAsset.close {
+    top:100px;
+}
+
+.modal-container {
+  position: fixed;
+  border-radius: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0); /* Start with the modal collapsed */
+  width: 85%;
+  height: 80%;
+  border: 4px solid #666;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000), opacity 0.6s ease;
+}
+
+.modal-container.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1); /* Full-scale modal when open */
+}
+
+@keyframes crt-turn-on {
+  0% {
+    transform: scale(1, 0.8) translate(-50%, -50%);
+    filter: brightness(0) contrast(0);
+  }
+  10% {
+    filter: brightness(2) contrast(2);
+  }
+  25% {
+    transform: scale(1, 1) translate(-50%, -50%);
+    filter: brightness(0.5) contrast(1.2);
+  }
+  100% {
+    transform: scale(1, 1) translate(-50%, -50%);
+    filter: brightness(1.2) contrast(1.2);
+  }
+}
+
+@keyframes crt-turn-off {
+  0% {
+    transform: scale(1, 1) translate(-50%, -50%);
+    filter: brightness(1.2) contrast(1.2);
+  }
+  30% {
+    filter: brightness(2) contrast(2);
+  }
+  60% {
+    transform: scale(1, 0.8) translate(-50%, -50%);
+    filter: brightness(0.5) contrast(0.8);
+  }
+  100% {
+    transform: scale(0, 0.8) translate(-50%, -50%);
+    filter: brightness(0) contrast(0);
+    opacity: 0;
+  }
+}
+
+.modal-container.open {
+  animation: crt-turn-on 0.6s ease-out forwards;
+}
+
+.modal-container.close {
+  animation: crt-turn-off 0.6s ease-in forwards;
+  visibility: hidden; /* Hide it once the animation finishes */
+  opacity: 0;
+}

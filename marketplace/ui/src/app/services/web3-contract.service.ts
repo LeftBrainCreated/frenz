@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { UiService } from './ui.service';
-import { GlobalConstants } from '../app.component';
+import { GlobalConstants } from 'src/app/app.component';
 import { Subject } from 'rxjs';
+import { WalletProvider } from '../interfaces/walletProvider';
 import Web3 from 'web3';
 import { ContractConnectService } from './contract-connect.service';
-import { WalletProvider } from '../interfaces/walletProvider';
 
 const ERC20_ABI = require("../contract-abi/ERC20.json");
 declare let window: any;
 
-
 @Injectable({
   providedIn: 'root'
 })
-export abstract class ContractService {
+export abstract class Web3ContractService {
+  // @Output()
+  // contractConnected: boolean;
+
   private contractAbi: any;
   protected chainId: number;
   protected web3 = new Web3(window.ethereum);
@@ -21,6 +23,7 @@ export abstract class ContractService {
   public contractAddress: string;
   public contract: any;
   public selectedAddress: string;
+  public iFrame: boolean = false;
 
   public closeMintModal = new Subject<any>();
 
@@ -28,7 +31,7 @@ export abstract class ContractService {
     private ui: UiService,
     protected cc: ContractConnectService
   ) {
-    this.web3 = new Web3(window.ethereum);
+
   }
 
   protected init(contractAddress: string, contractAbi: any, targetedChainId: number) {
@@ -47,23 +50,25 @@ export abstract class ContractService {
     })
   }
 
-  private setProviderForContract() {
+  private async setProviderForContract() {
+      
     this.contract = new this.web3.eth.Contract(this.contractAbi, this.contractAddress);
-    this.contract.setProvider(this.cc.walletProvider);
-    this.selectedAddress = this.cc.walletProvider.selectedAddress;
-    this.chainId = this.cc.walletProvider.internalChainId;
+  
+    if (this.web3.givenProvider._state.isConnected) {
+      this.chainId = GlobalConstants.NETWORKS.findIndex((n) => n.chainHex == this.web3.givenProvider.chainId);
+    }
   }
-
+  
   public async callERC20(contractAddress: string, functionName: string, args: any[], gas: number = 5000000): Promise<any> {
     return new Promise((res, rej) => {
-      var erc20: any = new this.web3.eth.Contract(ERC20_ABI.abi, contractAddress);
+      var erc20 = new this.web3.eth.Contract(ERC20_ABI.abi, contractAddress);
 
       erc20.methods[functionName](args)
         .call({
           from: this.selectedAddress,
           gas: gas
         })
-        .then((result: any) => {
+        .then((result: string) => {
           res(result);
         })
         .catch((ex: any) => {
@@ -76,21 +81,17 @@ export abstract class ContractService {
     return this.web3.eth.getBalance(contractAddress);
   }
 
-  public async callToContract(functionName: string, args: any = null, gas: number = 500000): Promise<any> {
+  public async callToContract(functionName: string, args: any = null): Promise<any> {
     try {
       if (!this.contract) {
         await this.setProviderForContract();
       }
-
-      const call = args == null
+  
+      const method = args == null
         ? this.contract.methods[functionName]()
         : this.contract.methods[functionName](...this.parameterSafe(args));
-
-      const result: string = await call.call({
-        from: this.selectedAddress
-      });
-
-      return result;
+  
+      return await method.call({ from: this.selectedAddress });
     } catch (ex) {
       console.error(ex);
       throw ex; // Rethrow the exception to allow the caller of the function to handle it
@@ -115,20 +116,19 @@ export abstract class ContractService {
 
       call.send({
         from: this.selectedAddress,
-        value: value,
-        gas: gas
+        value: value
       })
         .on('transactionHash', (id: string) => {
           if (id) {
             console.log('success');
-            this.ui.snackBarObs.next({ status: 'info', message: `Transaction Hash: ${chain.explorer[0]}tx/${id}`, link: `${chain.explorer[0]}tx/${id}`});
+            this.ui.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${id}`);
           } else {
             console.log('success');
             console.log(id)
           }
         })
         .on('receipt', (receipt: any) => {
-          this.ui.snackBarObs.next({ status: 'success', message: `Transaction Hash: ${chain.explorer[0]}tx/${receipt.transactionHash}`, link: `${chain.explorer[0]}tx/${receipt.transactionHash}`});
+          this.ui.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`);
           res({
             success: receipt.status == true,
             detail: receipt
@@ -139,7 +139,7 @@ export abstract class ContractService {
             // user cancelled
             console.log("User Cancelled Transaction");
           } else {
-            this.ui.snackBarObs.next({ status: 'error', message: "Failure"});
+            this.ui.snackBarObs.next("Failure");
           }
           this.ui.loadingBar(false);
           rej(ex);
@@ -157,7 +157,7 @@ export abstract class ContractService {
 
   public async checkForApproval(qty: number, spenderContractAddress: string, erc20ContractAddress: any): Promise<any> {
 
-    var erc20Contract: any = new this.web3.eth.Contract(ERC20_ABI.abi, erc20ContractAddress);
+    var erc20Contract = new this.web3.eth.Contract(ERC20_ABI.abi, erc20ContractAddress);
     return new Promise(async (res, rej) => {
 
       if (!this.contract) {
@@ -165,8 +165,8 @@ export abstract class ContractService {
       }
 
       try {
-        erc20Contract.methods['allowance']
-          (this.selectedAddress, spenderContractAddress)
+        erc20Contract.methods
+          .allowance(this.selectedAddress, spenderContractAddress)
           .call({
             from: this.selectedAddress,
             gas: 50000
@@ -187,7 +187,7 @@ export abstract class ContractService {
   public async approveTokenForTransfer(qty: string, spenderContractAddress: string, erc20ContractAddress: any) {
 
     var chain = GlobalConstants.NETWORKS[this.chainId];
-    var erc20Contract: any = new this.web3.eth.Contract(ERC20_ABI.abi, erc20ContractAddress);
+    var erc20Contract = new this.web3.eth.Contract(ERC20_ABI.abi, erc20ContractAddress);
 
     return new Promise((res, rej) => {
       erc20Contract.methods
@@ -197,7 +197,7 @@ export abstract class ContractService {
           gas: 50000
         })
         .on('receipt', (receipt: any) => {
-          this.ui.snackBarObs.next({ status: 'info', message: `Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`});
+          this.ui.snackBarObs.next(`Transaction Hash: ${chain.explorer[0]}/${receipt.transactionHash}`);
           res({
             success: true,
             status: 'Success!',

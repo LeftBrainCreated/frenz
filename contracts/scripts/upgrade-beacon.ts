@@ -6,7 +6,7 @@ dotEnvConfig();
 // Import hardhat and destructure the needed components
 const { ethers, upgrades } = require("hardhat");
 
-const beaconAddress = '0x0B306BF915C4d645ff596e518fAf3F9669b97016';
+const beaconAddress = '0x239C4c571bc8725245E554e5cf678a8508a71b53';
 
 
 async function upgradeImplementation() {

@@ -9,7 +9,7 @@ import { WalletProvider } from '../interfaces/walletProvider';
 export class UiService {
 
   public loadingObs = new Subject<boolean>();
-  public snackBarObs = new Subject<string>();
+  public snackBarObs = new Subject<any>();
 
   public scaleObjectObs = new Subject<boolean>();
   public switchViewModeObs = new Subject<boolean>();
@@ -25,6 +25,7 @@ export class UiService {
   public moveToWalletObs = new Subject<any>();
   public UiChangesObs = new Subject<void>();
   public navigateToTargetObs = new Subject<number>();
+  public newMintModalOpenObs = new Subject<boolean>();
 
   public breadcrumbTrail: Breadcrumb[] = [];
 

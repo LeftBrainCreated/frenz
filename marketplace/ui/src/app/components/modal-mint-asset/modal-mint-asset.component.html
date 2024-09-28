@@ -31,10 +31,10 @@
                             </div>
                             <div *ngIf="collectionSelectValue == 'existCol'" class="text-input-container">
                                 <mat-form-field>
-                                    <select matNativeControl [(ngModel)]="colName" (change)="setSelectedCollection($event)" 
+                                    <select matNativeControl  [(ngModel)]="selectedCollection.contractAddress" (change)="setSelectedCollection($event)" 
                                         [disabled]="walletCollections.length == 0">
-                                        <option *ngFor="let col of walletCollections; let i = index" value="{{col.contractAddress}}">
-                                            {{col.collectionName}}</option>
+                                        <option *ngFor="let col of walletCollections; let i = index" value="{{col.contractAddress}}" [disabled]="i == 0">
+                                            {{col.contractAddress}} - {{col.collectionName}}</option>
                                     </select>
                                 </mat-form-field>
                             </div>

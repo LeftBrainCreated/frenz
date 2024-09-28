@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -23,7 +23,9 @@ const CREATOR_ABI = new ethers.Interface(CREATOR_ABI_json.abi);
   styleUrls: ['./modal-mint-asset.component.scss']
 })
 export class ModalMintAssetComponent implements OnInit {
+
   private _collectionImageAddress: string;
+  private _colImageIpfs: string;
   fileColImage: File = null;
   fileAsset: File = null;
   assetImageAddress = '';
@@ -46,6 +48,23 @@ export class ModalMintAssetComponent implements OnInit {
   pendingTraitValue: string = '';
   walletCollections: Collection[] = [];
   traits: any[] = []
+
+  defaultCollection: Collection = { 
+    collectionName: '-- Please Select One --', 
+    contractAddress: '',
+    bannerImageUrl: '', 
+    // collectionDefaultImage: '',
+    collectionSlug: '',
+    contractDeployer: '',
+    creatorName: '',
+    description: '',
+    discrodUrl: '',
+    imageUrl: '',
+    ipfs: '',
+    symbol: '',
+    tokenType: '',
+    twitterUsername: ''
+  };
 
   constructor(
     private cdk: ChangeDetectorRef,
@@ -154,6 +173,7 @@ export class ModalMintAssetComponent implements OnInit {
     if (this.fileColImage) {
       this.ipfs.sendFileToIPFS(this.fileColImage).then((resp: any) => {
         this.collectionImageAddress = 'https://ipfs.leftbrain.ninja/ipfs/' + resp.IpfsHash;
+        this._colImageIpfs = resp.IpfsHash;
         this.cdk.detectChanges();
         console.log(resp);
       })
@@ -194,6 +214,11 @@ export class ModalMintAssetComponent implements OnInit {
     dynamicCollectionContract.initContract(this.collectionAddress, CREATOR_ABI_json.abi)
       .then((res) => {
         dynamicCollectionContract.createAsset(this.web3.web3.givenProvider.selectedAddress, metaIpfs)
+        .then(() => {
+          if (this.collectionSelectValue == "newCol") {
+            this.ui.newMintModalOpenObs.next(false);
+          }
+        })
       })
   }
 
@@ -204,13 +229,13 @@ export class ModalMintAssetComponent implements OnInit {
       description: this.colDescription,
       contractAddress: null,
       bannerImageUrl: null,
-      collectionDefaultImage: this.collectionImageAddress,
+      // collectionDefaultImage: ,
       collectionSlug:this.colName.replace(' ', '_'),
       contractDeployer: this.web3.web3.givenProvider.selectedAddress,
       creatorName:null,
       discrodUrl: '',
-      imageUrl: '',
-      ipfs: '',
+      imageUrl: this.collectionImageAddress,
+      ipfs: this._colImageIpfs,
       tokenType: '',
       twitterUsername: ''
     }
@@ -234,13 +259,18 @@ export class ModalMintAssetComponent implements OnInit {
     const selectedIndex = selectElement.selectedIndex;
 
     this.selectedCollection = this.walletCollections[selectedIndex];
-    this.collectionImageAddress = this.selectedCollection.collectionDefaultImage;
+    this.collectionImageAddress = this.selectedCollection.imageUrl;
+    this.colName = this.selectedCollection.collectionName;
 
     this.collectionAddress = this.selectedCollection.contractAddress;
+
+    this.ui.snackBarObs.next({status: 'Warning', message: 'testing this thing'})
   }
 
   async getCollectionsOwnedByWallet(): Promise<any> {
     this.walletCollections = await this.alchemy.getCollectionsOwnedByWallet(window.ethereum.selectedAddress);
+    this.walletCollections.unshift(this.defaultCollection);
+    this.selectedCollection = this.walletCollections[0];
   }
 
   onCollectionSelectChange(): void {
@@ -248,6 +278,10 @@ export class ModalMintAssetComponent implements OnInit {
       this.getCollectionsOwnedByWallet();
     }
   }
+
+  resetToDefaultCollection() {
+    this.selectedCollection = this.defaultCollection;
+  }  
 }
 
     // sepolia

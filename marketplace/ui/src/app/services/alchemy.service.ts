@@ -40,7 +40,7 @@ export class AlchemyService extends WebService {
   async getCollectionsForMarketplace(): Promise<any> {
     return new Promise(async (res, rej) => {
       await this.sendRequest(
-        `${FRENZ_API_ROOT_URI}collections`,
+        `${FRENZ_API_ROOT_URI}collection`,
         RequestMethod.GET,
         this.httpOptions = this.httpOptions
       ).then((result) => {
@@ -126,7 +126,7 @@ export class AlchemyService extends WebService {
   async createNewCollection(col:Collection): Promise<boolean> {
     try {
       const result: boolean = await this.sendRequest(
-        `${FRENZ_API_ROOT_URI}collections/create`,
+        `${FRENZ_API_ROOT_URI}collection/create`,
         RequestMethod.POST,
         col,
         this.httpOptions
@@ -142,7 +142,7 @@ export class AlchemyService extends WebService {
   async getCollectionsOwnedByWallet(walletAddress: string): Promise<any> {
     try {
       const result = await this.sendRequest(
-        `${FRENZ_API_ROOT_URI}collections/bydeployer/${walletAddress}`,
+        `${FRENZ_API_ROOT_URI}collection/bydeployer/${walletAddress}`,
         RequestMethod.GET,
         this.httpOptions
       );

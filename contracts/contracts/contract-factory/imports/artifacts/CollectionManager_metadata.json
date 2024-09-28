@@ -1346,11 +1346,11 @@
 			]
 		},
 		"contracts/contracts/contract-factory/imports/Collection_Manager.sol": {
-			"keccak256": "0x2e390fc274fe207d16da4b612a6c1fa24cb091c5f7a94de93d8accd2e3feaf0f",
+			"keccak256": "0x989af9319b8a2e28a09383603784a4fe7b2ab56e101e05d4f25223e1ccef44bd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f33ff877c1f4076d9196368aa586f525ba7a962790e095b94d3e85e09eecf332",
-				"dweb:/ipfs/QmNVYxyuwrebh4PdhsbtxUvs9eDXaQH8Z8qsmj59fBb5LL"
+				"bzz-raw://16d49c9b6fdbd90aa69165868d269962ca50d67836f50314d14c829b4c1af0a0",
+				"dweb:/ipfs/QmaP7v4zT2SLg7TcLJynaMLLXvdoFoFYGNb4krDjNk3TKZ"
 			]
 		},
 		"contracts/contracts/contract-factory/imports/CoreValues.sol": {

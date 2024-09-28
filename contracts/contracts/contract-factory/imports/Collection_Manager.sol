@@ -64,35 +64,35 @@ abstract contract CollectionManager is
         _resetTokenRoyalty(tokenId);
     }
 
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId,
-        uint256 batchSize
-    )
-        internal
-        virtual
-        override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
-    {
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
-    }
-
-    // Override _burn
-    function _burn(uint256 tokenId)
-        internal
-        virtual
-        override(ERC721Upgradeable, ERC721RoyaltyUpgradeable, ERC721URIStorageUpgradeable)
-    {
-        super._burn(tokenId);
-    }
-
-    //  function _increaseBalance(address account, uint128 amount) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) {
-    //     super._increaseBalance(account, amount);
-    //  }
-
-    // function _update(address to, uint256 tokenId, address auth) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (address) {
-    //     super._update(to, tokenId, auth);
+    // function _beforeTokenTransfer(
+    //     address from,
+    //     address to,
+    //     uint256 tokenId,
+    //     uint256 batchSize
+    // )
+    //     internal
+    //     virtual
+    //     override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
+    // {
+    //     super._beforeTokenTransfer(from, to, tokenId, batchSize);
     // }
+
+    // // Override _burn
+    // function _burn(uint256 tokenId)
+    //     internal
+    //     virtual
+    //     override(ERC721Upgradeable, ERC721RoyaltyUpgradeable, ERC721URIStorageUpgradeable)
+    // {
+    //     super._burn(tokenId);
+    // }
+
+     function _increaseBalance(address account, uint128 amount) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) {
+        super._increaseBalance(account, amount);
+     }
+
+    function _update(address to, uint256 tokenId, address auth) internal virtual override (ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (address) {
+        super._update(to, tokenId, auth);
+    }
 
     function supportsInterface(
         bytes4 interfaceId

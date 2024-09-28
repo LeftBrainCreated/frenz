@@ -2,7 +2,7 @@ export interface Collection {
     collectionName: string;
     description: string | null;
     contractAddress: string;
-    collectionDefaultImage: string;
+    // collectionDefaultImage: string;
     symbol: string;
     creatorName: string;
     contractDeployer: string;

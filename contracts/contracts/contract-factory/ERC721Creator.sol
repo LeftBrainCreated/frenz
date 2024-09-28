@@ -57,7 +57,9 @@ contract ERC721Creator is
         string memory _symbol
     ) external initializer {
         __ERC721_init(_name, _symbol);
+        __Ownable_init();
         __ERC721Enumerable_init();
+        
         // CollectionManager.init();
 
         _baseTokenURI = "ipfs://";

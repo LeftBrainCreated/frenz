@@ -1,9 +1,7 @@
 webpage/git-bak
-docker-compose.prod.yml
 **/node_modules
 */.env**
 **/.env.*
-docker-compose.yml
 mongo_data/*
 .deps/*
 contracts/artifacts/**
@@ -18,3 +16,5 @@ marketplace/backend/uploads/*
 contracts/.openzeppelin/*
 contracts/cache/*
 .vscode/
+.vs**
+.states/

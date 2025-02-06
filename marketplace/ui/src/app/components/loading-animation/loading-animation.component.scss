@@ -1,0 +1,270 @@
+.main {
+    margin-top: 40px;
+}
+
+div {
+    color: #15BFFD;
+    font-family: Monaco, monospace;
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+
+    // position: absolute;
+    // top: 45%;
+    // left: 0;
+    span#imleç {
+        animation: 1s infinite normal glitch;
+    }
+}
+
+span#imleç {
+    animation: 1.5s infinite normal imleç;
+}
+
+::-moz-selection {
+    background: #7021d2;
+    color: #fff;
+}
+
+::selection {
+    background: #7021d2;
+    color: #fff;
+}
+
+
+div.soon {
+    span#l10 {
+        animation: 5s normal load;
+    }
+
+    span#l20 {
+        animation: 5s normal load-b;
+    }
+
+    span#l30 {
+        animation: 5s normal load_30;
+    }
+
+    span#l40 {
+        animation: 5s normal load_40;
+    }
+
+    span#l50 {
+        animation: 5s normal load_50;
+    }
+
+    span#l60 {
+        animation: 5s normal load_60;
+    }
+
+    span#l70 {
+        animation: 5s normal load_70;
+    }
+
+    span#l80 {
+        animation: 5s normal load_80;
+    }
+
+}
+
+@keyframes load {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    10% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    20% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load-b {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    10% {
+        opacity: 0;
+        left: 0;
+    }
+
+    20% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    30% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_30 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    20% {
+        opacity: 0;
+        left: 0;
+    }
+
+    30% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    40% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_40 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    30% {
+        opacity: 0;
+        left: 0;
+    }
+
+    40% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    50% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_50 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    40% {
+        opacity: 0;
+        left: 0;
+    }
+
+    50% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    60% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_60 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    50% {
+        opacity: 0;
+        left: 0;
+    }
+
+    60% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    70% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_70 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    60% {
+        opacity: 0;
+        left: 0;
+    }
+
+    70% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    80% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes load_80 {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    70% {
+        opacity: 0;
+        left: 0;
+    }
+
+    80% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    90% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes glitch {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    40%,
+    80% {
+        opacity: 1;
+        left: -2px;
+    }
+}
+
+@keyframes imleç {
+    0% {
+        opacity: 0;
+        left: 0;
+    }
+
+    40% {
+        opacity: 0;
+        left: -2px;
+    }
+
+    80% {
+        opacity: 1;
+        left: -2px;
+    }
+}

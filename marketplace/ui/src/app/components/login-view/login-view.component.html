@@ -1,6 +1,3 @@
 <div class="main {{mobileView ? 'mobile' : ''}}">
-    <app-wallet-connect [blockChainId]='targetChainId'></app-wallet-connect>
-    <button (click)="enterMarketplace()">
-        <span>View Marketplace</span>
-    </button>
+    <app-loading-animation *ngIf="visibleAnimation"></app-loading-animation>
 </div>

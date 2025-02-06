@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+@import './assets/scss/btn';
+
 //header font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Kanit:wght@600&family=Orbitron:wght@700&family=Roboto:wght@700&display=swap');
 
@@ -7,3 +10,9 @@
 body {
     margin: 0;
 }
+
+
+// @import 'btn';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { UiService } from './services/ui.service';
 import { Breadcrumb } from './interfaces/breadcrumb';
+import { ToastrComponent } from './components/toastr/toastr.component';
+import { WalletProvider } from './interfaces/walletProvider';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +12,17 @@ import { Breadcrumb } from './interfaces/breadcrumb';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  @ViewChild(ToastrComponent) toastr: ToastrComponent;
+
   title = 'flowfrenz-marketplace';
   breakpoint$: any;
   mobileView: boolean = false;
   blockerVisible: boolean = true;
   targetChainId: number = 3;
+  mintModalVisible = false; 
+  modalClosing = false;
+
+  protected walletProvider: WalletProvider;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -26,12 +34,24 @@ export class AppComponent implements OnInit {
         // tap(value => console.log(value)),
         distinctUntilChanged()
       );
+
+      this.uiService.walletSelected.subscribe((wp) => {
+        this.walletProvider = wp;
+      })
   }
 
   async ngOnInit(): Promise<void> {
     this.breakpoint$.subscribe(() =>
       this.breakpointChanged()
     );
+
+    this.uiService.newMintModalOpenObs.subscribe((res) => {
+      this.mintModalVisible = res;
+    })
+
+    this.uiService.snackBarObs.subscribe((res) => {
+      this.toastr.showToast(res.status, res.message, res.link);
+    })
 
     this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
       this.blockerVisible = !res;
@@ -54,6 +74,18 @@ export class AppComponent implements OnInit {
     } else {
       this.mobileView = false;
     }
+  }
+
+  openMintModal() {
+    this.mintModalVisible = true;
+    this.modalClosing = false;
+  }
+
+  closeMintModal() {
+    this.modalClosing = true; 
+    setTimeout(() => {
+      this.mintModalVisible = false;
+    }, 600); 
   }
 }
 
@@ -88,10 +120,10 @@ export class GlobalConstants {
       decimals: 18
     }
   }, {
-    name: "Goerli"
-    , "chainHex": "0x5"
-    , rpc: ['https://ethereum-goerli.publicnode.com']
-    , explorer: ['https://goerli.etherscan.io/']
+    name: "Sepolia"
+    , chainHex: "0xaa36a7"
+    , rpc: ['https://ethereum-sepolia-rpc.publicnode.com']
+    , explorer: ['https://sepolia.etherscan.io/']
     , symbol: 'ETH'
     , decimals: 18
   }]

@@ -1,0 +1,12 @@
+<section id="toast" class="{{toastrStatus.toLocaleLowerCase()}} panel-hidden">
+    <div id="icon-wrapper">
+      <div id="icon"></div>
+    </div>
+    <div id="toast-message">
+      <h4>{{toastrStatus}}</h4>
+      <p>{{toastrMessage}}</p>
+      <a *ngIf="link != null" href="{{link}}" target="_blank">Take Me There</a>
+    </div>
+    <button id="toast-close" (click)="closeToast()"></button>
+    <div id="timer"></div>
+  </section>

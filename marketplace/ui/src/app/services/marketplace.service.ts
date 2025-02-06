@@ -5,41 +5,46 @@ import { OwnedAsset } from '../interfaces/marketplace-assets';
 import { ListedAsset } from '../interfaces/marketplace-assets';
 import ERC721Abi from '../contract-abi/GenericERC721.json';
 import { Subject } from 'rxjs';
-import Web3 from 'web3';
+// import Web3 from 'web3';
+import { ContractService } from './contract.service';
+import { Erc721Service } from './erc721.service';
+import { ContractConnectService } from './contract-connect.service';
+import { AbiItem } from 'web3-utils';
 
-const contract_json = require("../contract-abi/marketplace.json");
-const MP_CONTRACT_ADDRESS = '0x79a9614BC43852a3DB76402a4F8e83797fE0f238';
-const SHIB_CONTRACT_ADDRESS = '0x495eea66b0f8b636d441dc6a98d8f5c3d455c4c0';
-const BONE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000001010';
+const mpContractAbi = require("../contract-abi/marketplace.json");
+const MP_CONTRACT_ADDRESS = '0x07a70FEA55F85D6e77A1c7bD16c02B0F5a8748E6';
 const LOCALHOST_CHAIN_ID = 0;
 const SHIBARIUM_CHAIN_ID = 2;
 const ETHEREUM_CHAIN_ID = 1;
-const GOERLI_CHAIN_ID = 3;
+const SEPOLIA_CHAIN_ID = 3;
 
 @Injectable({
   providedIn: 'root'
 })
-export class MarketplaceService extends Web3Service {
+export class MarketplaceService extends ContractService {
   targetedChainId: number;
   ownedAssets: OwnedAsset[] = [];
   listedAssets: ListedAsset[] = [];
 
   public ListingObs = new Subject<ListedAsset>();
-  public UiChangesObs = new Subject<void>();
+  public listPriceSet = new Subject<any>();
+  // private web3: Web3;
+  private uiService: UiService;
 
   constructor(
-    uiService: UiService
+    uiService: UiService,
+    ccService: ContractConnectService
   ) {
-    super(MP_CONTRACT_ADDRESS, contract_json, uiService);
-    this.loadWeb3().then(() => {
-      this.init(GOERLI_CHAIN_ID);
-    });
+    super(uiService, ccService);
+    this.init(MP_CONTRACT_ADDRESS, mpContractAbi, SEPOLIA_CHAIN_ID);
+    this.uiService = uiService;
   }
 
   async getListedAssets(): Promise<boolean> {
     return new Promise(async (res, rej) => {
       await this.callToContract("fetchListedMarketItems")
         .then((result) => {
+          this.listedAssets = [];
           // this.ListedAssetObs.next(result);
           result.forEach((r: any) => {
             this.listedAssets.push(this.convertListingToListedAsset(r));
@@ -54,7 +59,7 @@ export class MarketplaceService extends Web3Service {
   }
 
   public async buyItem(contractAddress: string, tokenId: string | number, value: number) {
-    await this.sendToContract("buyItem", this.web3.utils.toWei(value, 'ether').toString(), [
+    await this.sendToContract("buyItem", this.web3.utils.toWei(value.toString(), 'ether').toString(), [
       contractAddress,
       tokenId
     ]).then((res) => {
@@ -72,7 +77,7 @@ export class MarketplaceService extends Web3Service {
           await this.sendToContract("listItem", null, [
             contractAddress,
             tokenId,
-            this.web3.utils.toWei(price, 'ether').toString()
+            this.web3.utils.toWei(price.toString(), 'ether').toString()
           ]).then((result) => {
             console.log(`Listing Created: CA: ${contractAddress} - ID: ${tokenId} - Price: ${price}`);
             res(result);
@@ -89,7 +94,7 @@ export class MarketplaceService extends Web3Service {
         await this.sendToContract("updateListing", null, [
           contractAddress,
           tokenId,
-          this.web3.utils.toWei(price, 'ether').toString()
+          this.web3.utils.toWei(price.toString(), 'ether').toString()
         ]).then((res) => {
           console.log(`Listing Created: CA: ${contractAddress} - ID: ${tokenId} - Price: ${price}`);
           return res;
@@ -149,7 +154,7 @@ export class MarketplaceService extends Web3Service {
       listingId: listing['listing']['listingId'],
       contractAddress: listing['contractAddress'],
       active: listing['active'],
-      price: Number(Web3.utils.fromWei(listing['listing']['price'], "ether")),
+      price: Number(this.web3.utils.fromWei(listing['listing']['price'], "ether")),
       seller: listing['listing']['seller'],
       tokenId: listing['tokenId']
     };
@@ -159,14 +164,14 @@ export class MarketplaceService extends Web3Service {
 
   private checkForNftApproval(contractAddress: string, operator: string, tokenId: string): Promise<void> {
     return new Promise(async (res, rej) => {
-      var c = new this.web3.eth.Contract(ERC721Abi, contractAddress);
+      var c = new this.web3.eth.Contract(ERC721Abi as AbiItem[], contractAddress);
 
       await this.callToContract(
-        "getApproved", [tokenId], c
+        "getApproved", [tokenId]
       ).then(async (approval) => {
         if (approval != MP_CONTRACT_ADDRESS) {
           // get approval
-          await this.sendToContract("approve", "0", [MP_CONTRACT_ADDRESS, tokenId], c)
+          await this.sendToContract("approve", "0", [MP_CONTRACT_ADDRESS, tokenId])
             .then(() => {
               res();
             }).catch((ex) => {

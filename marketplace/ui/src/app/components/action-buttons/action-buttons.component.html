@@ -21,7 +21,7 @@
 
         <!-- Owned and Not Listed -->
         <div *ngIf="!listedAsset && ownedAsset" class="price-button">
-            <button id="list" (click)="listAsset($event)" [disabled]="processing">List Item</button>
+            <button id="list" (click)="openPriceModal($event)" [disabled]="processing">List Item</button>
         </div>
 
         <!-- Not Owned, Not Listed -->
@@ -32,4 +32,9 @@
             <button id="disallowed" [disabled]="true">Not whitelisted</button>
         </div>
     </div>
+    <div class="modal-cover" (click)="closePriceModal($event)"
+        [style]="priceModalVisible ? 'display: flex' : 'display: none'">
+    </div>
+    <modal-price-set [(processing)]="processing" [(modalVisibility)]="priceModalVisible" [assetId]="asset.tokenId"
+        hidden="{{priceModalVisible ? '' : 'hidden'}}"></modal-price-set>
 </div>

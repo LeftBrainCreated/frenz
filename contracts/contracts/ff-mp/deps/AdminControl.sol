@@ -13,6 +13,7 @@ abstract contract AdminControl is OwnableUpgradeable, IAdminControl, ERC165 {
 
     EnumerableSetUpgradeable.AddressSet private _admins;
     address internal _devWallet;
+    uint internal _platformFee;
 
     /**
      * @dev See {IERC165-supportsInterface}.
@@ -50,18 +51,23 @@ abstract contract AdminControl is OwnableUpgradeable, IAdminControl, ERC165 {
         return admins;
     }
 
-    function approveAdmin(address admin) external override onlyOwner {
+    function approveAdmin(address admin) external override adminRequired {
         if (!_admins.contains(admin)) {
             emit AdminApproved(admin, msg.sender);
             _admins.add(admin);
         }
     }
 
-    function revokeAdmin(address admin) external override onlyOwner {
+    function revokeAdmin(address admin) external override adminRequired {
         if (_admins.contains(admin)) {
             emit AdminRevoked(admin, msg.sender);
             _admins.remove(admin);
         }
+    }
+
+    function updatePlatformFee(uint newFee) external onlyOwner {
+        //100 = 1%
+        _platformFee = newFee;
     }
 
     function updateDevWallet(address newDev) external onlyOwner {
@@ -69,7 +75,7 @@ abstract contract AdminControl is OwnableUpgradeable, IAdminControl, ERC165 {
     }
 
     // ICE
-    function withdrawAll(address to) public onlyOwner {
+    function withdrawAll(address to) public adminRequired {
         uint256 balance = address(this).balance;
         require(balance > 0);
         _widthdraw(to, address(this).balance);
@@ -79,7 +85,7 @@ abstract contract AdminControl is OwnableUpgradeable, IAdminControl, ERC165 {
     function withdrawToken(
         address _tokenContract,
         uint256 _amount
-    ) external onlyOwner {
+    ) external adminRequired {
         IERC20 tokenContract = IERC20(_tokenContract);
 
         tokenContract.transfer(msg.sender, _amount);

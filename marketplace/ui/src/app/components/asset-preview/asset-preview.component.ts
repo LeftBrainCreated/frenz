@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, ViewChild, Component, Input, OnInit } from '@angular/core';
 import { TrackVisibilityDirective } from 'src/app/directives/track-visibility.directive';
 import { Asset } from 'src/app/interfaces/asset';
 import { IpfsService } from 'src/app/services/ipfs.service';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
 import { AlchemyService } from 'src/app/services/alchemy.service';
+import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
 import Web3 from 'web3';
 
 @Component({
@@ -54,59 +55,5 @@ export class AssetPreviewComponent implements OnInit {
       }
     })
   }
-
-  // public async listAsset(e: Event) {
-  //   this.processing = true;
-  //   e.stopPropagation();
-  //   await this.mpWeb3.listNft(this.asset.contract.address, this.asset.tokenId, .0002)
-  //     .then(() => {
-  //       this.mpWeb3.getListing(this.asset.contract.address, this.asset.tokenId);
-  //       this.processing = false;
-  //     }).catch((ex) => {
-  //       console.log(ex);
-  //       this.processing = false;
-  //     });
-  // }
-
-  // public async updateListing(e: Event) {
-  //   this.processing = true;
-  //   e.stopPropagation();
-  //   await this.mpWeb3.updateListing(this.asset.contract.address, this.asset.tokenId, .0002)
-  //     .then(() => {
-  //       this.mpWeb3.getListing(this.asset.contract.address, this.asset.tokenId);
-  //       this.processing = false;
-  //     }).catch((ex) => {
-  //       console.log(ex);
-  //       this.processing = false;
-  //     });
-  // }
-
-  // public async cancelListing(e: Event) {
-  //   this.processing = true;
-  //   e.stopPropagation();
-  //   await this.mpWeb3.cancelListing(this.asset.contract.address, this.asset.tokenId)
-  //     .then(() => {
-  //       this.listedAsset = false;
-  //       this.processing = false;
-  //     }).catch((ex) => {
-  //       console.log(ex);
-  //       this.processing = false;
-  //     });
-
-  // }
-
-  // public async buyItem(e: Event) {
-  //   this.processing = true;
-  //   e.stopPropagation();
-  //   await this.mpWeb3.buyItem(this.asset.contract.address, this.asset.tokenId, this.asset.listing.price)
-  //     .then(() => {
-  //       this.ownedAsset = true;
-  //       this.listedAsset = false;
-  //       this.processing = false;
-  //     }).catch((ex) => {
-  //       console.log(ex);
-  //       this.processing = false;
-  //     });
-  // }
 
 }

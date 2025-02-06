@@ -12,8 +12,8 @@
   "author": "LeftBrain",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "@openzeppelin/contracts": "^4.9.3"
+    "@openzeppelin/contracts": "^4.9.6",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -24,7 +24,7 @@
     "@openzeppelin/contracts-upgradeable": "^4.9.3",
     "@openzeppelin/hardhat-upgrades": "^2.4.1",
     "hardhat": "^2.19.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.2"
   }
 }

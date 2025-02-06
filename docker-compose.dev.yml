@@ -7,7 +7,7 @@ services:
     hostname: api
     environment:
       - PORT=8020
-      - GOERLI_API_KEY=kvhdPMXOOmyz7VFub3ilwgT8Toqn5MU2
+      - SEPOLIA_API_KEY=Ceaxeitpb1kmqKTZ74L1Nuc19vy4QO72
       - CORS_ORIGIN=http://localhost
       # - CORS_ORIGIN=http://marketplace.flowfrenznft.com
     ports:

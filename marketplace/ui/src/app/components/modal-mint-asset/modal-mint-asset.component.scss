@@ -1,0 +1,293 @@
+.main {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: hsla(0, 0%, 4%, 0.678);
+    z-index: 500;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+// div.box {
+//     outline: groove;
+//     outline-color: #08ffff;
+//     outline-width: thick;
+//     border-radius: 75px;
+// }
+
+div.seperator {
+    height: 1px;
+    width: 90%;
+    outline: groove;
+    outline-width: thin;
+    outline-color: whitesmoke;
+    align-self: center;
+    margin-top: 40px;
+}
+
+div.horiz-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.form-container {
+    width: 100%;
+    height: auto;
+    background-color: #00008b96;
+    z-index: 600;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    color: whitesmoke;
+    font-size: xx-large;
+    font-family: monospace;
+    overflow-y: auto;
+
+    div.form-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    h1 {
+        font-family: Kanit;
+        font-weight: 600;
+        color: #fff;
+        font-size: 76px;
+        margin-top: 0;
+
+        span {
+            color: #15bffd;
+        }
+    }
+
+    div.form-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        // padding-left: 100px;
+        padding-right: 100px;
+
+        textarea.text-input {
+            font-size: large;
+            min-height: 150px;
+        }
+
+        .text-input {
+            background-color: rgba(0, 0, 139, 0.5882352941);
+            border-radius: 10px;
+            font-size: larger;
+            color: white;
+            padding: 5px;
+            padding-left: 10px;
+            width: 85%;
+        }
+
+        div.asset-input-container, div.collection-container {
+            display: flex;
+            flex-direction: row;
+
+            .text-input-container {
+                label {
+                    padding: 15px;
+                }
+            }
+
+            .asset-input-values, .collection-input-values {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 60px;
+                width: 100%;
+
+                div.asset-input-left, div.collection-input-left {
+                    display: flex;
+                    flex: 3;
+                    flex-direction: column;
+                    gap: 40px;
+                    justify-content: space-evenly;
+                    margin-left: 40px;
+
+                    div.collection-input-container {
+                        width: 85%;
+
+                        option {
+                            background-color: #11112c96;
+                        }
+
+                        option:last-child {
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                        }
+
+                        mat-form-field {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                div.asset-input-right, div.collection-input-right {
+                    text-align: center;
+                    flex: 2;
+
+                    img {
+                        max-width: 400px;
+                        max-height: 400px;
+                        min-width: 400px;
+                        min-height: 400px;
+                        object-fit: contain;
+                    }
+
+                    button {
+                        flex: 3;
+                        width: 100%;
+                        margin: 4px;
+                        padding: 20px;
+                        border-radius: 60px;
+                        cursor: pointer;
+                    }
+        
+                }
+
+                div.asset-input-right {
+                    margin-top: 25px
+                }
+            }
+
+            .asset-media-input {
+                flex: 2;
+            }
+
+            .radio-group {
+                font-size: smaller;
+                padding-left: 40px;
+
+                mat-radio-group {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            }
+        }
+
+        div.asset-input-bottom {
+            padding-left: 100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-bottom: 45px;
+            padding-top: 25px;
+
+            div.upload-container {
+                width: 550px;
+            }
+
+            .upload-input {
+                font-size: medium;
+            }
+
+            .upload-control {
+                width: 85%;
+            }
+
+        }
+
+        div.trait-container,
+        div.submit-container {
+            flex-grow: 100%;
+            display: flex;
+            flex-direction: row;
+            outline: groove;
+            outline-width: thin;
+            outline-color: whitesmoke;
+
+
+            .trait-input {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .trait-entry {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                justify-content: left;
+
+                padding: 40px;
+                padding-bottom: 0px;
+            }
+
+            .trait-add-button {
+                padding: 75px;
+                align-self: center;
+                cursor: pointer;
+
+                div {
+                    padding: 10px;
+                    outline: groove;
+                    outline-width: medium;
+                    outline-color: whitesmoke;
+                    border-radius: 25px;
+                }
+            }
+
+            .added-traits {
+                display: flex;
+                flex-direction: row;
+                padding: 40px;
+                gap: 50px;
+                flex-wrap: wrap;
+
+                .trait {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+
+                    div.clear-button {
+                        height: fit-content;
+                        border-radius: 25px;
+                        background-color: whitesmoke;
+                        color: red;
+                        padding: 3px;
+                    }
+                }
+            }
+        }
+
+        div.mdc-radio {
+            padding-right: 10px;
+        }
+
+        div.submit-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 80px;
+            outline: none;
+
+            button {
+                flex: 3;
+                width: 100%;
+                margin: 4px;
+                padding: 20px;
+                border-radius: 60px;
+                cursor: pointer;
+            }
+
+            #save {
+                background-color: white;
+                color: #15BFFD;
+            }
+
+            #cancel {
+                background-color: transparent;
+                color: white;
+            }
+        }
+    }
+}

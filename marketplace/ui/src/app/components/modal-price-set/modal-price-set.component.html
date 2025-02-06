@@ -1,0 +1,18 @@
+<div class="main" (click)="$event.stopPropagation()">
+    <div class="modal-header modal">
+        <h3>Set Listing Price:</h3>
+        <div class="modal-header-button">
+            <button mat-icon-button class="modal-header-btn" (click)="closeModal()">X</button>
+        </div>
+    </div>
+    <div class="modal">
+        <div id="priceline">
+            <mat-form-field>
+                <!-- <mat-label>(ETH List Price)</mat-label> -->
+                <input matInput placeholder="(.2)" [(ngModel)]="listPrice">
+            </mat-form-field>
+            <span>ETH</span>
+        </div>
+        <button id="list" (click)="submitListing($event)">List Item</button>
+    </div>
+</div>

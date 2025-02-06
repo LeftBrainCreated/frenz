@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.23+commit.f704f362"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/contracts/contract-factory/imports/CoreValues.sol": "Core"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol": {
+			"keccak256": "0x1c65595a26548a1b2263315b08a56334a2d7087319814437559c3c96025e939f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://876afb75e0d5615b07f70a0bc69ae7f098df8ef058251b5934b9d05c9c7e0d1f",
+				"dweb:/ipfs/Qmay4sdoBJQtP2cC1EDyQ8GzNPJZzo3v5soRRy8rDNLfBJ"
+			]
+		},
+		"contracts/contracts/contract-factory/imports/CoreValues.sol": {
+			"keccak256": "0x6de33b4f6a89afb0bb7880679affbb16cb031217d846517c534aa2e76bf98f76",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f092fb0139c9825beae22dd4a2ae8a245fcc2056b11999a05018bfe03de4b66e",
+				"dweb:/ipfs/QmUewoYemeEEBdpgkXaGQkLNF74o5Rr8XUQQn4hXUQ1yir"
+			]
+		}
+	},
+	"version": 1
+}

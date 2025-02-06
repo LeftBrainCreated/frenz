@@ -79,3 +79,121 @@ div.inner {
     transform: translate(-50%, -50%);
     color: dimgray;
 }
+
+
+
+/////////////////////////////////////
+/// new stuff
+/// /////////////////////////////////
+
+// @import 'btn';
+
+.main {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 200;
+}
+
+.web3-warning {
+    position: absolute;
+    right: 10px;
+    z-index: 250;
+    border: 3px;
+    background-color: darkgoldenrod;
+    border-color: black;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+.mat-mdc-unelevated-button:not(:disabled) {
+    background: #2d3039;
+    color: #A19D9D;
+}
+
+.connectedButton {
+    background: #a19d9d;
+    color: #2d3039;
+}
+
+.button-text {
+    align-items: end;
+    display: flex;
+}
+
+#walletConnectModal {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 200;
+
+    font-family: "Bebas Neue";
+    font-size: x-large;
+
+    border-radius: 20px;
+    max-width: 300px;
+    min-width: 250px;
+    background-color: #0E1019;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .wallets-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+        padding-top: 40px;
+        padding-bottom: 15px;
+
+    }
+}
+
+#walletConnectModal.hidden {
+    display: none;
+}
+
+.walletConnect {
+    text-align: center;
+    display: flex;
+    gap: 5px;
+    padding-right: 10px;
+}
+
+.walletConnect button {
+    width: 30px;
+    height: 30px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: black;
+    border-width: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#mmConnect {
+    background-image: url("/assets/icons/metamask.png");
+}
+
+#cbConnect {
+    background-image: url("/assets/icons/coinbase_wallet.png");
+}
+
+#trustConnect {
+    background-image: url("/assets/icons/trust.png");
+}
+
+span.selected {
+    color: goldenrod;
+    // not working
+}
+
+span:hover {
+    color: rgb(226, 175, 45);
+    cursor: pointer;
+}

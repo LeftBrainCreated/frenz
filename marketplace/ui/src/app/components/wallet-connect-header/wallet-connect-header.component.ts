@@ -1,197 +1,289 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
-import { Web3Service } from 'src/app/services/web3.service';
 import { GlobalConstants } from 'src/app/app.component';
 import { MarketplaceService } from 'src/app/services/marketplace.service';
 import { AlchemyService } from 'src/app/services/alchemy.service';
-import Web3 from 'web3';
+import { Web3Service } from 'src/app/services/web3.service';
+import { Subject } from 'rxjs';
+import { WalletProvider } from 'src/app/interfaces/walletProvider';
+import { coinbaseWallet } from 'src/app/app.module';
+import { ContractConnectService } from 'src/app/services/contract-connect.service';
+import { ComponentArbiterService } from 'src/app/services/component-arbiter.service';
 
 declare let window: any;
+const Web3 = require('web3');
 
 @Component({
   selector: 'app-wallet-connect-header',
   templateUrl: './wallet-connect-header.component.html',
   styleUrls: ['./wallet-connect-header.component.scss']
 })
-export class WalletConnectHeaderComponent {
-  @Input() blockChainId: number;
-
+export class WalletConnectHeaderComponent implements OnInit {
+  @Input() chainId: number;
+  @Input() iFrame?: boolean = false;
+  @Input() hasWalletView: boolean = false;
+  
+  cbWallet: boolean = false;
+  mmWallet: boolean = false;
+  trustWallet: boolean = false;
+  
   buttonText: string = "Connect";
   loading: boolean = false;
   selectedAddress = '';
   supportedWallet = false;
-  petOwner: boolean;
+  // petOwner: boolean;
   userConnected: boolean = false;
   targetNetwork: any;
   validChain?: boolean;
+  w3Provider: any;
+  web3Loaded: boolean;
+  walletConnected: boolean = false;
+  connectedWallets: string[];
+  walletSelectVisible: boolean = false;
+  private _eth = window.ethereum;
+  
+  public invalidTargetChainObs = new Subject<any>();
+  public web3AccountChanged = new Subject<any>();
+  public web3NetworkChanged = new Subject<any>();
+  // private web3 = new Web3();
 
 
   constructor(
-    private uiService: UiService
-    , private web3: MarketplaceService
-    , private alchemy: AlchemyService
-  ) { }
-
-  ngOnInit(): void {
-    this.targetNetwork = GlobalConstants.NETWORKS[this.blockChainId];
-    // this.web3.targetedChainId = this.blockChainId;
-    this.validChain = (window.ethereum && window.eth_chainId) || (window.ethereum && window.ethereum.isTrust) ? (window.eth_chainId == this.targetNetwork.chainHex) || window.ethereum.isTrust : undefined;
-
-    if (!this.web3.web3Loading) {
-      this.prepWeb3();
-    }
-
-    this.uiService.walletAddressObs.subscribe((res) => {
-      this.buttonText = res.substring(0, 5) + "...." + res.substring(res.length - 5);
-    })
-
-    this.uiService.loadingObs.subscribe((res: boolean) => {
-      this.loading = res;
-    })
-
-    this.uiService.changeConnectedStateObs.subscribe((res: boolean) => {
-      this.userConnected = res;
-    })
-
-    this.web3.invalidTargetChainObs.subscribe((_res) => {
-      // this.openChainDialog(res);
-    });
-
-    this.web3.web3AccountChanged.subscribe((_res) => {
-      this.recoonect();
-
-    })
-
-    this.web3.web3NetworkChanged.subscribe((_res) => {
-      this.recoonect();
-    })
-
-    this.web3.onLoadConnectObs.subscribe((res) => {
-      this.connect(true);
-      // this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
-      // this._auth.emitAuthComplete(true);
-      // this.uiService.walletAddressObs.next(this.web3.selectedAddress);
+    private ui: UiService,
+    private cc: ContractConnectService,
+    private arbiter: ComponentArbiterService,
+    private web3: Web3Service
+  ) {
+    this.ui.loadingObs.subscribe((loadState) => {
+      this.loading = loadState;
     })
   }
 
-  private async recoonect() {
-    var load = this.web3.web3Loaded;
-    var connect = this.web3.web3Connected;
-    this.web3.selectedAddress = undefined;
+  async ngOnInit(): Promise<void> {
+    await this.loadWeb3();
 
-    if (load) {
-      this.prepWeb3();
-
-      if (connect) {
-        await this.connect(true);
-        await this.alchemy.getNFTsForWallet(this.web3.selectedAddress);
-        this.web3.UiChangesObs.next();
+    this.arbiter.marketplaceReady$.subscribe(ready => {
+      if (ready) {
+        this.checkForSessionWallet();
       }
-    }
-  }
+    })
 
-  private prepWeb3() {
-    this.web3.loadWeb3().then((res) => {
-      this.supportedWallet = res;
+    this.targetNetwork = GlobalConstants.NETWORKS[this.chainId];
+    this.setWalletProviders()
 
-      if (window.eth_chainId != this.targetNetwork.chainHex) {
-        this.web3.switchToTargetChain()
-          .then((res) => {
-            console.log('Switch Chain Successful');
-          })
-          .catch((ex) => {
-            if (ex != "not connected") {
-              console.log(ex);
-            }
-          })
-          ;
+    this.ui.walletSelected.subscribe(async (res: WalletProvider) => {
+      this.selectedAddress = res.selectedAddress;
+      this.buttonText = `${this.selectedAddress.substring(0, 5)}....${this.selectedAddress.slice(-4)}`;
+
+      this.web3.setProvider(this.w3Provider);
+
+      if (this.w3Provider.isCoinbaseWallet) {
+        this._eth = coinbaseWallet.makeWeb3Provider(
+          GlobalConstants.NETWORKS[this.chainId].rpc[0],
+          this.targetNetwork
+        )
       }
-    }).catch((ex) => {
-      if (ex !== false) {
-        console.log(ex);
+
+      await this.w3Provider.enable();
+      this.arbiter.markWalletAsConnected(res);
+
+      const date = new Date();
+      // 7 day expiration
+      date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+      localStorage.setItem('frenzSelectedWallet', this.selectedAddress);
+      localStorage.setItem('frenzWalletProvider', res.provider);
+      this.userConnected = true;
+    })
+
+
+    this.validChain = (this.w3Provider && this.w3Provider.chainId) || (this._eth && this._eth.isTrust) ? (this._eth.chainId == this.targetNetwork.chainHex) || this.w3Provider.isTrust : undefined;
+
+    // await this.loadWeb3();
+  }
+
+  private async checkForSessionWallet() {
+    let wa = localStorage.getItem('frenzSelectedWallet');
+    let walletType = localStorage.getItem('frenzWalletProvider');
+    let wp: WalletProvider;
+
+    if (!walletType) {
+      this.w3Provider = this.web3.givenProvider();
+      if (this.w3Provider.isCoinbaseWallet) {
+        walletType = 'isCoinbaseWallet';
+      } else if (this.w3Provider.isMetaMask) {
+        walletType = 'isMetaMask';
+      } else if (this.w3Provider.isTrust) {
+        walletType = 'isTrust';
       }
-    });
-  }
-
-  async openWalletSelection() {
-
-    this.web3.disconnectWallet(true);
-
-    // await window.ethereum.request({
-    //   method: "disconnectWallet"
-    // }).then(async function () {
-    //   await window.ethereum.request({
-    //     method: "requestAccounts",
-    //   }).then((res) => {
-    //     console.log(res);
-    //     // if (res.length == 0) {
-    //     //   this.selectedAddress = window.ethereum.address;
-    //     // } else {
-    //     //   this.selectedAddress = res[0];
-    //     // }
-    //   })
-    // })
-
-    // // this.web3.web3.givenProvider
-    // //   .requestAccounts().then(console.log)
-
-  }
-
-  async connect(w3Connect: boolean = false, navigation = false) {
-    if (this.userConnected && navigation) {
-      // navigate to wallet view
-      this.uiService.CaptureBreadcrumbObs.next(null);
-      this.uiService.moveToWalletObs.next(null);
     } else {
-      this.uiService.loadingObs.next(true);
-      if (w3Connect && !this.web3.web3Connected) {
-        this.buttonText = "Checking...";
-        await this.web3.connectWallet(true);
-      }
+      this.w3Provider = this.provider(walletType as any);
+    }
 
-      if (w3Connect && this.chainValidated() === true) {
-        if (window.ethereum !== undefined) {
-          if (this.web3.selectedAddress == undefined) {
-            await this.web3.setSelectedAddress();
-          }
-          if (this.web3.ownedAssets.length == 0) {
-            this.alchemy.getNFTsForWallet(this.web3.selectedAddress);
-          }
-          // this.web3.selectedAddress = window.ethereum.address || window.ethereum.selectedAddress;
-          // this.uiService.adminWalletObs.next(this.adminWalletAddress.includes(this.web3.selectedAddress.toLowerCase()));
+    this.w3Provider.internalChainId = this.chainId;
 
-          new Promise((_res, _rej) => {
-            if (this.web3.web3Connected) {
-              this.buttonText = this.web3.selectedAddress.substring(0, 5) + "....";
-              this.uiService.walletAddressObs.next(this.web3.selectedAddress);
-              this.uiService.changeConnectedStateObs.next(true);
+    if (wa && walletType) {
+      if (this.w3Provider.selectedAddress == wa) {
+        wp = {
+          selectedAddress: wa,
+          chainId: this.chainId,
+          provider: walletType
+        };
 
-
-            } else if (this.web3.web3Loaded) {
-              this.buttonText = "Authenticate";
-            } else {
-              this.buttonText = "Connect";
-            }
-            this.uiService.loadingObs.next(false);
-          }).catch((_err) => {
-            console.log('Connect Error');
-            this.uiService.loadingObs.next(false);
-          });
-        }
-      } else {
-        this.uiService.loadingObs.next(false);
+        this.cc.walletProvider = this.w3Provider;
+        await this.cc.triggerContractConnect.next(this.w3Provider);
+        this.ui.walletSelected.next(wp);
       }
     }
+  }
+
+  async loadWeb3(): Promise<boolean> {
+    if (window.ethereum) {
+      await window.ethereum.enable;
+      this.web3Loaded = true;
+    } else {
+      this.ui.snackBarObs.next('Non-Ethereum browser detected. You Should consider using Trust or Metamask Wallet!');
+      return false;
+    }
+
+    window.ethereum.on('accountsChanged', (accounts: any) => {
+      this.web3AccountChanged.next(accounts);
+    });
+
+    window.ethereum.on('chainChanged', (networkId: any) => {
+      if (this.chainId != networkId || (window.ethereum && window.ethereum.isTrust)) {
+        this.web3NetworkChanged.next(networkId);
+      }
+    });
+
+    return true;
+  }
+
+  async connect(e: Event, walletType: any = null) {
+    e.stopPropagation();
+    this.ui.loadingBar(true);
+
+    if (!walletType) {
+      this.w3Provider = this.web3.givenProvider;
+      if (this.w3Provider.isCoinbaseWallet) {
+        walletType = 'isCoinbaseWallet';
+      } else if (this.w3Provider.isMetaMask) {
+        walletType = 'isMetaMask';
+      } else if (this.w3Provider.isTrust) {
+        walletType = 'isTrust';
+      }
+    } else {
+      this.w3Provider = this.provider(walletType);
+    }
+
+    this.w3Provider.internalChainId = this.chainId;
+
+    if (this.w3Provider.isCoinbaseWallet) {
+      this._eth = coinbaseWallet.makeWeb3Provider(
+        GlobalConstants.NETWORKS[this.chainId].rpc[0],
+        this.targetNetwork
+      )
+    }
+
+    if (this.web3Loaded) {
+      this.connectedWallets = [];
+      let cw = await this.w3Provider.request({
+        method: "eth_requestAccounts",
+      });
+
+      cw.forEach((wa: string) => {
+        this.connectedWallets.push(`${wa}|${walletType}`);
+      });
+    }
+
+    if (this.chainValidated() && this.w3Provider !== undefined) {
+      if (this.selectedAddress == '') {
+        await this.setWalletAddress(this.connectedWallets[0].split('|')[0], walletType);
+      } else {
+        this.walletSelectVisible = true;
+      }
+      this.cc.walletProvider = this.w3Provider;
+      this.cc.triggerContractConnect.next(this.w3Provider);
+
+      setTimeout(() => {
+        this.walletSelectVisible = false;
+      }, 8000)
+
+      this.ui.loadingBar(false);
+    } else {
+      this.ui.loadingBar(false);
+    }
+  }
+
+  goToWallet() {
+    this.ui.navigateToTargetObs.next((4));
+    this.walletSelectVisible = false;
+  }
+
+  selectNewWallet(address: string, provider: string) {
+    this.walletSelectVisible = false;
+
+    // this._eth.selectedAddress = address;
+    this.setWalletAddress(address, provider);
+  }
+
+  public async requestProvider(manual: boolean = false) {
+    if (!this.web3Loaded) {
+      await this.loadWeb3();
+    }
+
+    if (this.web3Loaded) {
+      this.connectedWallets = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      })
+    }
+  }
+
+  /**
+   * Returns an injected provider
+   * @param walletType 'isMetaMask' | 'isCoinbaseWallet' | 'isTrust'
+   * @returns Provider
+   */
+  private provider(walletType: 'isMetaMask' | 'isCoinbaseWallet') {
+    if (!window.ethereum) { throw new Error("No injected ethereum object."); }
+
+    if (Array.isArray(window.ethereum.providers)) {
+      const foundProvider = window.ethereum.providers.find((provider: any) => {
+        return provider[walletType] === true;
+      });
+
+      // Return the found provider, or throw if not found
+      if (foundProvider) {
+        return foundProvider;
+      } else {
+        throw new Error(`Provider with ${walletType} not found.`);
+      }
+    } else {
+      if (window.ethereum[walletType] === true) {
+        return window.ethereum;
+      } else {
+        throw new Error(`Global provider does not match ${walletType}.`);
+      }
+    }
+  }
+
+  private setWalletAddress(wa: string, provider: string) {
+    this.selectedAddress = wa;
+    this.ui.walletSelected.next({
+      selectedAddress: wa,
+      chainId: this.chainId,
+      provider: provider
+    })
   }
 
   private chainValidated(): boolean {
     this.validChain = undefined;
+    // this.switchToTargetChain();
 
-    if (window.ethereum) {
-      if (window.ethereum.isTrust || (window.eth_chainId == this.targetNetwork.chainHex)) {
+    if (this.w3Provider) {
+      if (this.w3Provider.isTrust || (this.w3Provider.chainId == this.targetNetwork.chainHex)) {
         this.validChain = true
       } else {
-        this.web3.switchToTargetChain().then((res: any) => {
+        this.switchToTargetChain().then((res: any) => {
           this.validChain = res;
         }).catch((err) => {
           if (err != 'not connected') {
@@ -204,6 +296,130 @@ export class WalletConnectHeaderComponent {
     }
 
     return true;
+  }
+
+  public async switchToTargetChain() {
+    var chainHex = GlobalConstants.NETWORKS[this.chainId].chainHex;
+
+    return new Promise(async (res, rej) => {
+      if (this.w3Provider.selectedAddress) {
+        try {
+          await this.w3Provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{
+              chainId: chainHex
+            }]
+          })
+
+          res(true);
+        } catch (err) {
+          if (err.code !== 4902) {
+            handleError(err);
+          } else {
+            await this.addTargetNetwork().then(() => {
+              this.switchToTargetChain();
+            }).catch((err) => {
+              handleError(err);
+            });
+          }
+        }
+      } else {
+        rej('not connected');
+      }
+    });
+  }
+
+  public async addTargetNetwork() {
+    try {
+      var chain = GlobalConstants.NETWORKS[this.chainId];
+
+      await this.w3Provider.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: chain.chainHex,
+          chainName: chain.name,
+          rpcUrls: chain.rpc,
+          blockExplorerUrls: chain.explorer,
+          nativeCurrency: chain.nativeCurrency
+        }]
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  private getCookie(name: string) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+
+    if (parts && parts.length == 2) {
+      return parts.pop().split(";").shift();
+    }
+
+    return null;
+  }
+
+  private setWalletProviders() {
+    if (Array.isArray(this.web3.givenProvider().providers)) {
+      // multiple wallets connected
+      // coinbase
+      this.cbWallet = this.web3.givenProvider().providers.some((p: any) => {
+        return p.isCoinbaseWallet
+      });
+
+      //metamask
+      this.mmWallet = this.web3.givenProvider().providers.some((p: any) => {
+        return p.isMetaMask
+      });
+
+      this.trustWallet = this.web3.givenProvider().providers.some((p: any) => {
+        return p.isTrust
+      });
+    } else {
+      let p = this.web3.givenProvider();
+
+      if (p.isMetaMask) {
+        this.mmWallet = true;
+      } else if (p.isTrust) {
+        this.trustWallet = true;
+      } else if (p.isCoinbaseWallet) {
+        this.cbWallet = true;
+      }
+    }
+  }
+
+}
+
+function handleError(err: any): unknown {
+  if (err && typeof err === "object") {
+    return {
+      success: false,
+      status: err.message,
+    };
+  } else {
+    if (err.code !== 4001) {
+      console.log('User Rejected Transaction');
+      return {
+        success: false,
+        status: 'User Rejected Transaction',
+      };
+    }
+
+    var err = err.message.substr(err.message.indexOf("'") + 1);
+    err = JSON.parse(err.substr(0, err.length - 1));
+
+    try {
+      // console.log(`${err['value']['data']['message']}❗|${err['value']['data']['data']['txHash']}`);
+      return {
+        success: false,
+        status: `${err['value']['data']['message']}❗|${err['value']['data']['data']['txHash']}`,
+      };
+    } catch {
+      return {
+        success: false,
+        status: 'Unknown Error',
+      };
+    }
   }
 
 }

@@ -282,6 +282,10 @@ export class ModalMintAssetComponent implements OnInit {
   resetToDefaultCollection() {
     this.selectedCollection = this.defaultCollection;
   }  
+
+  stringIsNullOrEmpty(str: string) {
+    return str === '' || str === null || str === undefined
+  }
 }
 
     // sepolia

@@ -4,6 +4,7 @@ import { distinctUntilChanged, tap } from 'rxjs';
 import { UiService } from './services/ui.service';
 import { Breadcrumb } from './interfaces/breadcrumb';
 import { ToastrComponent } from './components/toastr/toastr.component';
+import { WalletProvider } from './interfaces/walletProvider';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit {
   mintModalVisible = false; 
   modalClosing = false;
 
+  protected walletProvider: WalletProvider;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private uiService: UiService
@@ -31,6 +34,10 @@ export class AppComponent implements OnInit {
         // tap(value => console.log(value)),
         distinctUntilChanged()
       );
+
+      this.uiService.walletSelected.subscribe((wp) => {
+        this.walletProvider = wp;
+      })
   }
 
   async ngOnInit(): Promise<void> {

@@ -1,6 +1,6 @@
 <div class="main">
-  <button id="newAsset" (click)="openMintModal()">Mint New Asset</button>
-  <button id="newAsset" class="close" (click)="closeMintModal()">Mint New Asset</button>
+  <button *ngIf="walletProvider?.isCreator" id="newAsset" (click)="openMintModal()">Mint New Asset</button>
+  <button *ngIf="walletProvider?.isCreator" id="newAsset" class="close" (click)="closeMintModal()">Mint New Asset</button>
   
   <app-login-view [hidden]="!blockerVisible" [targetChainId]="targetChainId" [mobileView]="mobileView"></app-login-view>
   

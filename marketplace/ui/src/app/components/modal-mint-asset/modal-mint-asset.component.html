@@ -19,10 +19,12 @@
                                 <div class="text-input-container">
                                     <label>New Collection Name</label>
                                     <input type="text" class="text-input" [(ngModel)]="colName">
+                                    empty: {{stringIsNullOrEmpty(colName)}}
                                 </div>
                                 <div class="text-input-container">
                                     <label>Collection Symbol <i>(FFREN)</i></label>
                                     <input type="text" class="text-input" [(ngModel)]="colSymbol">
+                                    empty: {{stringIsNullOrEmpty(colSymbol)}}
                                 </div>
                             </div>
                             <div *ngIf="collectionSelectValue == 'newCol'" class="text-input-container">
@@ -43,8 +45,8 @@
                     <div class="collection-input-right">
                         <!-- <label for="formFile" class="form-label">NFT File Upload</label> -->
                         <img src="{{collectionImageAddress}}">
-                        <input *ngIf="collectionSelectValue == 'newCol'" (change)="this.onFilechange($event)" name="inputColImage" class="form-control" type="file" id="formFile">
-                        <button *ngIf="collectionSelectValue == 'newCol'" (click)="this.uploadColImage()" type="button" class="btn btn-primary mt-3">Upload</button>
+                        <input [disabled]="stringIsNullOrEmpty(colName) || stringIsNullOrEmpty(colSymbol)" *ngIf="collectionSelectValue == 'newCol'" (change)="this.onFilechange($event)" name="inputColImage" class="form-control" type="file" id="formFile">
+                        <button [disabled]="stringIsNullOrEmpty(colName) || stringIsNullOrEmpty(colSymbol)" *ngIf="collectionSelectValue == 'newCol'" (click)="this.uploadColImage()" type="button" class="btn btn-primary mt-3">Upload</button>
                     </div>
                 </div>
             </div>

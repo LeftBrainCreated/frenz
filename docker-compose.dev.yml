@@ -1,21 +1,23 @@
 version: '3'
 services:
   api:
-    # image: leftbraincreated/flowfrenz-express:1.1.3
     image: leftbraincreated/flowfrenz-express:dev
     build: ./marketplace/backend
     hostname: api
+    env_file:
+      - ./marketplace/backend/.env.development
     environment:
       - PORT=8020
-      - SEPOLIA_API_KEY=Ceaxeitpb1kmqKTZ74L1Nuc19vy4QO72
-      - CORS_ORIGIN=http://localhost
-      # - CORS_ORIGIN=http://marketplace.flowfrenznft.com
+      - SEPOLIA_API_KEY=${SEPOLIA_API_KEY}
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PW=${MONGO_PW}
+      - MONGO_HOST=localhost
     ports:
       - 8020:8020
     restart: unless-stopped
 
   mp1:
-    # image: leftbraincreated/flowfrenz-marketplace:1.1.4
     image: leftbraincreated/flowfrenz-marketplace:dev
     build: ./marketplace/ui
     hostname: mp1
@@ -24,7 +26,6 @@ services:
     restart: unless-stopped
 
   mp2:
-    # image: leftbraincreated/flowfrenz-marketplace:1.1.4
     image: leftbraincreated/flowfrenz-marketplace:dev
     build: ./marketplace/ui
     hostname: mp2
@@ -33,7 +34,6 @@ services:
     restart: unless-stopped
 
   nginx:
-    # image: leftbraincreated/flowfrenz-host:1.1.6
     image: leftbraincreated/flowfrenz-host:dev
     build: ./nginx
     restart: always
